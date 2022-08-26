@@ -8,8 +8,11 @@
 
 
 #### 安装教程
+请将lin-plugin放置在Yunzai-Bot的plugins目录下，重启Yunzai-Bot后即可使用。
 
-1.  git clone https://gitee.com/go-farther-and-farther/lin
+1.  cd plugins
+
+2.  git clone https://gitee.com/go-farther-and-farther/lin
 
 ### 使用说明
 
