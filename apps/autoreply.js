@@ -19,7 +19,7 @@ if (bmd_GroupQQ.length === 0)
     bmd.push(key[0])
   }
 console.log("标记点2");
-export class example2 extends plugin {
+export class autoreply extends plugin {
 
   constructor() {
     super({
