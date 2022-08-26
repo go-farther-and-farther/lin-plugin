@@ -10,9 +10,9 @@ export class linUpdate extends plugin {
     constructor() {
         super({
             /** 功能名称 */
-            name: '麟更新',
+            name: 'lin更新',
             /** 功能描述 */
-            dsc: '麟更新自身',
+            dsc: 'lin更新自身',
             /** https://oicqjs.github.io/oicq/#events */
             event: 'message',
             /** 优先级，数字越小等级越高 */
@@ -20,7 +20,7 @@ export class linUpdate extends plugin {
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: '^#(麟更新|麟强制更新)$',
+                    reg: '^#(lin更新|lin强制更新)$',
                     /** 执行方法 */
                     fnc: 'linUpdate'
                 },
