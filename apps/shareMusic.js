@@ -159,7 +159,7 @@ msg3 = "https://www.bavei.com/vip/?url=" + "https:"  + data3
 	  let zz = ""
 	  
 	  if(isKugou &id == ""){
-		  for(let i=0;i<songList.length;i++){
+		  for(let i=0;i<data. info.length;i++){
 
 				  msg = msg + "\n"+  String(i+1)+ ".  "+data. info[i].songname + "   作者："+ data. info[i].singername
 				  
