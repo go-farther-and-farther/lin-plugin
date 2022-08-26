@@ -22,7 +22,7 @@ export class exercise extends plugin {//锻炼
 	constructor() {
 		super({
 			/** 功能名称 */
-			name: '我的境界',
+			name: '锻炼',
 			/** 功能描述 */
 			dsc: '',
 			/** https://oicqjs.github.io/oicq/#events */
