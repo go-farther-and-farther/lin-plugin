@@ -9,7 +9,7 @@ if (filename.indexOf(".json") == -1) {//如果文件名不包含.json
 }
 //配置一些有意思的参数
 
-export class seelevel extends plugin {
+export class help extends plugin {
 	constructor() {
 		super({
 			/** 功能名称 */
