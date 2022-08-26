@@ -21,7 +21,7 @@ let Template = {//创建该用户
 let Magnification = 1 //战斗力依赖系数，这个越大，战斗力意义越大
 let Cooling_time = 300 //命令间隔时间，单位秒，这是决斗的冷却时间#初始为300秒
 let Cooling_time2 = 300 //命令间隔时间，单位分钟，这是锻炼的冷却时间#初始为300分钟
-export class master extends plugin {//设置半步管理员
+export class setmaster extends plugin {//设置半步管理员
 	constructor() {
 		super({
 			/** 功能名称 */
