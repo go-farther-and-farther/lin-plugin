@@ -20,6 +20,8 @@
 
 > git clone https://gitee.com/go-farther-and-farther/lin
 
+使用#lin更新来更新插件
+
 ### 现有功能
 
 #决斗部分
