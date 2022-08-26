@@ -59,7 +59,7 @@ export class duel extends plugin {//决斗
 			e.reply('不知道你要与谁决斗哦，请@你想决斗的人~');
 			return true;
 		}
-		if (e.at == BotConfig.account.qq) {
+		if (e.at ==e.uin) {
 			e.group.muteMember(e.user_id, 1);
 			e.reply([segment.at(e.user_id), `\n你什么意思？举办了`]);
 			return true
