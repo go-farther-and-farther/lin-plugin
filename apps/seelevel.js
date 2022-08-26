@@ -39,11 +39,6 @@ export class seelevel extends plugin {
 					reg: "^#我的(境界|战斗力)$", //匹配消息正则，命令正则
 					/** 执行方法 */
 					fnc: 'seelevel'
-				}, {
-					/** 命令正则匹配 */
-					reg: "^#决斗(规则|帮助)$", //匹配消息正则，命令正则
-					/** 执行方法 */
-					fnc: 'rules'
 				}
 			]
 		})
@@ -138,10 +133,6 @@ export class seelevel extends plugin {
 		}
 		e.reply(`你的境界是${json[e.user_id].levels},你的战斗力是${json[e.user_id].energy}`)
 		fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
-		return
-	}
-	async rules(e) {
-		e.reply(`指令：#御前决斗 #锻炼|早睡 #我的境界\n#设置半步管理员 #移除半步管理员\n挑战成功：自己战斗力-3，对方战斗力不变\n挑战失败：自己战斗力-1，对方战斗力-2\n战斗力每日自动-1`)
 		return
 	}
 }
