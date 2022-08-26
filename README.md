@@ -3,24 +3,14 @@
 #### 介绍
 一个Yunzai-BotV3.0+的插件,提供一些小玩具
 
-#### 软件架构
-软件架构说明
-
-
-#### 安装教程
-请将lin-plugin放置在Yunzai-Bot的plugins目录下，重启Yunzai-Bot后即可使用。
-
-1.  cd plugins
-
-2.  git clone https://gitee.com/go-farther-and-farther/lin
 
 ### 使用说明
 
 - 推荐使用git进行安装，以方便后续升级。在BOT根目录夹打开终端，运行
 
-> git clone https://gitee.com/go-farther-and-farther/lin
+git clone https://gitee.com/go-farther-and-farther/lin ./plugins/lin
 
-使用#lin更新来更新插件
+使用  #lin更新  来更新插件
 
 ### 现有功能
 
