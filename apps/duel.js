@@ -26,7 +26,7 @@ export class duel extends plugin {//决斗
 	constructor() {
 		super({
 			/** 功能名称 */
-			name: '我的境界',
+			name: '决斗',
 			/** 功能描述 */
 			dsc: '',
 			/** https://oicqjs.github.io/oicq/#events */
