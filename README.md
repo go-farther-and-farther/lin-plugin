@@ -41,6 +41,11 @@ git clone https://gitee.com/go-farther-and-farther/lin ./plugins/lin
 3.  提交代码
 4.  新建 Pull Request
 
+### 特别感谢
+
+@地球生物 
+
+@FanSky_Qs
 
 ### 其他
 
