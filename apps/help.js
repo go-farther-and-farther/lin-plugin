@@ -44,6 +44,10 @@ export class seelevel extends plugin {
 		e.reply(`决斗指令：#御前决斗@...\n#(锻炼|早睡)\n#我的境界\n#(设置|移除)半步管理员@...\n#(游戏|决斗)规则`)
 		return
 	}
+    /**
+	 * 
+	 * @param e oicq传递的事件参数e
+	 */
 	async gamerules(e) {
 		e.reply(`#游戏规则挑战成功：\n自己战斗力-3，对方战斗力不变\n挑战失败：\n自己战斗力-1，对方战斗力-2\n战斗力每日自动-1\n战斗力越高胜率越大，禁言时间越长\n战斗力依赖系数在duel.js中`)
 		return
