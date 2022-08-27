@@ -195,7 +195,7 @@ schedule.scheduleJob(time_, function () {
 	let blacklist_id = [];//这个是黑名单id
 	let delayed = 60000 + Math.floor(Math.random() * 60000);//这个是间隔时间///////////////////////////////////1.4更新
 	let url = `https://api.iyk0.com/ecy/api.php`;//这个是接口,获取图片的。
-	let words = ['今天派蒙给你点赞啦！', "你的喜欢是对我最大的支持！", "今天我帮你点赞了哦！", "喜不喜欢给你的这个壁纸啊？", "不需要打卡了可以删除好友。"]
+	let words = ['今天派蒙给你点赞啦！', "你的喜欢是对我最大的支持！", "今天我帮你点赞了哦！"]
 	var alllist = Bot.fl
 	idlist = [];
 	for (var key of alllist) {
@@ -217,10 +217,10 @@ schedule.scheduleJob(time_, function () {
 				Bot.pickFriend(idlist[i]).thumbUp(10);
 				console.log(`点赞成功`)
 				let l = Math.floor(Math.random() * 100)
-				if (!blacklist.includes(id[i]) || l < 30) {//这里是消息的触发概率
+				if (!blacklist.includes(id[i]) || l < 20) {//这里是消息的触发概率
 					let msg = [
 						words[Math.floor(Math.random() * words.length)],
-						segment.image(url),
+						//segment.image(url),
 					];
 					Bot.pickUser(idlist[i]).sendMsg(msg)
 				}
