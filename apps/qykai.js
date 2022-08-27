@@ -93,3 +93,4 @@ export class qykai extends plugin {
 	}
 }
 
+
