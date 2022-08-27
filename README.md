@@ -10,6 +10,10 @@
 
 `git clone https://gitee.com/go-farther-and-farther/lin ./plugins/lin/`
 
+或者
+
+`git clone https://github.com/go-farther-and-farther/lin ./plugins/lin/`
+
 使用`lin更新`来更新插件。
 
 ### 现有功能
