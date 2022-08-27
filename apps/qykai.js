@@ -52,7 +52,7 @@ export class qykai extends plugin {
             let gailvs = gailv * 100;
             //保留整数
             gailvs = gailvs.toFixed(0);
-            e.reply(`可以说“太吵了”，“太安静了”调节\n目前青云客ai触发概率：${gailvs}%`)
+            e.reply(`可以输入“太吵了”、“太安静了”或者进入文件修改是否只关注@信息来调节\n目前青云客ai触发概率：${gailvs}%，是否只关注@信息：${onlyReplyAt}`)
             return true;
         }
         if (e.msg.includes('太吵')) {
