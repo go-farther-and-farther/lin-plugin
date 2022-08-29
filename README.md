@@ -3,6 +3,7 @@
 #### 介绍
 一个Yunzai-BotV3.0+的插件包（plugin），提供了QQ群内决斗小游戏、随机时间给全部好友点赞、点歌和点动漫（支持选择歌曲版本）。
 
+- [Yunzai-Bot V3](https://github.com/Le-niao/Yunzai-Bot)
 
 ### 使用说明
 
@@ -48,7 +49,6 @@
 
 @FanSky_Qs
 
-### 其他
 
-- [Yunzai-Bot V3](https://github.com/Le-niao/Yunzai-Bot)
+
 
