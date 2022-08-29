@@ -40,13 +40,15 @@ export class qykai extends plugin {
         console.log("用户命令：", e.msg);
         //控制ai回复概率的模块
         let j = Math.random();
-        if (e.msg.includes('ai关闭')){
+        if (e.msg.includes('ai关闭')) {
             gailv = 0;
-            return true;
-        }if (e.msg.includes('ai开启')){
-            gailv = 1;
-            return true;
+            e.reply(`青云客ai已关闭`)
+        } if (e.msg.includes('ai开启')) {
+            gailv = 0.5;
+            e.reply(`青云客ai已开启`)
         }
+        if (gailv = 0)
+            return
         if (e.msg.includes('太安静')) {
             //如果概率等于1
             if (gailv > 0.99) {
