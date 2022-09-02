@@ -7,7 +7,6 @@ var BotName = "空之荧";//你家机器人叫这个，记得改了。
 var gailv = 0.5;//概率50%，这个是初始概率，每次重启后就是这个概率。
 var gailv_ = 0.1;//每次条件的概率
 var onlyReplyAt = false //群聊是否只关注@信息
-var txt = `可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`
 //1.定义命令规则
 export class qykai extends plugin {
     constructor() {
@@ -42,16 +41,16 @@ export class qykai extends plugin {
         let j = Math.random();
         if (e.msg.includes('ai关闭')) {
             gailv = 0
-            e.reply(txt)
+            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
         } if (e.msg.includes('ai开启')) {
             gailv = 0.5
-            e.reply(txt)
+            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
         } if (e.msg.includes('只关注@信息')) {
             onlyReplyAt = true;
-            e.reply(txt)
+            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
         } if (e.msg.includes('关注所有消息')) {
             onlyReplyAt = false;
-            e.reply(txt)
+            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
         }
         if (gailv == 0)
             return
@@ -64,7 +63,7 @@ export class qykai extends plugin {
                 return true;
             }
             gailv = gailv + gailv_;
-            e.reply(txt)
+            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
             return true;
         }
         if (e.msg.includes('太吵')) {
