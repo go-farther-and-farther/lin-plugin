@@ -1,102 +1,147 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import fetch from "node-fetch";
-//感谢前边所有版本的青云客作者
-//@苏苏@dmhfd(1695037643);
-//项目路径
-var BotName = "空之荧";//你家机器人叫这个，记得改了。
-var gailv = 0.5;//概率50%，这个是初始概率，每次重启后就是这个概率。
-var gailv_ = 0.1;//每次条件的概率
-var onlyReplyAt = false //群聊是否只关注@信息
-//1.定义命令规则
-export class qykai extends plugin {
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const { exec, execSync } = require("child_process");
+
+const _path = process.cwd();
+
+export class linUpdate extends plugin {
     constructor() {
         super({
             /** 功能名称 */
-            name: '青云客ai',
+            name: 'lin更新',
             /** 功能描述 */
-            dsc: 'ai',
+            dsc: 'lin更新自身',
             /** https://oicqjs.github.io/oicq/#events */
             event: 'message',
             /** 优先级，数字越小等级越高 */
-            priority: 12000,
+            priority: 999,
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: '',
+                    reg: '^#(lin更新|lin强制更新)$',
                     /** 执行方法 */
-                    fnc: 'qyk'
+                    fnc: 'linUpdate'
+                },
+                {
+                    /** 命令正则匹配 */
+                    reg: '^#重启$',
+                    /** 执行方法 */
+                    fnc: 'restartApp'
                 }
             ]
         })
     }
+
     /**
      * 
      * @param e oicq传递的事件参数e
      */
-    async qyk(e) {
-        if (!e.msg || e.msg.charAt(0) == '#') return;
-        //e.msg 用户的命令消息
-        console.log("用户命令：", e.msg);
-        //控制ai回复概率的模块
-        let j = Math.random();
-        if (e.msg.includes('ai关闭')) {
-            gailv = 0
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-        } if (e.msg.includes('ai开启')) {
-            gailv = 0.5
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-        } if (e.msg.includes('只关注@信息')) {
-            onlyReplyAt = true;
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-        } if (e.msg.includes('关注所有消息')) {
-            onlyReplyAt = false;
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-        }
-        if (gailv == 0)
-            return
-        if (e.msg.includes('太安静')) {
-            //如果概率等于1
-            if (gailv > 0.99) {
-                //提示不能修改了
-                gailv = 1
-                e.reply("很吵了，不能修改了");
-                return true;
-            }
-            gailv = gailv + gailv_;
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
+    async linUpdate(e) {
+        if (!this.e.isMaster) {
+            await this.e.reply("您无权操作");
             return true;
         }
-        if (e.msg.includes('太吵')) {
-            //如果概率等于0
-            if (gailv < 0.01) {
-                //提示不能修改了
-                gailv = 0
-                e.reply("很安静了，不能修改了");
-                return true;
-            }
-            gailv = gailv - gailv_;
-            e.reply(`可以输入“太吵了”、“太安静了”或者进入文件修改是否只关注@信息来调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-            return true;
+
+        let isForce = this.e.msg.includes("强制") ? true : false;
+
+        let command = "git pull";
+
+        if (isForce) {
+            command = "git checkout . && git pull";
+            await this.e.reply("正在执行强制更新操作，请稍等");
+        } else {
+            await this.e.reply("正在执行更新操作，请稍等");
         }
-        if (j >= gailv)//ai的触发率
-        {
-            console.log("退出青云客ai");
-            return true;
-        }
-        if (e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt) {
-            console.log("青云客消息：", e.msg);
-            let Msg = e.msg.replace(BotName, "菲菲");
-            let url = `http://api.qingyunke.com/api.php?key=free&appid=0&msg=${Msg}`;
-            let response = await fetch(url);
-            let res = await response.json();
-            if (res) {
-                if (res.result == 0) {
-                    res.content = res.content.replace(/菲菲/g, BotName);
-                    e.reply(res.content);
+        var me = this;
+        var ls = exec(command, { cwd: `${_path}/plugins/lin/` }, async function (error, stdout, stderr) {
+            if (error) {
+                let isChanges = error.toString().includes("Your local changes to the following files would be overwritten by merge") ? true : false;
+
+                let isNetwork = error.toString().includes("fatal: unable to access") ? true : false;
+
+                if (isChanges) {
+                    //git stash && git pull && git stash pop stash@{0}
+                    //需要设置email和username，暂不做处理
+                    await me.e.reply(
+                        "失败！\nError code: " +
+                        error.code +
+                        "\n" +
+                        error.stack +
+                        "\n\n本地代码与远程代码存在冲突,上面报错信息中包含冲突文件名称及路径，请尝试处理冲突\n如果不想保存本地修改请使用【#强制更新】\n(注意：强制更新命令会忽略所有本地对lin插件本身文件的修改，本地修改均不会保存，请注意备份)"
+                    );
+                } else if (isNetwork) {
+                    await me.e.reply(
+                        "失败！\nError code: " + error.code + "\n" + error.stack + "\n\n可能是网络问题，请关闭加速器之类的网络工具，或请过一会尝试。"
+                    );
+                } else {
+                    await me.e.reply("失败！\nError code: " + error.code + "\n" + error.stack + "\n\n出错了。请尝试处理错误");
                 }
+            } else {
+                if (/Already up to date/.test(stdout)) {
+                    e.reply("目前已经是最新了~");
+                    return true;
+                }
+                me.restartApp();
             }
+        });
+
+    }
+    async restartApp() {
+        if (!this.e.isMaster) {
+            await this.e.reply("您无权操作");
             return true;
         }
-        else return;
+        await this.e.reply("开始执行重启，请稍等...");
+        Bot.logger.mark("开始执行重启，请稍等...");
+
+        let data = JSON.stringify({
+            isGroup: this.e.isGroup ? true : false,
+            id: this.e.isGroup ? this.e.group_id : this.e.user_id,
+        });
+
+        try {
+
+            await redis.set("Yunzai:lin:restart", data, { EX: 120 });
+
+            let cm = `npm run start`;
+            if (process.argv[1].includes("pm2")) {
+                cm = `npm run restart`;
+            }
+
+            exec(cm, async (error, stdout, stderr) => {
+                if (error) {
+                    redis.del(`Yunzai:lin:restart`);
+                    await this.e.reply(`操作失败！\n${error.stack}`);
+                    Bot.logger.error(`重启失败\n${error.stack}`);
+                } else if (stdout) {
+                    Bot.logger.mark("重启成功，运行已转为后台，查看日志请用命令：npm run log");
+                    Bot.logger.mark("停止后台运行命令：npm stop");
+                    process.exit();
+                }
+            });
+        } catch (error) {
+            redis.del(`Yunzai:lin:restart`);
+            await this.e.reply(`操作失败！\n${error.stack}`);
+        }
+
+        return true;
     }
 }
+schedule.scheduleJob('0 45 18 * * *', function () {
+    var ls = exec(command, { cwd: `${_path}/plugins/lin/` }, async function (error, stdout, stderr) {
+        let isChanges = error.toString().includes("Your local changes to the following files would be overwritten by merge") ? true : false;
+
+        let isNetwork = error.toString().includes("fatal: unable to access") ? true : false;
+
+        if (isChanges) {
+            let msg = "失败！\nError code: " +
+                error.code +
+                "\n" +
+                error.stack +
+                "\n\n本地代码与远程代码存在冲突,上面报错信息中包含冲突文件名称及路径，请尝试处理冲突\n如果不想保存本地修改请使用【#强制更新】\n(注意：强制更新命令会忽略所有本地对lin插件本身文件的修改，本地修改均不会保存，请注意备份)"
+            Bot.pickUser(BotConfig.masterQQ[0]).sendMsg(msg)
+        }
+    });
+})
