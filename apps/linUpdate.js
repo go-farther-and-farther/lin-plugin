@@ -130,21 +130,27 @@ export class linUpdate extends plugin {
         return true;
     }
 }
-schedule.scheduleJob('0 0 8 * * 7', function () {
-    let msg1 = "lin插件包开始自动更新，不需要该功能可以手动注释"
-    Bot.pickUser(BotConfig.masterQQ[0]).sendMsg(msg1)
+schedule.scheduleJob('0 0 8 * * *', function () {
+    //let msg1 = "lin插件包开始自动更新,不需要该功能可以手动注释"
+    for (let i of cfg.masterQQ) { //这里定义发送给所有主人
+        let userId = i
+        //Bot.pickUser(userId).sendMsg(msg1)
+    }
     var ls = exec(command, { cwd: `${_path}/plugins/lin/` }, async function (error, stdout, stderr) {
         let isChanges = error.toString().includes("Your local changes to the following files would be overwritten by merge") ? true : false;
 
         let isNetwork = error.toString().includes("fatal: unable to access") ? true : false;
 
         if (isChanges) {
-            let msg = "失败！\nError code: " +
+            let msg2 = "失败！\nError code: " +
                 error.code +
                 "\n" +
                 error.stack +
                 "\n\n本地代码与远程代码存在冲突,上面报错信息中包含冲突文件名称及路径，请尝试处理冲突\n如果不想保存本地修改请使用【#强制更新】\n(注意：强制更新命令会忽略所有本地对lin插件本身文件的修改，本地修改均不会保存，请注意备份)"
-            Bot.pickUser(BotConfig.masterQQ[0]).sendMsg(msg)
+            for (let i of cfg.masterQQ) { //这里定义发送给所有主人
+                let userId = i
+                //Bot.pickUser(userId).sendMsg(msg2)
+            }
         }
     });
 })
