@@ -3,10 +3,11 @@ import fetch from "node-fetch";
 //感谢前边所有版本的青云客作者
 //@苏苏@dmhfd(1695037643);
 //项目路径
-var BotName = "空之荧";//你家机器人叫这个，记得改了
-var gailv = 0.2;//概率20%，这个是初始概率，重启后就是这个概率
+var BotName = "空之荧";//你家机器人叫这个，记得改了。
+var gailv = 0.5;//概率50%，这个是初始概率，每次重启后就是这个概率。
 var gailv_ = 0.1;//每次条件的概率
-const onlyReplyAt = false //群聊是否只关注@信息
+var onlyReplyAt = false //群聊是否只关注@信息
+var txt = `可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${gailvs}%，是否只关注@信息：${onlyReplyAt}`
 //简单应用示例
 //1.定义命令规则
 export class qykai extends plugin {
@@ -30,10 +31,10 @@ export class qykai extends plugin {
             ]
         })
     }
-	/**
-	 * 
-	 * @param e oicq传递的事件参数e
-	 */
+    /**
+     * 
+     * @param e oicq传递的事件参数e
+     */
     async qyk(e) {
         if (!e.msg || e.msg.charAt(0) == '#') return;
         //e.msg 用户的命令消息
@@ -41,11 +42,17 @@ export class qykai extends plugin {
         //控制ai回复概率的模块
         let j = Math.random();
         if (e.msg.includes('ai关闭')) {
-            gailv = 0;
+            e.reply(txt)
             e.reply(`青云客ai已关闭`)
         } if (e.msg.includes('ai开启')) {
-            gailv = 0.5;
+            e.reply(txt)
             e.reply(`青云客ai已开启`)
+        } if (e.msg.includes('只关注@信息')) {
+            onlyReplyAt = true;
+            e.reply(txt)
+        } if (e.msg.includes('关注所有消息')) {
+            onlyReplyAt = false;
+            e.reply(txt)
         }
         if (gailv == 0)
             return
@@ -61,7 +68,7 @@ export class qykai extends plugin {
             let gailvs = gailv * 100;
             //保留整数
             gailvs = gailvs.toFixed(0);
-            e.reply(`可以输入“太吵了”、“太安静了”或者进入文件修改是否只关注@信息来调节\n目前青云客ai触发概率：${gailvs}%，是否只关注@信息：${onlyReplyAt}`)
+            e.reply(txt)
             return true;
         }
         if (e.msg.includes('太吵')) {
@@ -101,5 +108,3 @@ export class qykai extends plugin {
         else return;
     }
 }
-
-
