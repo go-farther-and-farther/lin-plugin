@@ -1,5 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import { createRequire } from "module";
+import schedule from "node-schedule";
 
 const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
@@ -130,7 +131,7 @@ export class linUpdate extends plugin {
     }
 }
 schedule.scheduleJob('0 0 8 * * 7', function () {
-    let msg1 = "lin插件包开始自动更新"
+    let msg1 = "lin插件包开始自动更新，不需要该功能可以手动注释"
     Bot.pickUser(BotConfig.masterQQ[0]).sendMsg(msg1)
     var ls = exec(command, { cwd: `${_path}/plugins/lin/` }, async function (error, stdout, stderr) {
         let isChanges = error.toString().includes("Your local changes to the following files would be overwritten by merge") ? true : false;
