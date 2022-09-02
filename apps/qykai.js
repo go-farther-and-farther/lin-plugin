@@ -47,7 +47,7 @@ export class qykai extends plugin {
             gailv = 0.5;
             e.reply(`青云客ai已开启`)
         }
-        if (gailv = 0)
+        if (gailv == 0)
             return
         if (e.msg.includes('太安静')) {
             //如果概率等于1
