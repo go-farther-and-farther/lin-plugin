@@ -1,10 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import { segment } from "oicq";
 import fs from "fs";
-import schedule from "node-schedule";
 //项目路径
-let duelCD = {};
-let exerciseCD = {};
 //如果报错请删除Yunzai/data/目录中lin文件夹
 const dirpath = "data/lin/";//文件夹路径
 var filename = `battle`;//文件名
@@ -18,9 +14,6 @@ let Template = {//创建该用户
     "Privilege": 0,
 };
 //配置一些有意思的参数
-let Magnification = 1 //战斗力依赖系数，这个越大，战斗力意义越大
-let Cooling_time = 300 //命令间隔时间，单位秒，这是决斗的冷却时间#初始为300秒
-let Cooling_time2 = 300 //命令间隔时间，单位分钟，这是锻炼的冷却时间#初始为300分钟
 
 export class seelevel extends plugin {
     constructor() {
@@ -36,7 +29,7 @@ export class seelevel extends plugin {
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: "^#我的(境界|战斗力)$", //匹配消息正则，命令正则
+                    reg: "^#我的(境界|内力)$", //匹配消息正则，命令正则
                     /** 执行方法 */
                     fnc: 'seelevel'
                 }
@@ -62,8 +55,8 @@ export class seelevel extends plugin {
         }
         if (json[e.user_id].energy < 1) {
             json[e.user_id].energy = 0
-        }//当战斗力小于1时，自动归零
-        e.reply(`你的境界是${json[e.user_id].levels},你的战斗力是${json[e.user_id].energy},是否是半步管理员${json[e.user_id].Privilege}`)
+        }//当内力小于1时，自动归零
+        e.reply(`你的境界是${json[e.user_id].levels},你的内力是${json[e.user_id].energy},是否是半步管理员${json[e.user_id].Privilege}`)
         fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
         return
     }
