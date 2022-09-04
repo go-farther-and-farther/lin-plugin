@@ -29,7 +29,7 @@ String.prototype.beGood = function () {
     //输出转化结果
     return output;
 };
-export class qykai extends plugin {
+export class run extends plugin {
     constructor() {
         super({
             /** 功能名称 */
