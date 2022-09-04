@@ -28,15 +28,9 @@ export class help extends plugin {
 			rule: [
 				{
 					/** 命令正则匹配 */
-					reg: "^#(lin|麟)(规则|帮助)$", //匹配消息正则，命令正则
+					reg: "^#(lin|麟|决斗|游戏)(规则|帮助)$", //匹配消息正则，命令正则
 					/** 执行方法 */
 					fnc: 'rules'
-				},
-				{
-					/** 命令正则匹配 */
-					reg: "^#(决斗|游戏)(规则|帮助)$", //匹配消息正则，命令正则
-					/** 执行方法 */
-					fnc: 'gamerules'
 				}
 			]
 		})
@@ -46,33 +40,51 @@ export class help extends plugin {
 	 * @param e oicq传递的事件参数e
 	 */
 	async rules(e) {
-		e.reply(`决斗指令：#御前决斗@...\n#(锻炼|早睡)\n#我的境界\n#(设置|移除)半步管理员@...\n#(游戏|决斗)规则\n插件包项目地址https://gitee.com/go-farther-and-farther/lin`)
-		let msg1 = "发现新版本，自动更新！"
-		for (let i of cfg.masterQQ) { //这里定义发送给所有主人
-			let userId = i
-			Bot.pickUser(userId).sendMsg(msg1)
-		}
-		var ls = exec(command, { cwd: `${_path}/plugins/lin/` }, async function (error, stdout, stderr) {
-			let isChanges = error.toString().includes("Your local changes to the following files would be overwritten by merge") ? true : false;
-
-			let isNetwork = error.toString().includes("fatal: unable to access") ? true : false;
-
-			if (isChanges) {
-				let msg2 = "新版本自动更新失败，请手动更新！ "
-				for (let i of cfg.masterQQ) { //这里定义发送给所有主人
-					let userId = i
-					Bot.pickUser(userId).sendMsg(msg2)
-				}
+		let condition = ['lin', '麟']
+		let condition1 = ['游戏', '规则']
+		if (condition.find(item => e.msg.includes(item))) {
+			e.reply(`决斗功能：‘#决斗帮助’或者‘游戏帮助’
+			跑路功能：‘#跑路帮助’
+			ai功能：‘#跑路帮助’
+			更新功能；‘#lin更新’
+			搜歌和动漫功能：‘搜歌...’或者‘搜动漫...’
+			插件包项目地址https://gitee.com/go-farther-and-farther/lin`)
+			let msg1 = "发现新版本，自动更新！"
+			for (let i of cfg.masterQQ) { //这里定义发送给所有主人
+				let userId = i
+				Bot.pickUser(userId).sendMsg(msg1)
 			}
-		});
-		return
-	}
-	/**
-	 * 
-	 * @param e oicq传递的事件参数e
-	 */
-	async gamerules(e) {
-		e.reply(`#游戏规则挑战成功：\n自己战斗力-3，对方战斗力不变\n挑战失败：\n自己战斗力-1，对方战斗力-2\n战斗力每日自动-1\n战斗力越高胜率越大，禁言时间越长\n战斗力依赖系数在duel.js中`)
-		return
+			let command = "git pull";
+			//下面是强制更新，如果需要可以替换上面这句！！！！！！！！！！！！！
+			//let command = "git checkout . && git pull";
+			var ls = exec(command, { cwd: `${_path}/plugins/lin/` }, async function (error, stdout, stderr) {
+				let isChanges = error.toString().includes("Your local changes to the following files would be overwritten by merge") ? true : false;
+
+				let isNetwork = error.toString().includes("fatal: unable to access") ? true : false;
+
+				if (isChanges) {
+					let msg2 = "新版本自动更新失败，请手动更新！ "
+					for (let i of cfg.masterQQ) { //这里定义发送给所有主人
+						let userId = i
+						Bot.pickUser(userId).sendMsg(msg2)
+					}
+				}
+			});
+		}
+		else if (condition1.find(item => e.msg.includes(item))) {
+			e.reply(`决斗指令：#御前决斗@...
+			#(锻炼|早睡)
+			#我的境界
+			#(设置|移除)半步管理员@...
+			#(游戏|决斗)规则
+			#游戏规则挑战成功：
+			自己战斗力-3，对方战斗力不变
+			挑战失败：
+			自己战斗力-1，对方战斗力-2
+			战斗力每日自动-1
+			战斗力越高胜率越大，禁言时间越长
+			天时地利依赖系数在duel.js中`)
+			return
+		}
 	}
 }
