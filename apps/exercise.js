@@ -77,7 +77,7 @@ export class exercise extends plugin {//修炼
         }, Cooling_time3 * 1000 * 60);
         if (json[user_id].energy < 1) {
             json[user_id].energy = 0
-        }//当战斗力小于1时，自动归零
+        }//当内力小于1时，自动归零
 
         if (json[user_id].energy < 5) json[user_id].level = 0
         else if (json[user_id].energy < 10 && json[user_id].level >= 1) {
@@ -199,14 +199,14 @@ export class exercise extends plugin {//修炼
             }));
         }
         const json = JSON.parse(fs.readFileSync(dirpath + "/" + filename));//读取文件
+        if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
+            json[user_id] = Template
+        }
         for (let i of cfg.masterQQ) { //给所有主人发福利******************************
             if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
                 json[i] = Template
             }
             json[i].energy++
-        }
-        if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
-            json[user_id] = Template
         }
         exerciseCD[user_id] = true;
         exerciseCD[user_id] = setTimeout(() => {//冷却时间
@@ -221,29 +221,29 @@ export class exercise extends plugin {//修炼
             energy_ = Math.round(3 + 2 * Math.random())
             json[user_id].energy += energy_
             e.reply([segment.at(user_id),
-            `\n🎉恭喜你获得了${energy_}点战斗力,一日之计在于晨，清晨修炼效果更好哦！\n你的战斗力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
+            `\n🎉恭喜你获得了${energy_}点内力,一日之计在于晨，清晨修炼效果更好哦！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
         } else if (hours >= 8 && hours <= 20) {
             energy_ = Math.round(1 + 2 * Math.random())
             json[user_id].energy += energy_
             e.reply([segment.at(user_id),
-            `\n🎉恭喜你获得了${energy_}点战斗力！\n你的战斗力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
+            `\n🎉恭喜你获得了${energy_}点内力！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
         } else if (hours >= 20 && hours <= 22 && e.msg.includes('早睡')) {
             e.group.muteMember(user_id, 60 * 60 * 8); //禁言
             energy_ = Math.round(3 + 3 * Math.random())
             json[user_id].energy += energy_
             e.reply([segment.at(user_id),
-            `\n🎉早睡早起好习惯，恭喜你获得了${energy_}点战斗力！\n你的战斗力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
+            `\n🎉早睡早起好习惯，恭喜你获得了${energy_}点内力！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
         } else {
             energy_ = 1
             json[user_id].energy += energy_
             e.reply([segment.at(user_id),
-            `\n由于睡太晚，你只获得了${energy_}点战斗力！\n你的战斗力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
+            `\n由于睡太晚，你只获得了${energy_}点内力！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
         }
         fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
         return true;
     }
 }
-schedule.scheduleJob('0 0 4 * * *', function () {//每日战斗力-1
+schedule.scheduleJob('0 0 4 * * *', function () {//每日内力-1
     if (!fs.existsSync(dirpath)) {//如果文件夹不存在
         fs.mkdirSync(dirpath);//创建文件夹
     }
