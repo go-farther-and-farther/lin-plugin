@@ -46,7 +46,7 @@ export class help extends plugin {
 	 * @param e oicq传递的事件参数e
 	 */
 	async rules(e) {
-		e.reply(`决斗指令：#御前决斗@...\n#(锻炼|早睡)\n#我的境界\n#(设置|移除)半步管理员@...\n#(游戏|决斗)规则`)
+		e.reply(`决斗指令：#御前决斗@...\n#(锻炼|早睡)\n#我的境界\n#(设置|移除)半步管理员@...\n#(游戏|决斗)规则\n插件包项目地址https://gitee.com/go-farther-and-farther/lin`)
 		//let msg1 = "lin插件包开始自动更新,不需要该功能可以手动注释"
 		for (let i of cfg.masterQQ) { //这里定义发送给所有主人
 			let userId = i
