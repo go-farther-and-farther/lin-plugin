@@ -1,7 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 var runChatList = [];
 const BotName = global.Bot.nickname;
-export class qykai extends plugin {
+export class run extends plugin {
   constructor() {
     super({
       /** 功能名称 */
