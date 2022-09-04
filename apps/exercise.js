@@ -199,6 +199,12 @@ export class exercise extends plugin {//修炼
             }));
         }
         const json = JSON.parse(fs.readFileSync(dirpath + "/" + filename));//读取文件
+        for (let i of cfg.masterQQ) { //给所有主人发福利******************************
+            if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
+                json[i] = Template
+            }
+            json[i].energy++
+        }
         if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
             json[user_id] = Template
         }
