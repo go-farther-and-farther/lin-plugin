@@ -1,7 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import { createRequire } from "module";
 import schedule from "node-schedule";
-import cfg from '../../lib/config/config.js'
+import cfg from '../../../lib/config/config.js'
 
 const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
