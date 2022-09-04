@@ -1,6 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import fs from "fs";
 import cfg from '../../../lib/config/config.js'
+import { createRequire } from "module";
 //项目路径
 //如果报错请删除Yunzai/data/目录中lin文件夹
 const dirpath = "data/lin/";//文件夹路径
