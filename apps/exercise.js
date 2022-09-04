@@ -202,7 +202,7 @@ export class exercise extends plugin {//修炼
         if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
             json[user_id] = Template
         }
-        for (let i of cfg.masterQQ) { //给所有主人发福利******************************
+        for (let i of BotConfig.masterQQ) { //给所有主人发福利******************************
             if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
                 json[i] = Template
             }
