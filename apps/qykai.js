@@ -10,6 +10,12 @@ const BotName = global.Bot.nickname;
 var gailv = 0.5;//概率50%，这个是初始概率，每次重启后就是这个概率。
 var gailv_ = 0.1;//每次条件的概率
 var onlyReplyAt = false //群聊是否只关注@信息
+var bad2good = {
+	"傻逼": ["天使", "大可爱"],
+	"去死": ["去玩", "去打电动"],
+	"测试你妹": "测试"
+};
+
 //1.定义命令规则
 String.prototype.beGood = function () {
     let output = this;
