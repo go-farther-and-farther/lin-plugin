@@ -132,9 +132,9 @@ export class duel extends plugin {//决斗
 		//计算实时内力的影响,等级在1-13级之间
 		//  随机加成部分    +      境界加成部分 * 内力 * 随机发挥效果 //最大内力差为18*1.5*energy
 		let i = Math.random() * 100 * Magnification
-		let j_2 = (0.15 * level + 1) * energy
+		let i_2 = (0.15 * level + 1) * energy
 		let j = Math.random() * 100 * Magnification
-		let i_2 = (0.15 * level2 + 1) * energy2
+		let j_2 = (0.15 * level2 + 1) * energy2
 		i = Math.round(i)
 		i_2 = Math.round(i_2)
 		j = Math.round(j)
