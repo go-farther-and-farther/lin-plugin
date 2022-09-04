@@ -1,7 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from "node-fetch";
 import { segment } from "oicq";
-import fetch from "node-fetch";
 import lodash from "lodash";
 //感谢前边所有版本的青云客作者
 //@苏苏@dmhfd(1695037643);@Yoolan.
