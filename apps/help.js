@@ -8,6 +8,10 @@ var filename = `battle`;//文件名
 if (filename.indexOf(".json") == -1) {//如果文件名不包含.json
 	filename = filename + ".json";//添加.json
 }
+const require = createRequire(import.meta.url);
+const { exec, execSync } = require("child_process");
+
+const _path = process.cwd();
 //配置一些有意思的参数
 
 export class help extends plugin {
