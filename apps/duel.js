@@ -135,36 +135,28 @@ export class duel extends plugin {//决斗
 		let j_2 = (0.15 * level + 1) * energy
 		let j = Math.random() * 100 * Magnification
 		let i_2 = (0.15 * level2 + 1) * energy2
+		i = Math.round(i)
+		i_2 = Math.round(i_2)
+		j = Math.round(j)
+		j_2 = Math.round(j_2)
+		let k = Math.round((i + i_2 - j - j_2) / 60)//取整数
 		e.reply([segment.at(e.user_id),
 		`\n你的境界为${json[user_id].levels}\n${user_id2_nickname}的境界是${json[user_id2].levels}\n决斗开始！天时地利系数${Magnification}`]);//发送消息
-		if ((i + i_2 > j + j_2 && !(json[user_id2].Privilege == 1 || e.sender.role == "owner" || e.sender.role == "admin")) || (json[user_id].Privilege == 1 || e.group.pickMember(e.at).is_owner || e.group.pickMember(e.at).is_admin)) {//判断是否成功
+		if ((k > 0 && !(json[user_id2].Privilege == 1 || e.sender.role == "owner" || e.sender.role == "admin")) || (json[user_id].Privilege == 1 || e.group.pickMember(e.at).is_owner || e.group.pickMember(e.at).is_admin)) {//判断是否成功
 			json[user_id].energy -= 3
 			setTimeout(() => {//延迟5秒
-				let k = Math.round((i + i_2 - j - j_2) / 60)//取整数
-				if (k <= 0) {//小于0则算1
-					k = 1
-				}
-				i = Math.round(i)
-				i_2 = Math.round(i_2)
-				j = Math.round(j)
-				j_2 = Math.round(j_2)
 				e.group.muteMember(user_id2, (k) * 60); //禁言
 				e.reply([segment.at(e.user_id),
 				`你获得天时地利加成${i},综合实力${i_2},\n${user_id2_nickname}天时地利加成${j},综合内力${j_2}\n恭喜你与${user_id2_nickname}决斗成功。\n${user_id2_nickname}接受惩罚，已被禁言${k}分钟！\n你的内力-3`]);//发送消息
 			}, 5000);//设置延时
 		}
 		else {
+			k = -k + 1
 			json[user_id].energy--
 			json[user_id2].energy -= 2
 			setTimeout(() => {
-				let k = Math.round((i + i_2 - j - j_2) / 60)//取整数
-				if (k <= 0) {//小于0则算1
-					k = 1
-				}
-				i = Math.round(i)
-				j = Math.round(j)
 				e.group.muteMember(user_id, (k) * 60); //禁言
-				e.reply([segment.at(e.user_id), `你获得天时地利加成${i},综合实力${i_2},\n${user_id2_nickname}天时地利加成${j},综合内力${j_2}\n你与${user_id2_nickname}决斗失败。\n你接受惩罚，已被禁言${k}分钟！\n你的内力-1，${user_id2_nickname}内力-3`]);//发送消息
+				e.reply([segment.at(e.user_id), `你获得天时地利加成${i},综合实力${i_2},\n${user_id2_nickname}天时地利加成${j},综合内力${j_2}\n你与${user_id2_nickname}决斗失败。\n你接受惩罚，已被禁言${k + 1}分钟！\n你的内力-1，${user_id2_nickname}内力-2`]);//发送消息
 			}, 5000);//设置延时
 		}//内力小于0时候重置内力
 		if (json[user_id].energy < 0) { json[user_id].energy = 0 }
