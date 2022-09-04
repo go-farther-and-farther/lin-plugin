@@ -2,6 +2,7 @@ import plugin from '../../../lib/plugins/plugin.js'
 import { segment } from "oicq";
 import fs from "fs";
 import schedule from "node-schedule";
+import cfg from '../../../lib/config/config.js'
 //项目路径
 let exerciseCD = {};
 let exerciseCD_ = {};
@@ -202,7 +203,7 @@ export class exercise extends plugin {//修炼
         if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
             json[user_id] = Template
         }
-        for (let i of BotConfig.masterQQ) { //给所有主人发福利******************************
+        for (let i of cfg.masterQQ) { //给所有主人发福利******************************
             if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
                 json[i] = Template
             }
