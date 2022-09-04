@@ -48,6 +48,7 @@ export class seelevel extends plugin {
 	 * @param e oicq传递的事件参数e
 	 */
     async seelevel(e) {
+        let user_id = e.user_id;
         if (!fs.existsSync(dirpath)) {//如果文件夹不存在
             fs.mkdirSync(dirpath);//创建文件夹
         }
@@ -62,79 +63,7 @@ export class seelevel extends plugin {
         if (json[e.user_id].energy < 1) {
             json[e.user_id].energy = 0
         }//当战斗力小于1时，自动归零
-        if (json[e.user_id].energy < 15) {
-            json[e.user_id].level = 0
-            json[e.user_id].levels = '无境界'
-        }
-        else if (json[e.user_id].energy < 30) {
-            json[e.user_id].level = 1
-            json[e.user_id].levels = '小乘境初期'
-        }
-        else if (json[e.user_id].energy < 45) {
-            json[e.user_id].level = 2
-            json[e.user_id].levels = '小乘境中期'
-        }
-        else if (json[e.user_id].energy < 55) {
-            json[e.user_id].level = 3
-            json[e.user_id].levels = '小乘境后期'
-        }
-        else if (json[e.user_id].energy < 60) {
-            json[e.user_id].level = 3
-            json[e.user_id].levels = '小乘境巅峰'
-        }
-        else if (json[e.user_id].energy < 80) {
-            json[e.user_id].level = 4
-            json[e.user_id].levels = '大乘境初期'
-        }
-        else if (json[e.user_id].energy < 100) {
-            json[e.user_id].level = 5
-            json[e.user_id].levels = '大乘境中期'
-        }
-        else if (json[e.user_id].energy < 110) {
-            json[e.user_id].level = 6
-            json[e.user_id].levels = '大乘境后期'
-        }
-        else if (json[e.user_id].energy < 120) {
-            json[e.user_id].level = 6
-            json[e.user_id].levels = '大乘境巅峰'
-        }
-        else if (json[e.user_id].energy < 145) {
-            json[e.user_id].level = 7
-            json[e.user_id].levels = '宗师境初期'
-        }
-        else if (json[e.user_id].energy < 170) {
-            json[e.user_id].level = 8
-            json[e.user_id].levels = '宗师境中期'
-        }
-        else if (json[e.user_id].energy < 190) {
-            json[e.user_id].level = 9
-            json[e.user_id].levels = '宗师境后期'
-        }
-        else if (json[e.user_id].energy < 200) {
-            json[e.user_id].level = 9
-            json[e.user_id].levels = '宗师境巅峰'
-        }
-        else if (json[e.user_id].energy < 240) {
-            json[e.user_id].level = 10
-            json[e.user_id].levels = '至臻境初期'
-        }
-        else if (json[e.user_id].energy < 280) {
-            json[e.user_id].level = 11
-            json[e.user_id].levels = '至臻境中期'
-        }
-        else if (json[e.user_id].energy < 300) {
-            json[e.user_id].level = 12
-            json[e.user_id].levels = '至臻境后期'
-        }
-        else if (json[e.user_id].energy < 320) {
-            json[e.user_id].level = 12
-            json[e.user_id].levels = '至臻境巅峰'
-        }
-        else {
-            json[e.user_id].level = 13
-            json[e.user_id].levels = '返璞归真'
-        }
-        e.reply(`你的境界是${json[e.user_id].levels},你的战斗力是${json[e.user_id].energy}`)
+        e.reply(`你的境界是${json[e.user_id].levels},你的战斗力是${json[e.user_id].energy},是否是半步管理员${json[e.user_id].Privilege}`)
         fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
         return
     }
