@@ -49,10 +49,10 @@ export class help extends plugin {
 			更新功能；‘#lin更新’
 			搜歌和动漫功能：‘搜歌...’或者‘搜动漫...’
 			插件包项目地址https://gitee.com/go-farther-and-farther/lin`)
-			let msg1 = "发现新版本，自动更新！"
+			//let msg1 = "发现新版本，自动更新！"
 			for (let i of cfg.masterQQ) { //这里定义发送给所有主人
 				let userId = i
-				Bot.pickUser(userId).sendMsg(msg1)
+				//Bot.pickUser(userId).sendMsg(msg1)
 			}
 			let command = "git pull";
 			//下面是强制更新，如果需要可以替换上面这句！！！！！！！！！！！！！
