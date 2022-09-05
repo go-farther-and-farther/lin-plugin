@@ -29,14 +29,14 @@ export class thumbUp extends plugin {//锻炼
 		e.reply(`已经有自动点赞，不需要手动点赞啦！`)
 	}
 }
-let time_ = String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 16) + 6) + ' * * *'////////////////////////////////////////////1.4更新
+let time_ = String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 2) + 6) + ' * * *'////////////////////////////////////////////1.4更新
 schedule.scheduleJob(time_, function () {
 	let id = [];//这个是点赞名单,空则全部点赞
 	let blacklist = [];//这个是不发送提示消息的黑名单，有的人怕被骚扰。
 	let blacklist_id = [];//这个是黑名单id
-	let delayed = 60000 + Math.floor(Math.random() * 60000);//这个是间隔时间///////////////////////////////////1.4更新
+	let delayed = 100000 + Math.floor(Math.random() * 60000);//这个是间隔时间///////////////////////////////////1.4更新
 	let url = `https://api.iyk0.com/ecy/api.php`;//这个是接口,获取图片的。
-	let words = ['今天派蒙给你点赞啦！', "你的喜欢是对我最大的支持！", "今天我帮你点赞了哦！"]
+	let words = ['早上好！', "你的喜欢是对我最大的支持！", "早上好哦！"]
 	var alllist = Bot.fl
 	idlist = [];
 	for (var key of alllist) {
