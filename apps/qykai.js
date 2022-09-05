@@ -7,8 +7,8 @@ import lodash from "lodash";
 //项目路径
 const BotName = global.Bot.nickname;
 //机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
-var gailv = 0;//概率50%，这个是初始概率，每次重启后就是这个概率。
-var gailv_ = 0.1;//每次条件的概率
+var gailv = 0.1;//概率10%，这个是初始概率，每次重启后就是这个概率。
+var gailv_ = 0.1;//每次改变的概率
 var onlyReplyAt = true //群聊是否只关注@信息
 var bad2good = {
 	"傻逼": ["天使", "大可爱"],
