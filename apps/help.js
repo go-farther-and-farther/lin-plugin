@@ -43,12 +43,13 @@ export class help extends plugin {
 		let condition = ['lin', '麟']
 		let condition1 = ['游戏', '规则']
 		if (condition.find(item => e.msg.includes(item))) {
-			e.reply(`决斗功能：‘#决斗帮助’或者‘游戏帮助’
+			e.reply(`遇到大问题请重新拉取并反馈，更新不能到最新版本！
+            决斗功能：‘#决斗帮助’或者‘游戏帮助’
 			跑路功能：‘#跑路帮助’
 			ai功能：‘#跑路帮助’
 			更新功能；‘#lin更新’
 			搜歌和动漫功能：‘搜歌...’或者‘搜动漫...’
-			插件包项目地址https://gitee.com/go-farther-and-farther/lin`)
+			插件包项目地址https://gitee.com/go-farther-and-farther/lin，里面可以反馈问题`)
 			//let msg1 = "发现新版本，自动更新！"
 			for (let i of cfg.masterQQ) { //这里定义发送给所有主人
 				let userId = i
