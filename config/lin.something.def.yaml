@@ -1,5 +1,14 @@
-# 点赞 设置
+# import command from '../command/command.js'
+# await command.getConfig("", "");
+# 青云客 设置
 qykai_cfg: 
+  # 是否全局点赞
+  everyone: true 
+  # 是否有点赞提示
+  reply: true
+
+# 点赞 设置
+thumbUp_cfg: 
   gailv: 0.1
   gailv_: 0.1
 
