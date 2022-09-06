@@ -1,6 +1,9 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import schedule from "node-schedule";
-export class thumbUp extends plugin {//锻炼
+
+var everyone = true //是否全局点赞
+var reply = true //是否有点赞提示
+export class thumbUp extends plugin {
 	constructor() {
 		super({
 			/** 功能名称 */
@@ -14,7 +17,7 @@ export class thumbUp extends plugin {//锻炼
 			rule: [
 				{
 					/** 命令正则匹配 */
-					reg: "^#(发起|开始)?(点赞打卡)(.*)$", //匹配消息正则，命令正则
+					reg: "^#(发起|开始)?(点赞|打卡)(.*)$", //匹配消息正则，命令正则
 					/** 执行方法 */
 					fnc: 'thumbUp'
 				}
@@ -44,7 +47,7 @@ schedule.scheduleJob(time_, function () {
 		console.log(idlist)
 	}
 	//判断白名单模式还是全局模式
-	if (id.length == 0) {
+	if (id.length == 0 && everyone) {
 		console.log("判断id列表为空，已开启全局模式，即将点赞的列表为：", idlist)
 	} else {
 		var idlist = id;
@@ -58,7 +61,7 @@ schedule.scheduleJob(time_, function () {
 				Bot.pickFriend(idlist[i]).thumbUp(10);
 				console.log(`点赞成功`)
 				let l = Math.floor(Math.random() * 100)
-				if (!blacklist.includes(id[i]) || l < 20) {//这里是消息的触发概率
+				if ((!blacklist.includes(id[i]) || l < 20) && reply) {//这里是消息的触发概率
 					let msg = [
 						words[Math.floor(Math.random() * words.length)],
 						//segment.image(url),
