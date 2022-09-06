@@ -40,7 +40,7 @@ export class qykai extends plugin {
             /** https://oicqjs.github.io/oicq/#events */
             event: 'message',
             /** 优先级，数字越小等级越高 */
-            priority: 12000,
+            priority: 60000,
             rule: [
                 {
                     /** 命令正则匹配 */
