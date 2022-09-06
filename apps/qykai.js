@@ -137,7 +137,8 @@ export class qykai extends plugin {
                 //设置了log: false; 好像是没有输出日志的
                 logger.mark(`[青云客回复] ${e.msg}`);
                 //发送消息
-                e.reply(replyMsg, e.isGroup);
+                //e.reply(replyMsg, e.isGroup);
+                e.reply(replyMsg);
                 //阻止继续匹配其他命令
                 return true;
             }
