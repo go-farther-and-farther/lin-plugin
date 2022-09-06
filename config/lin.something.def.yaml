@@ -1,0 +1,8 @@
+# 点赞 设置
+qykai_cfg: 
+  gailv: 0.1
+  gailv_: 0.1
+
+# 决斗 设置
+duel_cfg: 
+  SecretKey: 
