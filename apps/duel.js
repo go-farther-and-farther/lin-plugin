@@ -1,6 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import { segment } from "oicq";
 import fs from "fs";
+import command from '../command/command.js'
 //项目路径
 let duelCD = {};
 //如果报错请删除Yunzai/data/目录中lin文件夹
@@ -16,8 +17,8 @@ let Template = {//创建该用户
 	"Privilege": 0,
 };
 //配置一些有意思的参数
-let Magnification = 1 //天时地利依赖系数，这个越大，天时地利意义越大
-let Cooling_time = 300 //命令间隔时间，单位秒，这是决斗的冷却时间#初始为300秒
+let Magnification = await command.getConfig("duel_cfg", "Magnification");
+let Cooling_time = await command.getConfig("duel_cfg", "Cooling_time"); 
 
 export class duel extends plugin {//决斗
 	constructor() {
