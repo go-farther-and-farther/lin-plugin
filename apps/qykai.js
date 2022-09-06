@@ -2,18 +2,19 @@ import plugin from '../../../lib/plugins/plugin.js'
 import fetch from "node-fetch";
 import { segment } from "oicq";
 import lodash from "lodash";
+import command from '../command/command.js'
 //感谢前边所有版本的青云客作者
 //@苏苏@dmhfd(1695037643);@Yoolan.
 //项目路径
 const BotName = global.Bot.nickname;
 //机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
-var gailv = 0.1;//概率10%，这个是初始概率，每次重启后就是这个概率。
-var gailv_ = 0.1;//每次改变的概率
+var gailv = await command.getConfig("qykai_cfg", "gailv");
+var gailv_ = await command.getConfig("qykai_cfg", "gailv_");
 var onlyReplyAt = true //群聊是否只关注@信息
 var bad2good = {
-	"傻逼": ["天使", "大可爱"],
-	"去死": ["去玩", "去打电动"],
-	"测试你妹": "测试"
+    "傻逼": ["天使", "大可爱"],
+    "去死": ["去玩", "去打电动"],
+    "测试你妹": "测试"
 };
 
 //1.定义命令规则
@@ -65,7 +66,7 @@ export class qykai extends plugin {
             gailv = 0
             e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
         } else if (e.msg.includes('ai开启')) {
-            gailv = 1
+            gailv = await command.getConfig("qykai_cfg", "gailv");
             e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
         } else if (e.msg.includes('只关注@信息')) {
             onlyReplyAt = true;
@@ -137,8 +138,7 @@ export class qykai extends plugin {
                 //设置了log: false; 好像是没有输出日志的
                 logger.mark(`[青云客回复] ${e.msg}`);
                 //发送消息
-                //e.reply(replyMsg, e.isGroup);
-                e.reply(replyMsg);
+                e.reply(replyMsg, e.isGroup);
                 //阻止继续匹配其他命令
                 return true;
             }
