@@ -18,7 +18,7 @@ let Template = {//创建该用户
 };
 //配置一些有意思的参数
 let Magnification = await command.getConfig("duel_cfg", "Magnification");
-let Cooling_time = await command.getConfig("duel_cfg", "Cooling_time"); 
+let Cooling_time = await command.getConfig("duel_cfg", "Cooling_time");
 
 export class duel extends plugin {//决斗
 	constructor() {
@@ -143,7 +143,26 @@ export class duel extends plugin {//决斗
 		let k = Math.round((i + i_2 - j - j_2) / 60)//取整数
 		e.reply([segment.at(e.user_id),
 		`\n你的境界为${json[user_id].levels}\n${user_id2_nickname}的境界是${json[user_id2].levels}\n决斗开始！天时地利系数${Magnification}`]);//发送消息
-		if ((k > 0 && !(json[user_id2].Privilege == 1 || e.sender.role == "owner" || e.sender.role == "admin")) || (json[user_id].Privilege == 1 || e.group.pickMember(e.at).is_owner || e.group.pickMember(e.at).is_admin)) {//判断是否成功
+		if (json[user_id2].Privilege == 1 || e.sender.role == "owner" || e.sender.role == "admin") {
+			json[user_id].energy -= 3
+			if (k <= 0)
+				k = -k + 1
+			setTimeout(() => {//延迟5秒
+				e.group.muteMember(user_id2, (k) * 60); //禁言
+				e.reply([segment.at(e.user_id),
+				`你获得天时地利加成${i},综合实力${i_2},\n${user_id2_nickname}天时地利加成${j},综合内力${j_2}\n你使用了管理员（半步）之力获得了胜利，恭喜你与${user_id2_nickname}决斗成功。\n${user_id2_nickname}接受惩罚，已被禁言${k}分钟！\n你的内力-3`]);//发送消息
+			}, 5000);//设置延时
+		}
+		else if (json[user_id].Privilege == 1 || e.group.pickMember(e.at).is_owner || e.group.pickMember(e.at).is_admin) {
+			k = -k + 1
+			json[user_id].energy--
+			json[user_id2].energy -= 2
+			setTimeout(() => {
+				e.group.muteMember(user_id, (k) * 60); //禁言
+				e.reply([segment.at(e.user_id), `你获得天时地利加成${i},综合实力${i_2},\n${user_id2_nickname}天时地利加成${j},综合内力${j_2}\n对方使用了管理员（半步）之力，你与${user_id2_nickname}决斗失败。\n你接受惩罚，已被禁言${k + 1}分钟！\n你的内力-1，${user_id2_nickname}内力-2`]);//发送消息
+			}, 5000);//设置延时
+		}
+		else if (k > 0) {//判断是否成功
 			json[user_id].energy -= 3
 			setTimeout(() => {//延迟5秒
 				e.group.muteMember(user_id2, (k) * 60); //禁言
