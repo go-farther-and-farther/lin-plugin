@@ -99,7 +99,7 @@ export class duel extends plugin {//决斗
 		let energy = json[user_id].energy
 		let level2 = json[user_id2].level
 		let energy2 = json[user_id2].energy
-		if (e.sender.role == "owner" || e.sender.role == "admin" || json[user_id].Privilege == 1 && e.group.pickMember(e.at).is_owner || e.group.pickMember(e.at).is_admin || json[e.at].Privilege == 1) {//判定双方是否存在管理员或群主
+		if ((e.sender.role == "owner" || e.sender.role == "admin" || json[user_id].Privilege == 1) && (e.group.pickMember(e.at).is_owner || e.group.pickMember(e.at).is_admin || json[e.at].Privilege == 1)) {//判定双方是否存在管理员或群主
 			e.reply("你们两人都是管理员，御前决斗无法进行哦")
 			return true
 		}
