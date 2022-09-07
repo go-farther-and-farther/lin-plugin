@@ -35,7 +35,7 @@ export class exercise extends plugin {//修炼
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: "^#(发起|开始)?(锻炼|早睡|修炼)(.*)$", //匹配消息正则，命令正则
+                    reg: "^#(发起|开始)?(晨练|早|锻炼|早睡|睡觉|修炼)(.*)$", //匹配消息正则，命令正则
                     /** 执行方法 */
                     fnc: 'exercise'
                 },
@@ -218,6 +218,43 @@ export class exercise extends plugin {//修炼
         const date = new Date();
         let energy_ = 0
         let hours = date.getHours()
+        if (e.msg.includes('早') || e.msg.includes('晨练')) {
+            if (hours >= 6 && hours <= 8) {
+                energy_ = Math.round(3 + 2 * Math.random())
+                json[user_id].energy += energy_
+                e.reply([segment.at(user_id),
+                `\n恭喜你获得了${energy_}点内力,一日之计在于晨，清晨修炼效果更好哦！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);
+            }
+            else {
+                energy_ = Math.round(1 + 1 * Math.random())
+                json[user_id].energy += energy_
+                e.reply([segment.at(user_id),
+                `\n现在一点也不早了，你只或得了${energy_}点内力。\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);
+            }
+            return
+        } if (e.msg.includes('睡觉') || e.msg.includes('早睡')) {
+            if (hours >= 20 && hours <= 22) {
+                e.group.muteMember(user_id, 60 * 60 * 8); //禁言
+                energy_ = Math.round(3 + 3 * Math.random())
+                json[user_id].energy += energy_
+                e.reply([segment.at(user_id),
+                `\n🎉早睡早起好习惯，恭喜你获得了${energy_}点内力！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
+            }
+            else if (hours >= 12 && hours <= 14) {
+                e.group.muteMember(user_id, 60 * 60 * 1); //禁言
+                energy_ = Math.round(1 + 2 * Math.random())
+                json[user_id].energy += energy_
+                e.reply([segment.at(user_id),
+                `\n🎉感谢你获得了${energy_}点内力，睡个午觉吧！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
+            } else if (hours > 23 || hours <= 5) {
+                e.group.muteMember(user_id, 60 * 60 * 8); //禁言
+                energy_ = Math.round(1 + 2 * Math.random())
+                json[user_id].energy += energy_
+                e.reply([segment.at(user_id),
+                `\n现在睡觉一点也不早了，你只获得了${energy_}点内力，快去睡觉吧！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
+            }
+            return
+        }
         if (hours >= 6 && hours <= 8) {
             energy_ = Math.round(3 + 2 * Math.random())
             json[user_id].energy += energy_
@@ -228,12 +265,6 @@ export class exercise extends plugin {//修炼
             json[user_id].energy += energy_
             e.reply([segment.at(user_id),
             `\n🎉恭喜你获得了${energy_}点内力！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
-        } else if (hours >= 20 && hours <= 22 && e.msg.includes('早睡')) {
-            e.group.muteMember(user_id, 60 * 60 * 8); //禁言
-            energy_ = Math.round(3 + 3 * Math.random())
-            json[user_id].energy += energy_
-            e.reply([segment.at(user_id),
-            `\n🎉早睡早起好习惯，恭喜你获得了${energy_}点内力！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
         } else {
             energy_ = 1
             json[user_id].energy += energy_
