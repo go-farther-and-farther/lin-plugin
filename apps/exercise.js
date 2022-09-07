@@ -70,8 +70,8 @@ export class exercise extends plugin {//修炼
         if (!json.hasOwnProperty(user_id)) {//如果json中不存在该用户
             json[user_id] = Template
         }
-        exerciseCD[user_id] = true;
-        exerciseCD[user_id] = setTimeout(() => {//冷却时间
+        exerciseCD_[user_id] = true;
+        exerciseCD_[user_id] = setTimeout(() => {//冷却时间
             if (exerciseCD_[user_id]) {
                 delete exerciseCD_[user_id];
             }
@@ -232,7 +232,7 @@ export class exercise extends plugin {//修炼
                 `\n现在一点也不早了，你只或得了${energy_}点内力。\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);
             }
             return
-        } if (e.msg.includes('睡觉') || e.msg.includes('早睡')) {
+        } else if (e.msg.includes('睡觉') || e.msg.includes('早睡')) {
             if (hours >= 20 && hours <= 22) {
                 e.group.muteMember(user_id, 60 * 60 * 8); //禁言
                 energy_ = Math.round(3 + 3 * Math.random())
@@ -269,7 +269,7 @@ export class exercise extends plugin {//修炼
             energy_ = 1
             json[user_id].energy += energy_
             e.reply([segment.at(user_id),
-            `\n由于睡太晚，你只获得了${energy_}点内力！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
+            `\n由于熬夜，你只获得了${energy_}点内力！\n你的内力为:${json[user_id].energy}\n你的境界为${json[user_id].levels}`]);//发送消息
         }
         fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
         return true;
