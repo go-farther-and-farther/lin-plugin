@@ -40,7 +40,7 @@ export class qykai extends plugin {
             /** https://oicqjs.github.io/oicq/#events */
             event: 'message',
             /** 优先级，数字越小等级越高 */
-            priority: 60000,
+            priority: 12000,
             rule: [
                 {
                     /** 命令正则匹配 */
@@ -57,7 +57,7 @@ export class qykai extends plugin {
      */
     async qyk(e) {
         //是否为文本消息和指令
-        if (!e.msg || e.msg.charAt(0) == '#') return;
+        if (!e.msg || e.msg.charAt(0) == '#') return false;
         //e.msg 用户的命令消息
         console.log("用户命令：", e.msg);
         //一个控制ai回复概率的模块
@@ -76,18 +76,18 @@ export class qykai extends plugin {
             e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
         }
         else if (gailv == 0)
-            return
+            return false
         if (e.msg.includes('太安静')) {
             //如果概率等于1
             if (gailv > 0.99) {
                 //提示不能修改了
                 gailv = 1
                 e.reply("很吵了，不能修改了");
-                return true;
+                return false;
             }
             gailv = gailv + gailv_;
             e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-            return true;
+            return false;
         }
         if (e.msg.includes('太吵')) {
             //如果概率等于0
@@ -95,16 +95,16 @@ export class qykai extends plugin {
                 //提示不能修改了
                 gailv = 0
                 e.reply("很安静了，不能修改了");
-                return true;
+                return false;
             }
             gailv = gailv - gailv_;
             e.reply(`可以输入“太吵了”、“太安静了”或者进入文件修改是否只关注@信息来调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-            return true;
+            return false;
         }
         if (j >= gailv)//ai的触发率
         {
             console.log("退出青云客ai");
-            return true;
+            return false;
         }
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
         if (e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt) {
@@ -146,6 +146,6 @@ export class qykai extends plugin {
             return false;
             //Created by Yoolan.
         }
-        else return;
+        else return false;
     }
 }
