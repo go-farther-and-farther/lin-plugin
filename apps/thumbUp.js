@@ -66,6 +66,7 @@ export class thumbUp extends plugin {
 	async thumbUp_(e) {
 		e.reply(`开始任务！`)
 		thumbUp()
+        e.reply(`开始完成，一天只能进行一次任务哦！`)
 		return
 	}
 }
