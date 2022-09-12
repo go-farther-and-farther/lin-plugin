@@ -39,7 +39,12 @@ export class thumbUp extends plugin {
 			]
 		})
 	}
-	thumbUp = function () {
+	/**
+	 * 
+	 * @param e oicq传递的事件参数e
+	 */
+	async thumbUp_(e) {
+		e.reply(`开始任务！`)
 		for (let i = 0; i < idlist.length; i++) {
 			setTimeout(() => {
 				console.log(`本次为第${i}次点赞，`, idlist[i], `正在点赞中...`)
@@ -58,20 +63,29 @@ export class thumbUp extends plugin {
 				}
 			}, delayed * i);//设置延时
 		}
-	}
-	/**
-	 * 
-	 * @param e oicq传递的事件参数e
-	 */
-	async thumbUp_(e) {
-		e.reply(`开始任务！`)
-		thumbUp()
-        e.reply(`开始完成，一天只能进行一次任务哦！`)
+		e.reply(`开始完成，一天只能进行一次任务哦！`)
 		return
 	}
 }
 let time_ = String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 2) + 6) + ' * * *'
 schedule.scheduleJob(time_, function () {
-	thumbUp()
+	for (let i = 0; i < idlist.length; i++) {
+		setTimeout(() => {
+			console.log(`本次为第${i}次点赞，`, idlist[i], `正在点赞中...`)
+			if (!blacklist_id.includes(idlist[i])) {
+				//判断是否在黑名单中
+				Bot.pickFriend(idlist[i]).thumbUp(10);
+				console.log(`点赞成功`)
+				let l = Math.floor(Math.random() * 100)
+				if ((!blacklist.includes(id[i]) || l < 20) && reply) {//这里是消息的触发概率
+					let msg = [
+						words[Math.floor(Math.random() * words.length)],
+						//segment.image(url),
+					];
+					Bot.pickUser(idlist[i]).sendMsg(msg)
+				}
+			}
+		}, delayed * i);//设置延时
+	}
 }
 );
