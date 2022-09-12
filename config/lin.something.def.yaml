@@ -13,7 +13,7 @@ thumbUp_cfg:
 # 青云客 设置
 qykai_cfg: 
   gailv: 0.1
-  gailv_: 0.1
+  gailv_: 0.5
 
 # 决斗系列插件 设置
 duel_cfg: 
