@@ -4,7 +4,7 @@
 # 点赞 设置
 thumbUp_cfg: 
   # 是否全局点赞
-  everyone: ture 
+  everyone: true 
   # 是否有点赞提示，例如“你的喜欢是对我最大的支持！”
   reply: false
   # 最短点赞时间间隔，单位毫秒
