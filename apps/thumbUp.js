@@ -15,7 +15,7 @@ for (var key of alllist) {
 	idlist.push(key[0])
 }
 //判断白名单模式还是全局模式
-if (id.length == 0 && everyone) {
+if (id.length == 0 && everyone==1) {
 } else {
 	var idlist = id;
 }
@@ -54,7 +54,7 @@ export class thumbUp extends plugin {
 					Bot.pickFriend(idlist[i]).thumbUp(10);
 					console.log(`点赞成功`)
 					let l = Math.floor(Math.random() * 100)
-					if ((!blacklist.includes(id[i]) || l < 20) && reply_something) {//这里是消息的触发概率
+					if ((!blacklist.includes(id[i]) || l < 20) && reply_something==1) {//这里是消息的触发概率
 						let msg = [
 							words[Math.floor(Math.random() * words.length)],
 							//segment.image(url),
@@ -76,7 +76,7 @@ schedule.scheduleJob(time_, function () {
 				Bot.pickFriend(idlist[i]).thumbUp(10);
 				console.log(`点赞成功`)
 				let l = Math.floor(Math.random() * 100)
-				if ((!blacklist.includes(id[i]) || l < 20) && reply_something) {//这里是消息的触发概率
+				if ((!blacklist.includes(id[i]) || l < 20) && reply_something==1) {//这里是消息的触发概率
 					let msg = [
 						words[Math.floor(Math.random() * words.length)],
 						//segment.image(url),
