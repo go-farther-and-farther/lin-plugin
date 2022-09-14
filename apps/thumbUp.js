@@ -2,7 +2,7 @@ import plugin from '../../../lib/plugins/plugin.js'
 import schedule from "node-schedule";
 import command from '../command/command.js'
 var everyone = await command.getConfig("thumbUp_cfg", "everyone") //是否全局点赞
-var reply = await command.getConfig("thumbUp_cfg", "reply") //是否有点赞提示
+var reply_something = await command.getConfig("thumbUp_cfg", "reply_something") //是否有点赞提示
 var delayed = await command.getConfig("thumbUp_cfg", "time") + Math.floor(Math.random() * 60000);//这个是间隔时间
 let id = [];//这个是点赞名单,空则全部点赞
 let blacklist = [];//这个是不发送提示消息的黑名单，有的人怕被骚扰。
@@ -54,7 +54,7 @@ export class thumbUp extends plugin {
 					Bot.pickFriend(idlist[i]).thumbUp(10);
 					console.log(`点赞成功`)
 					let l = Math.floor(Math.random() * 100)
-					if ((!blacklist.includes(id[i]) || l < 20) && reply) {//这里是消息的触发概率
+					if ((!blacklist.includes(id[i]) || l < 20) && reply_something) {//这里是消息的触发概率
 						let msg = [
 							words[Math.floor(Math.random() * words.length)],
 							//segment.image(url),
@@ -76,7 +76,7 @@ schedule.scheduleJob(time_, function () {
 				Bot.pickFriend(idlist[i]).thumbUp(10);
 				console.log(`点赞成功`)
 				let l = Math.floor(Math.random() * 100)
-				if ((!blacklist.includes(id[i]) || l < 20) && reply) {//这里是消息的触发概率
+				if ((!blacklist.includes(id[i]) || l < 20) && reply_something) {//这里是消息的触发概率
 					let msg = [
 						words[Math.floor(Math.random() * words.length)],
 						//segment.image(url),
