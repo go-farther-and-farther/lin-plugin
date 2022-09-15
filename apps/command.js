@@ -31,6 +31,10 @@ export class command extends plugin {
      * @param e oicq传递的事件参数e
      */
     async command(e) {
+        if (!e.isMaster) {
+            e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
+            return true
+        }
         if (!fs.existsSync(somethingyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
             fs.copyFileSync(`${_defpath}`, `${somethingyamlpath}`);
             e.reply(`${somethingyamlpath}不存在配置，已经自动生成。`)
