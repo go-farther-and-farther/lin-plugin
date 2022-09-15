@@ -10,7 +10,7 @@ if (filename.indexOf(".json") == -1) {//如果文件名不包含.json
 }
 const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
-const helppath = `./plugins/lin/lin帮助.txt`;
+const helppath = `./plugins/lin/resources/lin帮助.txt`;
 const _path = process.cwd();
 //配置一些有意思的参数
 
