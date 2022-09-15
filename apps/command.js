@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import YAML from 'yaml'
 const _defpath = `./plugins/lin/config/lin.something.def.yaml`;
 const somethingyamlpath = `./plugins/lin/config/lin.something.yaml`;
-const somethingyamlbackpath = `./plugins/lin/config/lin.something..yaml`;
+const somethingyamlbackpath = `./plugins/lin/config/lin.something.back.yaml`;
 const _path = process.cwd().replace(/\\/g, '/');
 
 export class command extends plugin {
