@@ -19,7 +19,7 @@ export class command extends plugin {
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: "^#(强制)?重置lin配置$", //匹配消息正则，命令正则
+                    reg: "^#lin(强制)?重置配置$", //匹配消息正则，命令正则
                     /** 执行方法 */
                     fnc: 'command'
                 }
