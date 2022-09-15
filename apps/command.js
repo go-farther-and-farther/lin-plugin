@@ -9,7 +9,7 @@ export class command extends plugin {
     constructor() {
         super({
             /** 功能名称 */
-            name: '点赞',
+            name: 'lin重置配置',
             /** 功能描述 */
             dsc: '',
             /** https://oicqjs.github.io/oicq/#events */
@@ -19,7 +19,7 @@ export class command extends plugin {
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: "^#lin(强制)?重置配置$", //匹配消息正则，命令正则
+                    reg: "^#lin(强制)?(重置|刷新)配置$", //匹配消息正则，命令正则
                     /** 执行方法 */
                     fnc: 'command'
                 }
