@@ -55,6 +55,8 @@ export class linUpdate extends plugin {
         let command = "git pull";
 
         if (isForce) {
+            command = "git checkout . && git pull";
+            await this.e.reply("正在执行强制更新操作，请稍等");
             if (!fs.existsSync(configyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
                 fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
                 e.reply(`${configyamlpath}不存在配置，已经自动生成。`)
@@ -63,8 +65,6 @@ export class linUpdate extends plugin {
                 fs.copyFileSync(`${configyamlpath}`, `${configyamlbackpath}`);
                 e.reply(`${configyamlpath}存在配置，已经自动重置并备份。`)
             }
-            command = "git checkout . && git pull";
-            await this.e.reply("正在执行强制更新操作，请稍等");
         } else {
             await this.e.reply("正在执行更新操作，请稍等");
         }
