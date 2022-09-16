@@ -56,7 +56,7 @@ export class thumbUp extends plugin {
 					let l = Math.round(Math.random() * 100)//获取一个0~100的随机数
 					if (!blacklist.includes(id[i]) && l < huifu && reply_something == 1) {//这里是消息的触发概率
 						let msg = []
-						if (url == ``) {
+						if (url == 'https...') {
 							msg = [
 								words[Math.floor(Math.random() * words.length)],
 							];
@@ -87,7 +87,7 @@ schedule.scheduleJob(time_, function () {
 				let l = Math.round(Math.random() * 100)//获取一个0~100的随机数
 				if (!blacklist.includes(id[i]) && l < huifu && reply_something == 1) {//这里是消息的触发概率
 					let msg = []
-					if (url == ``) {
+					if (url == 'https...') {
 						msg = [
 							words[Math.floor(Math.random() * words.length)],
 						];
