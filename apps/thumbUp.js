@@ -8,7 +8,6 @@ var huifu = await command.getConfig("thumbUp_cfg", "huifu");//这个是点赞完
 var url = await command.getConfig("thumbUp_cfg", "url");;//这个是接口,获取图片的。
 let id = [];//这个是点赞名单,空则全部点赞
 let blacklist = [];//这个是不发送提示消息的黑名单，有的人怕被骚扰。
-let huifu = 30;//这个是点赞完成后推送消息的概率
 let blacklist_id = [];//这个是黑名单id
 let words = ['早上好！', "你的喜欢是对我最大的支持！", "早上好哦！"]//这个是点赞完之后说的话
 var alllist = Bot.fl//获取全部好友名单
