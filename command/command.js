@@ -1,22 +1,22 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
 
-const _defpath = `./plugins/lin/config/lin.something.def.yaml`;
+const _defpath = `./plugins/lin/config/lin.config.def.yaml`;
 
-const somethingyamlpath = `./plugins/lin/config/lin.something.yaml`;
+const configyamlpath = `./plugins/lin/config/lin.config.yaml`;
 
 const _path = process.cwd().replace(/\\/g, '/');
 
-if (!fs.existsSync(somethingyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
-    fs.copyFileSync(`${_defpath}`, `${somethingyamlpath}`);
+if (!fs.existsSync(configyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
+    fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
 }
 
 async function getConfig(name, key) {//获取
 
-    let config = YAML.parse(fs.readFileSync(somethingyamlpath, 'utf8'));
+    let config = YAML.parse(fs.readFileSync(configyamlpath, 'utf8'));
 
     if (!config[name][key]) {
-        logger.error(`没有设置[${name}]:[${key}]    请前往[${somethingyamlpath}]设置！`);
+        logger.error(`没有设置[${name}]:[${key}],请使用“#lin重置配置”指令或者前往[${configyamlpath}]设置！`);
     }
     return config[name][key];
 
