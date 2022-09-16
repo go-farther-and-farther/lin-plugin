@@ -41,6 +41,7 @@ export class command extends plugin {
         }
         else {
             fs.copyFileSync(`${configyamlpath}`, `${configyamlbackpath}`);
+            fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
             e.reply(`${configyamlpath}存在配置，已经自动重置并备份。`)
         }
     }
