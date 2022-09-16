@@ -1,15 +1,15 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
-const _defpath = `./plugins/lin/config/lin.something.def.yaml`;
-const somethingyamlpath = `./plugins/lin/config/lin.something.yaml`;
-const somethingyamlbackpath = `./plugins/lin/config/lin.something.back.yaml`;
+const _defpath = `./plugins/lin/config/lin.config.def.yaml`;
+const configyamlpath = `./plugins/lin/config/lin.config.yaml`;
+const configyamlbackpath = `./plugins/lin/config/lin.config..yaml`;
 const _path = process.cwd().replace(/\\/g, '/');
 
 export class command extends plugin {
     constructor() {
         super({
             /** 功能名称 */
-            name: 'lin重置配置',
+            name: '点赞',
             /** 功能描述 */
             dsc: '',
             /** https://oicqjs.github.io/oicq/#events */
@@ -19,7 +19,7 @@ export class command extends plugin {
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: "^#lin(强制)?(重置|刷新)配置$", //匹配消息正则，命令正则
+                    reg: "^#(强制)?重置lin配置$", //匹配消息正则，命令正则
                     /** 执行方法 */
                     fnc: 'command'
                 }
@@ -35,13 +35,13 @@ export class command extends plugin {
             e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
             return true
         }
-        if (!fs.existsSync(somethingyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
-            fs.copyFileSync(`${_defpath}`, `${somethingyamlpath}`);
-            e.reply(`${somethingyamlpath}不存在配置，已经自动生成。`)
+        if (!fs.existsSync(configyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
+            fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
+            e.reply(`${configyamlpath}不存在配置，已经自动生成。`)
         }
         else {
-            fs.copyFileSync(`${somethingyamlpath}`, `${somethingyamlbackpath}`);
-            e.reply(`${somethingyamlpath}存在配置，已经自动重置并备份。`)
+            fs.copyFileSync(`${configyamlpath}`, `${configyamlbackpath}`);
+            e.reply(`${configyamlpath}存在配置，已经自动重置并备份。`)
         }
     }
 }
