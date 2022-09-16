@@ -2,6 +2,10 @@ import plugin from '../../../lib/plugins/plugin.js'
 import { createRequire } from "module";
 import schedule from "node-schedule";
 import cfg from '../../../lib/config/config.js'
+import fs from 'node:fs'
+const _defpath = `./plugins/lin/config/lin.config.def.yaml`;
+const configyamlpath = `./plugins/lin/config/lin.config.yaml`;
+const configyamlbackpath = `./plugins/lin/config/lin.config.back.yaml`;;
 
 const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
