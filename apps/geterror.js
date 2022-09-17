@@ -1,7 +1,6 @@
 import fs from 'node:fs'
 import { segment } from 'oicq'
 const errorpath = `./logs/error.log`;
-const date = new Date();
 export class geterror extends plugin {
     constructor() {
         super({
@@ -63,9 +62,10 @@ export class geterror extends plugin {
             e.reply("请主人私聊我哦！")
             return true;
         }
-        let journalpath = `./logs/command.${date.getFullYear}` + `-${date.getMonth}-` + `${date.getDate}.log`
+        var date = new Date();
+        let journalpath = `./logs/command.${date.getFullYear()}-${date.getMonth()}-${date.getDate()}.log`
         if (!fs.existsSync(journalpath)) {
-            e.reply(`${journalpath}不存在。`)
+            e.reply(`${journalpath}不存在。年：${year}`)
         }
         else {
             e.friend.sendFile(journalpath)
@@ -84,9 +84,10 @@ export class geterror extends plugin {
             e.reply(`${errorpath}不存在报错文件。`)
         }
         else {
-            let errorbackpath = `./logs/error.` + date + `.back.log`
+            var date = new Date();
+            let errorbackpath = `./logs/error.${date.getFullYear()}-${date.getMonth()}-${date.getDate()}back.log`
             fs.copyFileSync(`${errorpath}`, `${errorbackpath}`);
-            e.reply(`${configyamlpath}存在配置，已经自动重置并备份。`)
+            e.reply(`${errorpath}存在报错，已经自动重置并备份。`)
             fs.unlink(errorpath, function (err) {
                 if (err) {
                     throw err;
