@@ -3,7 +3,6 @@ import { createRequire } from "module";
 import puppeteer from "../../..//lib/puppeteer/puppeteer.js";
 import command from '../command/command.js'
 import cfg from '../../../lib/config/config.js'
-import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
 const helppath = `./plugins/lin/resources/lin帮助.txt`;
