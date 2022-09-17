@@ -5,6 +5,8 @@ const _defpath = `./plugins/lin/config/lin.config.def.yaml`;
 
 const configyamlpath = `./plugins/lin/config/lin.config.yaml`;
 
+const resourcespath = `./plugins/lin/config/lin.config.yaml`;
+
 const _path = process.cwd().replace(/\\/g, '/');
 
 if (!fs.existsSync(configyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
@@ -21,5 +23,16 @@ async function getConfig(name, key) {//获取
     return config[name][key];
 
 }
+async function getresources(name, key) {//获取
 
-export default { getConfig }
+    let config = YAML.parse(fs.readFileSync(resourcespath, 'utf8'));
+
+    if (!config[name][key]) {
+        logger.error(`没有设置[${name}]:[${key}],请使用“#lin重置配置”指令或者前往[${resourcespath}]设置！`);
+    }
+    return config[name][key];
+
+}
+
+
+export default { getConfig ,getresources}
