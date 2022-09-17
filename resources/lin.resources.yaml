@@ -1,5 +1,10 @@
 # import command from '../command/command.js'
 # await command.getresources("", "");
 help: 
-  help: 【lin-Plugin说明】,lin-Plugin是一个Yunzai-Bot的插件,提供包括自动点赞等升级功能,git地址：https://gitee.com/go-farther-and-farther/lin-plugin,【使用说明】,lin-Plugin需要最新版本的Yunzai-Bot,将整个lin-plugin文件夹放置在Yunzai-Bot/plugins/目录下，重启Yunzai-Bot即可使用。,【功能说明】,跑路功能：‘#跑路帮助’,ai功能：‘#跑路帮助’,更新功能；‘#lin更新’,搜歌和动漫功能：‘搜歌...’或者‘搜动漫...’,决斗功能：输入“#决斗帮助”查看
-  help2: 【决斗功能】发起决斗，败者被禁言,决斗指令：#御前决斗@...,#(锻炼|早睡),#我的境界,#(设置|移除)半步管理员@...,【决斗规则】挑战成功时：,自己战斗力-3，对方战斗力不变,挑战失败：,自己战斗力-1，对方战斗力-2,战斗力每日自动-1,战斗力越高胜率越大，禁言时间越长,天时地利依赖系数在duel.js中 
+  help: 【项目地址】,lin-Plugin是一个Yunzai-Bot的插件,git地址：https://gitee.com/go-farther-and-farther/lin,
+  【使用说明】,lin-Plugin需要最新版本的Yunzai-Bot,将整个lin文件夹放置在Yunzai-Bot/plugins/目录下，重启Yunzai-Bot即可使用。,
+  【功能说明】,跑路功能,“#跑路"，“#回来”,ai功能,‘#跑路帮助’,更新功能；“#lin更新”,搜歌和动漫功能,“搜歌...”或者“搜动漫...”,
+  【决斗游戏】,输入“#决斗帮助”查看
+  help2: 【决斗功能】,发起决斗，败者被禁言,决斗指令：#御前决斗@...,#(锻炼|早睡),
+  “#我的境界”,“#(设置|移除)半步管理员@...”,【决斗规则】挑战成功,自己战斗力-3，对方战斗力不变,挑战失败,
+  自己战斗力-1，对方战斗力-2,战斗力每日自动-1,战斗力越高胜率越大，禁言时间越长,天时地利依赖系数在duel.js中 
