@@ -63,7 +63,8 @@ export class geterror extends plugin {
             return true;
         }
         var date = new Date();
-        let journalpath = `./logs/command.${date.getFullYear()}-${date.getMonth()}-${date.getDate()}.log`
+        let month = date.getMonth() + 1
+        let journalpath = `./logs/command.${date.getFullYear()}-${month}-${date.getDate()}.log`
         if (!fs.existsSync(journalpath)) {
             e.reply(`${journalpath}不存在。`)
         }
@@ -85,7 +86,8 @@ export class geterror extends plugin {
         }
         else {
             var date = new Date();
-            let errorbackpath = `./logs/error.${date.getFullYear()}-${date.getMonth()}-${date.getDate()}back.log`
+            let month = date.getMonth() + 1
+            let errorbackpath = `./logs/error.${date.getFullYear()}-${month}-${date.getDate()}back.log`
             fs.copyFileSync(`${errorpath}`, `${errorbackpath}`);
             e.reply(`${errorpath}存在报错，已经自动重置并备份。`)
             fs.unlink(errorpath, function (err) {
