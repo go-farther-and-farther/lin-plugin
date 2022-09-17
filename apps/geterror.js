@@ -21,7 +21,7 @@ export class geterror extends plugin {
                     fnc: 'geterror'
                 }, {
                     /** 命令正则匹配 */
-                    reg: "^#(强制)?重置lin配置$", //匹配消息正则，命令正则
+                    reg: "^#lin(重置|删除)报错$", //匹配消息正则，命令正则
                     /** 执行方法 */
                     fnc: 'errorback'
                 }
