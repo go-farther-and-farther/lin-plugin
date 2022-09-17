@@ -3,6 +3,7 @@ import { createRequire } from "module";
 import puppeteer from "../../..//lib/puppeteer/puppeteer.js";
 import command from '../command/command.js'
 var msg = await command.getresources("help", "help");
+var msg2 = await command.getresources("help", "help2");
 const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
 
@@ -33,6 +34,8 @@ export class help extends plugin {
 	 * @param e oicq传递的事件参数e
 	 */
 	async rules(e) {
+        if(e.msg.includes('决斗')||e.msg.includes('游戏'))
+        msg = msg2
 		let data1 = {}
 		let ml = process.cwd()
 		console.log(ml)
