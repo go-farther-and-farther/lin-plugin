@@ -22,6 +22,12 @@ export class command extends plugin {
                     reg: "^#(强制)?重置lin配置$", //匹配消息正则，命令正则
                     /** 执行方法 */
                     fnc: 'command'
+                },
+                {
+                    /** 命令正则匹配 */
+                    reg: "^#(发送|获取)?lin配置$", //匹配消息正则，命令正则
+                    /** 执行方法 */
+                    fnc: 'getconfig'
                 }
             ]
         })
@@ -35,6 +41,10 @@ export class command extends plugin {
             e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
             return true
         }
+        if (e.isGroup) {
+            e.reply("请主人私聊我哦！")
+            return true;
+        }
         if (!fs.existsSync(configyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
             fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
             e.reply(`${configyamlpath}不存在配置，已经自动生成。`)
@@ -43,6 +53,22 @@ export class command extends plugin {
             fs.copyFileSync(`${configyamlpath}`, `${configyamlbackpath}`);
             fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
             e.reply(`${configyamlpath}存在配置，已经自动重置并备份。`)
+        }
+    }
+    async getconfig(e) {
+        if (!e.isMaster) {
+            e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
+            return true
+        }
+        if (e.isGroup) {
+            e.reply("请主人私聊我哦！")
+            return true;
+        }
+        if (!fs.existsSync(configyamlpath)) {
+            e.reply(`${configyamlpath}不存在。`)
+        }
+        else {
+            e.friend.sendFile(configyamlpath)
         }
     }
 }
