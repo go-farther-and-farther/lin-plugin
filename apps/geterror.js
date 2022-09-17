@@ -65,7 +65,7 @@ export class geterror extends plugin {
         var date = new Date();
         let journalpath = `./logs/command.${date.getFullYear()}-${date.getMonth()}-${date.getDate()}.log`
         if (!fs.existsSync(journalpath)) {
-            e.reply(`${journalpath}不存在。年：${year}`)
+            e.reply(`${journalpath}不存在。`)
         }
         else {
             e.friend.sendFile(journalpath)
