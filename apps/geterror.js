@@ -19,6 +19,11 @@ export class geterror extends plugin {
                     reg: "^#lin(发送|获取)?报错$", //匹配消息正则，命令正则
                     /** 执行方法 */
                     fnc: 'geterror'
+                }, {
+                    /** 命令正则匹配 */
+                    reg: "^#(强制)?重置lin配置$", //匹配消息正则，命令正则
+                    /** 执行方法 */
+                    fnc: 'errorback'
                 }
             ]
         })
@@ -32,11 +37,40 @@ export class geterror extends plugin {
             e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
             return true
         }
-        if (!fs.existsSync(errorpath)) {//如果配置不存在，则复制一份默认配置到配置里面
+        if (e.isGroup) {
+            e.reply("请主人私聊我哦！")
+            return true;
+        }
+        if (!fs.existsSync(errorpath)) {
             e.reply(`${errorpath}不存在。`)
         }
         else {
             e.friend.sendFile(errorpath)
+        }
+    }
+    async errorback(e) {
+        if (!e.isMaster) {
+            e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
+            return true
+        }
+        if (e.isGroup) {
+            e.reply("请主人私聊我哦！")
+            return true;
+        }
+        if (!fs.existsSync(errorpath)) {
+            e.reply(`${errorpath}不存在报错文件。`)
+        }
+        else {
+            const date = new Date();
+            let errorbackpath = `./logs/error.` + date + `.back.log`
+            fs.copyFileSync(`${errorpath}`, `${errorbackpath}`);
+            fs.unlink(errorpath, function (err) {
+                if (err) {
+                    throw err;
+                }
+                console.log('文件:' + errorpath + '删除成功！');
+            })
+            e.reply(`${configyamlpath}存在配置，已经自动重置并备份。`)
         }
     }
 }
