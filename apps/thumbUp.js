@@ -46,7 +46,7 @@ export class thumbUp extends plugin {
 	 */
 	async thumbUp(e) {
 		e.reply(`开始任务！`)
-		console.log(`开始点赞，点赞名单：`, idlist[i], `正在点赞中...`)
+		console.log(`开始点赞，点赞名单：`, idlist, `正在点赞中...`)
 		for (let i = 0; i < idlist.length; i++) {
 			setTimeout(() => {
 				console.log(`本次为第${i}次点赞，正在点赞中...`)
@@ -77,7 +77,7 @@ export class thumbUp extends plugin {
 let time_ = String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 2) + 6) + ' * * *'
 //这个是获取一个6~7点的时间，到了时间则执行任务
 schedule.scheduleJob(time_, function () {
-	console.log(`开始点赞，点赞名单：`, idlist[i], `正在点赞中...`)
+	console.log(`开始点赞，点赞名单：`, idlist, `正在点赞中...`)
 	for (let i = 0; i < idlist.length; i++) {
 		setTimeout(() => {
 			console.log(`本次为第${i}次点赞，正在点赞中...`)
