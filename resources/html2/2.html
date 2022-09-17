@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="{{dz}}\plugins\example\html2\2.css" />
+</head>
+<body> 
+	<div class="bt" >点 歌 列 表</div>
+	
+	<div class="lb" >
+	<script type="text/javascript">
+
+var i=0
+
+for (i=0;i<="{{cs}}".length-1;i++)
+
+{
+if("{{cs}}"[i] != '[' & "{{cs}}"[i] != ']' & "{{cs}}"[i] != ',' ){
+document.write("{{cs}}"[i] )
+}
+
+if("{{cs}}"[i] == ','){
+document.write("<br />" )
+document.write("<br />" )
+}
+
+
+}
+
+</script>
+</div >
+
+<p class="lb" >你可以发送#听+数字来选择歌曲，例如#听1</p>
+<div class="jw" >CREAT    BY   地球生物</div>
+
+
+</body>
+</html>
