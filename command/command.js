@@ -5,7 +5,7 @@ const _defpath = `./plugins/lin/config/lin.config.def.yaml`;
 
 const configyamlpath = `./plugins/lin/config/lin.config.yaml`;
 
-const resourcespath = `./plugins/lin/config/lin.config.yaml`;
+const resourcespath = `./plugins/lin/resources/lin.resources.yaml`;
 
 const _path = process.cwd().replace(/\\/g, '/');
 
