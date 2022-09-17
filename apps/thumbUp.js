@@ -5,7 +5,7 @@ var everyone = await command.getConfig("thumbUp_cfg", "everyone") //是否全局
 var reply_something = await command.getConfig("thumbUp_cfg", "reply_something") //是否有点赞提示
 var delayed = await command.getConfig("thumbUp_cfg", "time") * 1000;//这个是间隔时间
 var huifu = await command.getConfig("thumbUp_cfg", "huifu");//这个是点赞完成后推送消息的概率
-var url = await command.getConfig("thumbUp_cfg", "url");;//这个是接口,获取图片的。
+var url = '';//这个是接口,获取图片的。
 let id = [];//这个是点赞名单,空则全部点赞
 let blacklist = [];//这个是不发送提示消息的黑名单，有的人怕被骚扰。
 let blacklist_id = [];//这个是黑名单id
@@ -56,7 +56,7 @@ export class thumbUp extends plugin {
 					let l = Math.round(Math.random() * 100)//获取一个0~100的随机数
 					if (!blacklist.includes(id[i]) && l < huifu && reply_something == 1) {//这里是消息的触发概率
 						let msg = []
-						if (url == 100) {
+						if (url == '') {
 							msg = [
 								words[Math.floor(Math.random() * words.length)],
 							];
@@ -87,7 +87,7 @@ schedule.scheduleJob(time_, function () {
 				let l = Math.round(Math.random() * 100)//获取一个0~100的随机数
 				if (!blacklist.includes(id[i]) && l < huifu && reply_something == 1) {//这里是消息的触发概率
 					let msg = []
-					if (url == 100) {
+					if (url == '') {
 						msg = [
 							words[Math.floor(Math.random() * words.length)],
 						];
