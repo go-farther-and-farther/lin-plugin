@@ -44,7 +44,7 @@ export class help extends plugin {
 	 * @param e oicq传递的事件参数e
 	 */
 	async helps(e) {
-		if (e.msg.includes('决斗') || e.msg.includes('决斗'))
+		if (e.msg.includes('决斗') || e.msg.includes('规则'))
 			msg = msg2
 		if (e.msg.includes('版本'))
 			msg = msg3
