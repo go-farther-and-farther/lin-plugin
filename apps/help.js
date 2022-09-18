@@ -9,6 +9,8 @@ const helppath = `./plugins/lin/resources/lin帮助.txt`;
 const _path = process.cwd();
 const dirpath = "data/lin/";//文件夹路径
 var msg = await command.getresources("help", "help");
+var msg2 = await command.getresources("help", "help2");
+var msg3 = await command.getresources("help", "help3");
 
 export class help extends plugin {
 	constructor() {
@@ -24,7 +26,7 @@ export class help extends plugin {
 			rule: [
 				{
 					/** 命令正则匹配 */
-					reg: "^#(lin|麟|决斗|游戏)(规则|帮助)$", //匹配消息正则，命令正则
+					reg: "^#(lin|麟|决斗|游戏)(规则|帮助|版本)$", //匹配消息正则，命令正则
 					/** 执行方法 */
 					fnc: 'helps'
 				}, {
@@ -42,6 +44,10 @@ export class help extends plugin {
 	 * @param e oicq传递的事件参数e
 	 */
 	async helps(e) {
+		if (e.msg.includes('决斗') || e.msg.includes('决斗'))
+			msg = msg2
+		if (e.msg.includes('版本'))
+			msg = msg3
 		let data1 = {}
 		let ml = process.cwd()
 		console.log(ml)
