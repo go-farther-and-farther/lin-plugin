@@ -62,7 +62,7 @@ export class getconfig extends plugin {
         if (e.isPrivate) {
             e.friend.sendFile(configyamlpath)
         }
-        if (e.isPrivate) {
+        if (e.isGroup) {
             e.group.fs.upload(configyamlpath)
         }
     }
