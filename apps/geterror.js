@@ -65,8 +65,13 @@ export class geterror extends plugin {
         if (!fs.existsSync(journalpath)) {
             e.reply(`${journalpath}不存在。`)
         }
-        else {
+        if (e.isGroup) {
+            e.group.fs.upload(journalpath)
+            return true;
+        }
+        if (e.isPrivate) {
             e.friend.sendFile(journalpath)
+            return true;
         }
     }
     async errorback(e) {
