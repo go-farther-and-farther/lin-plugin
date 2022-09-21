@@ -42,10 +42,10 @@ export class geterror extends plugin {
             e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
             return true
         }
-        if (e.isGroup) {
-            e.reply("请主人私聊我哦！")
-            return true;
-        }
+        //if (e.isGroup) {
+            //e.reply("请主人私聊我哦！")
+            //return true;
+        //}
         if (!fs.existsSync(errorpath)) {
             e.reply(`${errorpath}不存在。`)
         }
@@ -57,10 +57,6 @@ export class geterror extends plugin {
         if (!e.isMaster) {
             e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
             return true
-        }
-        if (e.isGroup) {
-            e.reply("请主人私聊我哦！")
-            return true;
         }
         var date = new Date();
         let month = date.getMonth() + 1
@@ -76,10 +72,6 @@ export class geterror extends plugin {
         if (!e.isMaster) {
             e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
             return true
-        }
-        if (e.isGroup) {
-            e.reply("请主人私聊我哦！")
-            return true;
         }
         if (!fs.existsSync(errorpath)) {
             e.reply(`${errorpath}不存在报错文件。`)
