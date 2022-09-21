@@ -12,7 +12,7 @@ thumbUp_cfg:
 ai_cfg: 
   gailv: 0.5
   gailv_: 0.1
-  api: http://api.qingyunke.com/api.php?key=free&appid=0&msg=
+  ai_api: http://api.qingyunke.com/api.php?key=free&appid=0&msg=
 
 # 决斗系列插件 设置
 duel_cfg: 
