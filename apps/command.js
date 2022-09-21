@@ -5,7 +5,7 @@ const configyamlpath = `./plugins/lin/config/lin.config.yaml`;
 const configyamlbackpath = `./plugins/lin/config/lin.config.back.yaml`;
 const _path = process.cwd().replace(/\\/g, '/');
 
-export class command extends plugin {
+export class getconfig extends plugin {
     constructor() {
         super({
             /** 功能名称 */
