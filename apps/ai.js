@@ -10,6 +10,7 @@ const BotName = global.Bot.nickname;
 //机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
 var gailv = await command.getConfig("qykai_cfg", "gailv");
 var gailv_ = await command.getConfig("qykai_cfg", "gailv_");
+var ai_api = await command.getConfig("qykai_cfg", "ai_api");
 var onlyReplyAt = true //群聊是否只关注@信息
 var bad2good = {
     "傻逼": ["天使", "大可爱"],
@@ -30,7 +31,7 @@ String.prototype.beGood = function () {
     //输出转化结果
     return output;
 };
-export class qykai extends plugin {
+export class ai extends plugin {
     constructor() {
         super({
             /** 功能名称 */
@@ -111,7 +112,7 @@ export class qykai extends plugin {
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
-            let postUrl = `http://api.qingyunke.com/api.php?key=free&appid=0&msg=${message}`;
+            let postUrl = `${ai_api}${message}`;
             //抓取消息并转换为Json
             let response = await fetch(postUrl);
             let replyData = await response.json();
