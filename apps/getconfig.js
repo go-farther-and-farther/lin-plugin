@@ -41,7 +41,6 @@ export class getconfig extends plugin {
             e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
             return true
         }
-
         if (!fs.existsSync(configyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
             fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
             e.reply(`${configyamlpath}不存在配置，已经自动生成。`)
@@ -57,12 +56,14 @@ export class getconfig extends plugin {
             e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
             return true
         }
-
         if (!fs.existsSync(configyamlpath)) {
             e.reply(`${configyamlpath}不存在。`)
         }
-        else {
+        if (e.isPrivate) {
             e.friend.sendFile(configyamlpath)
+        }
+        if (e.isPrivate) {
+            e.group.fs.upload(helppath)
         }
     }
 }
