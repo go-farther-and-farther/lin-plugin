@@ -1,6 +1,4 @@
-# import command from '../command/command.js'
-# await command.getConfig("", "");
-# 插件出现问题就重新拉取，就是重装的意思
+# 这个里面的东西，使用者可以自由修改，但是后果自负。使用“#刷新lin配置”重置配置
 # 点赞 设置
 thumbUp_cfg: 
   # 是否全局点赞(还需要你点赞名单为空)和是否回复提醒,1是，2否
