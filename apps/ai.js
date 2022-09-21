@@ -8,9 +8,9 @@ import command from '../command/command.js'
 //项目路径
 const BotName = global.Bot.nickname;
 //机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
-var gailv = await command.getConfig("qykai_cfg", "gailv");
-var gailv_ = await command.getConfig("qykai_cfg", "gailv_");
-var ai_api = await command.getConfig("qykai_cfg", "ai_api");
+var gailv = await command.getConfig("ai_cfg", "gailv");
+var gailv_ = await command.getConfig("ai_cfg", "gailv_");
+var ai_api = await command.getConfig("ai_cfg", "ai_api");
 var onlyReplyAt = true //群聊是否只关注@信息
 var bad2good = {
     "傻逼": ["天使", "大可爱"],
