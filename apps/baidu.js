@@ -31,9 +31,17 @@ export class baidu extends plugin {
     async baidu(e) {
         console.log("百度的内容：", e.msg);
         //接收时将机器人名字替换为青云客AI的菲菲
-        let message = e.msg.trim().replace('#百度一下', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
-        message = message.trim().replace('#百度', "").replace(/[\n|\r]/g, "，");
-        let postUrl = `https://www.baidu.com/s?wd=${message}`;
+        if (e.msg.includes('#百度百科')) {
+            let message = e.msg.trim().replace('#百度一下', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
+            message = message.trim().replace('#百度', "").replace(/[\n|\r]/g, "，");
+            let postUrl = `https://www.baidu.com/s?wd=${message}`;
+        }
+        else {
+            let message = e.msg.trim().replace('#百度百科一下', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
+            message = message.trim().replace('#百度百科', "").replace(/[\n|\r]/g, "，");
+            let postUrl = `https://baike.baidu.com/search/none?word=${message}`;
+        }
+
         const puppeteer = require('puppeteer');
 
         const browser = await puppeteer.launch({
