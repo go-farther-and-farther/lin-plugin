@@ -114,7 +114,7 @@ export class ai extends plugin {
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
-            let postUrl = `${ai_api}${message}`;
+            let postUrl = `http://api.qingyunke.com/api.php?key=free&appid=0&msg=${message}`;
             //抓取消息并转换为Json
             let response = await fetch(postUrl);
             let replyData = await response.json();
