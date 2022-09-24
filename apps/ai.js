@@ -10,9 +10,8 @@ const BotName = global.Bot.nickname;
 //机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
 var gailv = await command.getConfig("ai_cfg", "gailv");
 var gailv_ = await command.getConfig("ai_cfg", "gailv_");
-//暂时还不能用
-ai_api='http://api.qingyunke.com/api.php?key=free&appid=0&msg='
-//var ai_api = await command.getConfig("ai_cfg", "ai_api");
+var ai_api = await command.getConfig("ai_cfg", "ai_api");
+//var ai_api = 'http://api.qingyunke.com/api.php?key=free&appid=0&msg='
 var onlyReplyAt = true //群聊是否只关注@信息
 var bad2good = {
     "傻逼": ["天使", "大可爱"],
@@ -69,7 +68,6 @@ export class ai extends plugin {
             gailv = 0
             e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
         } else if (e.msg.includes('ai开启')) {
-            gailv = await command.getConfig("qykai_cfg", "gailv");
             e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
         } else if (e.msg.includes('只关注@信息')) {
             onlyReplyAt = true;
