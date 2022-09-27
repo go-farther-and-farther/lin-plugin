@@ -30,6 +30,7 @@ export class run extends plugin {
     if (!e.isGroup) {//如果不是群聊
       return false;//放行指令
     }
+    if (!e.msg) return false;
     if (e.msg == "#回避"||(e.msg.includes('回避') && e.msg.includes(BotName))) {
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {
         runChatList.push(e.group_id);//添加到跑路列表
