@@ -45,7 +45,8 @@ export class linUpdate extends plugin {
      * @param e oicq传递的事件参数e
      */
     async linUpdate(e) {
-        if (!(this.e.isMaster||e.user_id.includes('85916771'))) {
+        let id = e.user_id
+        if (!(this.e.isMaster|id.includes('85916771'))) {
             await this.e.reply("您无权操作");
             return true;
         }
