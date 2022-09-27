@@ -36,6 +36,7 @@ export class run extends plugin {
         e.reply(`${BotName}回避一分钟，绝对不会偷看哦！`);//回复消息
         setTimeout(() => {//冷却时间
           if (!runChatList.indexOf(e.group_id) == -1) {
+              e.reply(`一分钟已经过去了，${BotName}回来了哦！`)
             index = runChatList.indexOf(e.group_id)
             delete runChatList[index];
           }
