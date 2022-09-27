@@ -30,6 +30,19 @@ export class run extends plugin {
     if (!e.isGroup) {//如果不是群聊
       return false;//放行指令
     }
+    if (e.msg.includes('回避') && e.msg.includes(BotName)) {
+      if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {
+        runChatList.push(e.group_id);//添加到跑路列表
+        e.reply(`${BotName}回避一分钟，绝对不会偷看哦！`);//回复消息
+        setTimeout(() => {//冷却时间
+          if (!runChatList.indexOf(e.group_id) == -1) {
+            index = runChatList.indexOf(e.group_id)
+            delete runChatList[index];
+          }
+        }, 1 * 1000 * 60);
+      }
+      return true;//拦截指令
+    }
     if (e.msg == "#回来") {//如果消息内容是回来指令
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {//如果是群主或管理员
         if (runChatList.indexOf(e.group_id) == -1) {//如果不在跑路列表中
