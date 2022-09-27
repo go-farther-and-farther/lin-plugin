@@ -30,7 +30,7 @@ export class run extends plugin {
     if (!e.isGroup) {//如果不是群聊
       return false;//放行指令
     }
-    if (e.msg.includes('回避') && e.msg.includes(BotName)) {
+    if (e.msg == "#回避"||(e.msg.includes('回避') && e.msg.includes(BotName))) {
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {
         runChatList.push(e.group_id);//添加到跑路列表
         e.reply(`${BotName}回避一分钟，绝对不会偷看哦！`);//回复消息
@@ -43,7 +43,7 @@ export class run extends plugin {
       }
       return true;//拦截指令
     }
-    if (e.msg == "#回来") {//如果消息内容是回来指令
+    if (e.msg == "#回来"||(e.msg.includes('回来')&&e.msg.includes(BotName))) {//如果消息内容是回来指令
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {//如果是群主或管理员
         if (runChatList.indexOf(e.group_id) == -1) {//如果不在跑路列表中
           e.reply(`本群${BotName}没有跑路，一直到在哦！`);//回复消息
@@ -57,7 +57,7 @@ export class run extends plugin {
         e.reply(`只有群主或管理员才能让${BotName}回来！`);//回复消息
         return true;//拦截指令
       }
-    } else if (e.msg == "#跑路") {//如果消息内容是跑路指令
+    } else if (e.msg == "#跑路"||(e.msg.includes('跑路')&&e.msg.includes(BotName))) {//如果消息内容是跑路指令
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {//如果是群主或管理员
         if (runChatList.indexOf(e.group_id) == -1) {//如果不在跑路列表中
           runChatList.push(e.group_id);//添加到跑路列表
@@ -71,7 +71,7 @@ export class run extends plugin {
         e.reply(`只有群主或管理员才能跑路！`);//回复消息
         return true;//拦截指令
       }
-    } else if (e.msg == "#跑路列表") {//如果消息内容是跑路列表指令
+    } else if (e.msg == "#跑路列表"||(e.msg.includes('跑路列表')&&e.msg.includes(BotName))) {//如果消息内容是跑路列表指令
       if (e.isMaster) {//如果是主人
         if (runChatList.length == 0) {//如果跑路列表为空
           e.reply("当前没有跑路的群聊哦！");//回复消息
