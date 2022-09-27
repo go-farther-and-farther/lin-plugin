@@ -1,5 +1,5 @@
-import plugin from '../../lib/plugins/plugin.js';
-import common from '../../lib/common/common.js';
+import plugin from '../../../lib/plugins/plugin.js';
+import common from '../../../lib/common/common.js';
 import { segment } from "oicq";
 import fetch from "node-fetch";
 //本插件作者：碧落
