@@ -25,7 +25,7 @@ for (let i in files) {
 }
 
 logger.info('-----------')
-logger.info('加载麟插件完成..[v1.0.0]')
+logger.info('加载麟插件完成..[v1.1.0]')
 logger.info('-----------')
 
 let restart = await redis.get(`Yunzai:lin:restart`);
