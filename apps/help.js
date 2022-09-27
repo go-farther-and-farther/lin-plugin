@@ -5,9 +5,9 @@ import command from '../command/command.js'
 import cfg from '../../../lib/config/config.js'
 const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
-const helppath = `./plugins/lin/resources/lin帮助.txt`;
+const helppath = `./plugins/lin-plugin/resources/lin帮助.txt`;
 const _path = process.cwd();
-const dirpath = "data/lin/";//文件夹路径
+const dirpath = "data/lin-plugin/";//文件夹路径
 var msg = await command.getresources("help", "help");
 var msg2 = await command.getresources("help", "help2");
 var msg3 = await command.getresources("help", "help3");
@@ -52,7 +52,7 @@ export class help extends plugin {
 		let ml = process.cwd()
 		console.log(ml)
 		data1 = {
-			tplFile: './plugins/lin/resources/html2/2.html',
+			tplFile: './plugins/lin-plugin/resources/html2/2.html',
 			cs: msg,
 			dz: ml
 		}
@@ -70,7 +70,7 @@ export class help extends plugin {
 		let command = "git pull";
 		//下面是强制更新，如果需要可以替换上面这句！！！！！！！！！！！！！
 		//let command = "git checkout . && git pull";
-		var ls = exec(command, { cwd: `${_path}/plugins/lin/` }, async function (error, stdout, stderr) {
+		var ls = exec(command, { cwd: `${_path}/plugins/lin-plugin/` }, async function (error, stdout, stderr) {
 			let isChanges = error.toString().includes("Your local changes to the following files would be overwritten by merge") ? true : false;
 
 			let isNetwork = error.toString().includes("fatal: unable to access") ? true : false;
