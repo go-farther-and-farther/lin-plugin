@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import common from '../../lib/common/common.js'
 
-const files = fs.readdirSync('./plugins/lin/apps').filter(file => file.endsWith('.js'))
+const files = fs.readdirSync('./plugins/lin-plugin/apps').filter(file => file.endsWith('.js'))
 
 let ret = []
 
