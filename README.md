@@ -11,11 +11,11 @@
 
 - 推荐使用git进行安装，以方便后续升级。在BOT根目录夹打开终端，运行
 
-`git clone https://gitee.com/go-farther-and-farther/lin ./plugins/lin/`
+`git clone https://gitee.com/go-farther-and-farther/lin ./plugins/lin-plugin/`
 
 或者
 
-`git clone https://github.com/go-farther-and-farther/lin ./plugins/lin/`
+`git clone https://github.com/go-farther-and-farther/lin ./plugins/lin-plugin/`
 
 使用`lin更新`来更新插件。
 
