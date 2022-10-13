@@ -158,7 +158,7 @@ export class exercise extends plugin {//修炼
             e.reply('突破失败，请努力修行')
             return
         }
-        json[user_id].levels++
+        json[user_id].level++
         if (json[user_id].level == 0) json[user_id].levels = '无境界'
         else if (json[user_id].level == 1) json[user_id].levels = '小乘境初期'
         else if (json[user_id].level == 2) json[user_id].levels = '小乘境中期'
