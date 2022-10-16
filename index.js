@@ -1,9 +1,19 @@
 import fs from 'node:fs'
-import common from '../../lib/common/common.js'
+import Ver from './components/Version.js'
+import chalk from 'chalk'
 
 const files = fs.readdirSync('./plugins/lin-plugin/apps').filter(file => file.endsWith('.js'))
 
 let ret = []
+
+logger.info(chalk.green('------^-^------'))
+logger.info(chalk.yellow(`麟插件${Ver.ver}初始化~`))
+logger.info(chalk.green('---------------'))
+
+if (!await redis.get(`lin:notice:deltime`)) {
+    await redis.set(`lin:notice:deltime`, "600")
+}
+
 
 files.forEach((file) => {
     ret.push(import(`./apps/${file}`))
@@ -20,23 +30,6 @@ for (let i in files) {
         logger.error(ret[i].reason)
         continue
     }
-
-    apps[name] = ret[i].value[name]
+    apps[name] = ret[i].value[Object.keys(ret[i].value)[0]]
 }
-
-logger.info('-----------')
-logger.info('加载麟插件完成..[v1.1.0]')
-logger.info('-----------')
-
-let restart = await redis.get(`Yunzai:lin:restart`);
-if (restart) {
-    restart = JSON.parse(restart);
-    if (restart.isGroup) {
-        Bot.pickGroup(restart.id).sendMsg(`重启成功`);
-    } else {
-        common.relpyPrivate(restart.id, `重启成功`);
-    }
-    redis.del(`Yunzai:lin:restart`);
-}
-
 export { apps }
