@@ -21,7 +21,7 @@ export class update extends plugin {
       priority: 1145,
       rule: [
         {
-          reg: "^#*麟(插件)?(强制)?更新",
+          reg: "^#*(麟|lin)(插件)?(强制)?更新",
           fnc: "update",
         },
       ],
