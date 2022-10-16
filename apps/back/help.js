@@ -1,18 +1,16 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import cfg from '../../../lib/config/config.js'
 import { createRequire } from "module";
-//项目路径
-//如果报错请删除Yunzai/data/目录中lin文件夹
-const dirpath = "data/lin/";//文件夹路径
-var filename = `battle`;//文件名
-if (filename.indexOf(".json") == -1) {//如果文件名不包含.json
-	filename = filename + ".json";//添加.json
-}
+import puppeteer from "../../..//lib/puppeteer/puppeteer.js";
+import command from '../command/command.js'
+import cfg from '../../../lib/config/config.js'
 const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
 const helppath = `./plugins/lin-plugin/resources/lin帮助.txt`;
 const _path = process.cwd();
-//配置一些有意思的参数
+const dirpath = "data/lin/";//文件夹路径
+var msg = await command.getresources("help", "help");
+var msg2 = await command.getresources("help", "help2");
+var msg3 = await command.getresources("help", "help3");
 
 export class help extends plugin {
 	constructor() {
@@ -28,27 +26,46 @@ export class help extends plugin {
 			rule: [
 				{
 					/** 命令正则匹配 */
-					reg: "^#(lin|麟|决斗|游戏)(规则|帮助)$", //匹配消息正则，命令正则
+					reg: "^#(lin|麟|决斗|游戏)(规则|帮助|版本)$", //匹配消息正则，命令正则
+					/** 执行方法 */
+					fnc: 'helps'
+				}, {
+					/** 命令正则匹配 */
+					reg: "^#(lin|麟|决斗|游戏)(文档|txt)(规则|帮助)$", //匹配消息正则，命令正则
 					/** 执行方法 */
 					fnc: 'rules'
 				}
 			]
 		})
 	}
+
 	/**
 	 * 
 	 * @param e oicq传递的事件参数e
 	 */
+	async helps(e) {
+		if (e.msg.includes('决斗') || e.msg.includes('规则'))
+			msg = msg2
+		if (e.msg.includes('版本'))
+			msg = msg3
+		let data1 = {}
+		let ml = process.cwd()
+		console.log(ml)
+		data1 = {
+			tplFile: './plugins/lin-plugin/resources/html2/2.html',
+			cs: msg,
+			dz: ml
+		}
+		let img = await puppeteer.screenshot("123", {
+			...data1,
+		});
+		e.reply(img)
+	}
 	async rules(e) {
 		if (e.isPrivate
 		) { e.friend.sendFile(helppath) }
 		else {
 			e.group.fs.upload(helppath)
-		}
-		//let msg1 = "发现新版本，自动更新！"
-		for (let i of cfg.masterQQ) { //这里定义发送给所有主人
-			let userId = i
-			//Bot.pickUser(userId).sendMsg(msg1)
 		}
 		let command = "git pull";
 		//下面是强制更新，如果需要可以替换上面这句！！！！！！！！！！！！！
