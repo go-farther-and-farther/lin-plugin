@@ -137,7 +137,7 @@ export const helpList = [{
     title: '#Lin更新',
     desc: '更新Lin插件'
   }, {
-    icon: 03,
+    icon: 80,
     title: '#Lin版本',
     desc: '查看版本记录'
   }, {
@@ -149,11 +149,11 @@ export const helpList = [{
     title: 'ai开启/关闭',
     desc: 'ai开关'
   }, {
-    icon: 01,
+    icon: 80,
     title: '太吵了/太安静了',
     desc: 'ai触发概率调整'
   }, {
-    icon: 02,
+    icon: 80,
     title: '只关注@消息/关注所有消息',
     desc: 'ai模式调整'
   }, {
