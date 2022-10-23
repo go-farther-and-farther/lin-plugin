@@ -57,9 +57,11 @@ schedule.scheduleJob(time_, function () {
 );
 function thumbUp_start() {
 	console.log(`开始点赞，点赞名单：`, idlist, `正在点赞中...`)
-	for (let i of cfg.masterQQ) { //给所有主人发通知******************************
-		let msg1 = `开始点赞，人数： ${idlist.length} ,正在点赞中...`
-		Bot.pickUser(i).sendMsg(msg1)
+	for (let i = 0; i < idlist.length; i++) { //给所有主人发通知,有顺序带延迟******************************
+		setTimeout(() => {
+			let msg1 = `开始thumbUp： ${idlist.length} 次`
+			Bot.pickUser(cfg.masterQQ[i]).sendMsg(msg1)
+		}, delayed * i);//设置延时
 	}
 	for (var i = 0; i < idlist.length; i++) {
 		setTimeout(() => {
@@ -87,13 +89,13 @@ function thumbUp_start() {
 		}, delayed * i);//设置延时
 	}
 	setTimeout(() => {
-		for (let j of cfg.masterQQ) { //给所有主人发通知******************************
-			let msg1 = `点赞任务完成：${idlist.length}个
+		for (let j = 0; i < idlist.length; i++) { //给所有主人发通知,有顺序带延迟******************************
+			let msg1 = `任务完成：${idlist.length}个
 			已签：${idlist.length}个
 			成功：${i}个
 			失败：${idlist.length - i}个
-			点赞完成`
-			Bot.pickUser(j).sendMsg(msg1)
+			thumbUp完成`
+			Bot.pickUser(cfg.masterQQ[j]).sendMsg(msg1)
 		}
 	}, delayed * i);//设置延时
 }
