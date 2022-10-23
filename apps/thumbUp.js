@@ -1,6 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import schedule from "node-schedule";
 import command from '../command/command.js'
+import cfg from '../../../lib/config/config.js'
 var everyone = await command.getConfig("thumbUp_cfg", "everyone") //是否全局点赞
 var reply_something = await command.getConfig("thumbUp_cfg", "reply_something") //是否有点赞提示
 var delayed = await command.getConfig("thumbUp_cfg", "time") * 1000;//这个是间隔时间
@@ -45,40 +46,22 @@ export class thumbUp extends plugin {
 	 * @param e oicq传递的事件参数e
 	 */
 	async thumbUp(e) {
-		e.reply(`开始任务！`)
-		console.log(`开始点赞，点赞名单：`, idlist, `正在点赞中...`)
-		for (let i = 0; i < idlist.length; i++) {
-			setTimeout(() => {
-				console.log(`本次为第${i}次点赞，正在点赞中...`)
-				if (!blacklist_id.includes(idlist[i])) {
-					//判断是否在黑名单中，在则跳过
-					Bot.pickFriend(idlist[i]).thumbUp(10);//点赞10次，默认没有svip
-					let l = Math.round(Math.random() * 100)//获取一个0~100的随机数
-					if (!blacklist.includes(id[i]) && l < huifu && reply_something == 1) {//这里是消息的触发概率
-						let msg = []
-						if (url == '') {
-							msg = [
-								words[Math.floor(Math.random() * words.length)],
-							];
-						}
-						else {
-							msg = [
-								words[Math.floor(Math.random() * words.length)],
-								segment.image(url),
-							];
-						}
-						Bot.pickUser(idlist[i]).sendMsg(msg)
-					}
-				}
-			}, delayed * i);//设置延时
-		}
+		thumbUp_start();
 	}
 }
 let time_ = String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 60)) + ' ' + String(Math.floor(Math.random() * 2) + 6) + ' * * *'
 //这个是获取一个6~7点的时间，到了时间则执行任务
 schedule.scheduleJob(time_, function () {
+	thumbUp_start();
+}
+);
+function thumbUp_start() {
 	console.log(`开始点赞，点赞名单：`, idlist, `正在点赞中...`)
-	for (let i = 0; i < idlist.length; i++) {
+	for (let i of cfg.masterQQ) { //给所有主人发通知******************************
+		let msg1 = `开始点赞，人数： ${idlist.length} ,正在点赞中...`
+		Bot.pickUser(i).sendMsg(msg1)
+	}
+	for (var i = 0; i < idlist.length; i++) {
 		setTimeout(() => {
 			console.log(`本次为第${i}次点赞，正在点赞中...`)
 			if (!blacklist_id.includes(idlist[i])) {
@@ -103,5 +86,14 @@ schedule.scheduleJob(time_, function () {
 			}
 		}, delayed * i);//设置延时
 	}
+	setTimeout(() => {
+		for (let j of cfg.masterQQ) { //给所有主人发通知******************************
+			let msg1 = `点赞任务完成：${idlist.length}个
+			已签：${idlist.length}个
+			成功：${i}个
+			失败：${idlist.length - i}个
+			点赞完成`
+			Bot.pickUser(j).sendMsg(msg1)
+		}
+	}, delayed * i);//设置延时
 }
-);
