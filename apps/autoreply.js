@@ -51,9 +51,7 @@ export class autoreply extends plugin {
   /** 接受内容 */
   doRep() {
     /** 复读内容 */
-    console.log('lll');
     this.reply1(this.e.message)//, false, { recallMsg: 5 }
-    console.log('llll');
     /** 结束上下文 */
     this.finish('doRep')
   }
