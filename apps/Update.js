@@ -1,7 +1,8 @@
 import plugin from "../../../lib/plugins/plugin.js";
 import { createRequire } from "module";
 import lodash from "lodash";
-import { Restart } from '../../other/restart.js'
+import { Restart } from "../../other/restart.js";
+import puppeteer from "../../../lib/puppeteer/puppeteer.js";
 
 const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
@@ -16,15 +17,21 @@ export class update extends plugin {
   constructor() {
     super({
       name: "更新插件",
+      dsc: "更新插件代码",
       event: "message",
-      priority: 1000,
+      priority: 4000,
       rule: [
         {
-          reg: "^#*(lin|麟)(插件)?(强制)?更新$",
+          reg: "^#*lin(插件)?(强制)?更新",
           fnc: "update",
+        },
+        {
+          reg: "^#*lin(插件)?版本$",
+          fnc: "version",
         },
       ],
     });
+
   }
 
   /**
@@ -50,13 +57,16 @@ export class update extends plugin {
 
     /** 是否需要重启 */
     if (this.isUp) {
-      // await this.reply("更新完毕，请重启云崽后生效")
-      setTimeout(() => this.restart(), 2000)
+      setTimeout(() => this.restart(), 2000);
     }
   }
 
+
+  /**
+   * 云崽重启操作
+   */
   restart() {
-    new Restart(this.e).restart()
+    new Restart(this.e).restart();
   }
 
   /**
@@ -136,7 +146,7 @@ export class update extends plugin {
 
     let end = "";
     end =
-      "更多详细信息，请前往gitee查看\nhttps://gitee.com/go-farther-and-farther/lin-plugin";
+      "更多详细信息，请前往gitee查看\nhttps://gitee.com/go-farther-and-farther/lin-plugin/commits/master";
 
     log = await this.makeForwardMsg(`lin插件更新日志，共${line}条`, log, end);
 
@@ -254,8 +264,8 @@ export class update extends plugin {
     if (errMsg.includes("be overwritten by merge")) {
       await this.reply(
         msg +
-        `存在冲突：\n${errMsg}\n` +
-        "请解决冲突后再更新，或者执行#强制更新，放弃本地修改"
+          `存在冲突：\n${errMsg}\n` +
+          "请解决冲突后再更新，或者执行#强制更新，放弃本地修改"
       );
       return;
     }
