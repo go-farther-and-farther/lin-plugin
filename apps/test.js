@@ -15,7 +15,7 @@ export class run extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: '',
+          reg: '#测试',
           /** 执行方法 */
           fnc: 'test'
         }
