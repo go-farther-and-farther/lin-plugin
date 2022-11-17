@@ -116,13 +116,6 @@ export const helpList = [{
     desc: '帮助规划路线'
   }]
 }, {
-  group: '决斗小游戏',
-  list: [{
-    icon: 21,
-    title: '#游戏帮助',
-    desc: '获取决斗游戏帮助'
-  }]
-}, {
   group: "其他功能",
   list: [{
     icon: 38,
