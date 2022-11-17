@@ -66,7 +66,7 @@ function thumbUp_start() {
 	for (var i = 0; i < idlist.length; i++) {
 		setTimeout(() => {
 			console.log(`本次为第${i}次点赞，正在点赞中...`)
-			if (!blacklist_id.includes(idlist[i])) {
+			if (!blacklist_id.includes(idlist[i])&&idlist[i]) {
 				//判断是否在黑名单中，在则跳过
 				Bot.pickFriend(idlist[i]).thumbUp(10);//点赞10次，默认没有svip
 				let l = Math.round(Math.random() * 100)//获取一个0~100的随机数
