@@ -45,6 +45,7 @@ export class geterror extends plugin {
          if (!fs.existsSync(errorpath)) {
             e.reply(`${errorpath}不存在。`)
         }
+        //上传文件
         if (e.isGroup) {
             e.group.fs.upload(errorpath)
             return true;
@@ -53,6 +54,7 @@ export class geterror extends plugin {
             e.friend.sendFile(errorpath)
             return true;
         }
+        e.reply("可以使用“#备份报错”以刷新报错")
     }
     async getjournal(e) {
         if (!e.isMaster) {

@@ -12,6 +12,7 @@ let blacklist = [];//这个是不发送提示消息的黑名单，有的人怕�
 let blacklist_id = [];//这个是黑名单id
 let words = ['早上好！', "你的喜欢是对我最大的支持！", "早上好哦！"]//这个是点赞完之后说的话
 var alllist = Bot.fl//获取全部好友名单
+var uin= Bot.uin
 idlist = [];
 for (var key of alllist) {
 	idlist.push(key[0])
@@ -66,8 +67,9 @@ function thumbUp_start() {
 	for (var i = 0; i < idlist.length; i++) {
 		setTimeout(() => {
 			console.log(`本次为第${i}次点赞，正在点赞中...`)
-			if (!blacklist_id.includes(idlist[i])&&idlist[i]) {
+			if (!blacklist_id.includes(idlist[i])&&idlist[i]!=uin) {
 				//判断是否在黑名单中，在则跳过
+				//新增了点赞跳过自己，解决了重启的问题
 				Bot.pickFriend(idlist[i]).thumbUp(10);//点赞10次，默认没有svip
 				let l = Math.round(Math.random() * 100)//获取一个0~100的随机数
 				if (!blacklist.includes(id[i]) && l < huifu && reply_something == 1) {//这里是消息的触发概率
