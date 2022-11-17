@@ -27,6 +27,6 @@ export class run extends plugin {
    * @param e oicq传递的事件参数e
    */
   async test(e) {
-    e.reply(e.uin)
+    e.reply(Bot.uin)
   }
 }
