@@ -64,11 +64,12 @@ export class ai extends plugin {
         console.log("用户命令：", e.msg);
         //一个控制ai回复概率的模块
         let j = Math.random();
-        if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('ai关闭')) { gailv = 0 }
-        else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('ai开启')) { gailv = 1 }
-        else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('只关注@')) { onlyReplyAt = true; }
-        else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('关注所有')) { onlyReplyAt = false; }       
-        else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('太安静')) {
+        var huifu = 0;
+        if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('ai关闭')) { gailv = 0; huifu = 1 }
+        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('ai开启')) { gailv = 1; huifu = 1 }
+        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('只关注@')) { onlyReplyAt = true; huifu = 1 }
+        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('关注所有')) { onlyReplyAt = false; huifu = 1 }
+        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('太安静')) {
             //如果概率等于1
             if (gailv > 0.99) {
                 //提示不能修改了
@@ -77,8 +78,9 @@ export class ai extends plugin {
                 return false;
             }
             gailv = gailv + gailv_;
+            huifu = 1;
         }
-        else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('太吵')) {
+        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('太吵')) {
             //如果概率等于0
             if (gailv < 0.01) {
                 //提示不能修改了
@@ -86,12 +88,13 @@ export class ai extends plugin {
                 e.reply("很安静了，不能修改了");
                 return false;
             }
+            huifu = 1;
             gailv = gailv - gailv_;
         }//前面几个是判断是否是本插件指令
         else if (e.msg.charAt(0) == '#') { return false }
         //带有#，是其他插件指令，退出
         else if (gailv == 0) { return false }
-        else if (j >= gailv &&(e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt)) {
+        else if (j >= gailv && (e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt)) {
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
@@ -129,7 +132,7 @@ export class ai extends plugin {
             //返回false继续匹配其他命令
             return false;
         }//含return
-        e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
+        if (huifu == 1) { e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`) }
         return false;
 
     }
