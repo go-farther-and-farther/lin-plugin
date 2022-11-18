@@ -21,7 +21,12 @@ export class help extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: '#(lin|麟|决斗|游戏)(规则|帮助|版本)',
+          reg: '#(lin|麟)(规则|帮助|版本)',
+          /** 执行方法 */
+          fnc: 'message'
+        },{
+          /** 命令正则匹配 */
+          reg: '#(ai|智能回复)(规则|帮助|版本)',
           /** 执行方法 */
           fnc: 'message'
         }
@@ -30,16 +35,19 @@ export class help extends plugin {
   }
 
   async message() {
-    return await help(this.e);
+    return await help(this.e,"help");
+  }
+  async message() {
+    return await help(this.e,"help2");
   }
 
 }
 
-async function help(e) {
+async function help(e,help) {
   let custom = {}
   let help = {}
 
-  let { diyCfg, sysCfg } = await Data.importCfg('help')
+  let { diyCfg, sysCfg } = await Data.importCfg(help)
 
   custom = help
 
