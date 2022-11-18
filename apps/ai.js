@@ -66,8 +66,8 @@ export class ai extends plugin {
         let j = Math.random();
         if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('ai关闭')) { gailv = 0 }
         else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('ai开启')) { gailv = 1 }
-        else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('只关注@信息')) { onlyReplyAt = true; }
-        else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('关注所有消息')) { onlyReplyAt = false; }       
+        else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('只关注@')) { onlyReplyAt = true; }
+        else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('关注所有')) { onlyReplyAt = false; }       
         else if ((e.isMaster||e.sender.role == "admin")&&e.msg.includes('太安静')) {
             //如果概率等于1
             if (gailv > 0.99) {

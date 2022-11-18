@@ -7,7 +7,7 @@ import cfg from '../../../lib/config/config.js'
 import { Cfg, Common, Data, Version, Plugin_Name, Plugin_Path } from '../components/index.js'
 // import Theme from './help/theme.js'
 
-export class lin_help extends plugin {
+export class help extends plugin {
   constructor() {
     super({
       /** 功能名称 */
