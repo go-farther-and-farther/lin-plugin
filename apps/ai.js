@@ -59,26 +59,16 @@ export class ai extends plugin {
      */
     async qyk(e) {
         //是否为文本消息和指令
-        if (!e.msg || e.msg.charAt(0) == '#') return false;
+        if (!e.msg) return false;
         //e.msg 用户的命令消息
         console.log("用户命令：", e.msg);
         //一个控制ai回复概率的模块
         let j = Math.random();
-        if (e.msg.includes('ai关闭')) {
-            gailv = 0
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-        } else if (e.msg.includes('ai开启')) {
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-        } else if (e.msg.includes('只关注@信息')) {
-            onlyReplyAt = true;
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-        } else if (e.msg.includes('关注所有消息')) {
-            onlyReplyAt = false;
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-        }
-        else if (gailv == 0)
-            return false
-        if (e.msg.includes('太安静')) {
+        if (e.msg.includes('ai关闭')) { gailv = 0 }
+        else if (e.msg.includes('ai开启')) { gailv = 1 }
+        else if (e.msg.includes('只关注@信息')) { onlyReplyAt = true; }
+        else if (e.msg.includes('关注所有消息')) { onlyReplyAt = false; }       
+        else if (e.msg.includes('太安静')) {
             //如果概率等于1
             if (gailv > 0.99) {
                 //提示不能修改了
@@ -87,10 +77,8 @@ export class ai extends plugin {
                 return false;
             }
             gailv = gailv + gailv_;
-            e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-            return false;
         }
-        if (e.msg.includes('太吵')) {
+        else if (e.msg.includes('太吵')) {
             //如果概率等于0
             if (gailv < 0.01) {
                 //提示不能修改了
@@ -99,16 +87,10 @@ export class ai extends plugin {
                 return false;
             }
             gailv = gailv - gailv_;
-            e.reply(`可以输入“太吵了”、“太安静了”或者进入文件修改是否只关注@信息来调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
-            return false;
         }
-        if (j >= gailv)//ai的触发率
-        {
-            console.log("退出青云客ai");
-            return false;
-        }
-        //群聊是否需要消息中带有机器人昵称或者@机器人才触发
-        if (e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt) {
+        else if (e.msg.charAt(0) == '#') { return false }
+        else if (gailv == 0) { return false }
+        else if (j >= gailv || e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt) {
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
@@ -145,8 +127,9 @@ export class ai extends plugin {
             }
             //返回false继续匹配其他命令
             return false;
-            //Created by Yoolan.
-        }
-        else return false;
+        }//含return
+        e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`)
+        return false;
+
     }
 }
