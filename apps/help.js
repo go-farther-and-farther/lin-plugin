@@ -37,7 +37,7 @@ export class help extends plugin {
   async message() {
     return await help(this.e,"help");
   }
-  async message() {
+  async message2() {
     return await help(this.e,"help2");
   }
 
