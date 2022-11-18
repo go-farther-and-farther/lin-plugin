@@ -43,11 +43,11 @@ export class lin_help extends plugin {
 
 }
 
-async function help(e,help) {
+async function help(e,key) {
   let custom = {}
   let help = {}
 
-  let { diyCfg, sysCfg } = await Data.importCfg(help)
+  let { diyCfg, sysCfg } = await Data.importCfg(key)
 
   custom = help
 
