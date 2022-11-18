@@ -10,7 +10,7 @@ thumbUp_cfg:
 
 # 青云客 设置:初始概率和，每次改变量
 ai_cfg: 
-  gailv: 0.5
+  gailv: 0
   gailv_: 0.1
   ai_api: http://api.qingyunke.com/api.php?key=free&appid=0&msg=
 
