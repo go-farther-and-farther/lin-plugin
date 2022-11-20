@@ -156,7 +156,7 @@ export const helpList = [{
     desc: 'ai触发概率调整'
   }, {
     icon: 80,
-    title: '只关注@消息/关注所有消息',
+    title: 'ai只关注@消息/ai关注所有消息',
     desc: 'ai模式调整'
   }, {
     icon: 22,
