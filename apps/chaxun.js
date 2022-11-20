@@ -25,7 +25,7 @@ export class chaxun extends plugin {
                 },
                 {
                     /** 命令正则匹配 */
-                    reg: '^#*看书(.*)|#听[1-9][0-9]|#听[0-9]$',
+                    reg: '^#*看书(.*)|#看[1-9][0-9]|#看[0-9]$',
                     /** 执行方法 */
                     fnc: 'biluo'
                 },
@@ -185,8 +185,8 @@ export class chaxun extends plugin {
         let img = await puppeteer.screenshot('biluo', imgdata);
         if (img) await this.reply(img);
         
-        if (e.msg.includes("#听")) {
-			var id = e.msg.replace(/#听/g, "").trim()
+        if (e.msg.includes("#看")) {
+			var id = e.msg.replace(/#看/g, "").trim()
 		}
         
         }
