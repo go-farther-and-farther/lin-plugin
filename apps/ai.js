@@ -110,7 +110,7 @@ export class ai extends plugin {
         }
         let b = Math.round(Math.random() * 100)
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
-        if (e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt || gailv > b){
+        if (e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt && gailv > b){
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
