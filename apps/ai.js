@@ -63,56 +63,54 @@ export class ai extends plugin {
         //e.msg 用户的命令消息
         console.log("用户命令：", e.msg);
         //一个控制ai回复概率的模块
-        let j = Math.random();
+    if(e.isMaster){
         if (e.msg.includes('ai关闭')) {
             gailv = 0
-            e.reply(`ai已关闭`)
+            e.reply("ai已关闭")
         } else if (e.msg.includes('ai开启')) {
-            e.reply(`ai已开启`)
-        } else if (e.msg.includes('只关注@信息')) {
-            onlyReplyAt = true;
-            e.reply(`好啦，现在只回复@消息了`)
-        } else if (e.msg.includes('关注所有消息')) {
-            onlyReplyAt = false;
-            e.reply(`现在我会关注每一条消息了`)
+            gailv = 10
+            e.reply("ai已开启。概率为10％")
         }
-        else if (gailv == 0)
-            return false
-        if (e.msg.includes('太安静')) {
+        if (e.msg.includes('只关注@信息')) {
+            onlyReplyAt = true;
+            e.reply("好啦，现在只回复@消息了")
+        }
+        if (e.msg.includes('关注所有消息')) {
+            onlyReplyAt = false;
+            e.reply("现在我会关注每一条消息了")
+        }
+        if (e.msg.includes('太安静了')) {
             //如果概率等于1
-            if (gailv > 0.99) {
+            if (gailv > 99) {
                 //提示不能修改了
-                gailv = 1
+                gailv = 100
                 e.reply("很吵了，不能修改了");
-                return false;
+                return true;;
             }
             else{
-            gailv = gailv + gailv_;
-            e.reply(`目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，`)
-            return false;
+            gailv += gailv_;
+            e.reply(`目前青云客ai触发概率：${gailv}%，`)
+            return true;
             }
         }
-        if (e.msg.includes('太吵')) {
+        if (e.msg.includes('太吵了')) {
             //如果概率等于0
-            if (gailv < 0.01) {
+            if (gailv < 1) {
                 //提示不能修改了
                 gailv = 0
                 e.reply("很安静了，不能修改了");
-                return false;
+                return true;
             }
             else{
-            gailv = gailv - gailv_;
-            e.reply(`目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，`)
-            return false;
+            gailv -= gailv_;
+            e.reply(`目前青云客ai触发概率：${gailv}%，`)
+            return true;
             }
         }
-        if (j >= gailv)//ai的触发率
-        {
-            console.log("退出青云客ai");
-            return false;
         }
+        let b = Math.round(Math.random() * 100)
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
-        if (e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt) {
+        if (e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt || gailv > b){
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
@@ -148,9 +146,7 @@ export class ai extends plugin {
                 return true;
             }
             //返回false继续匹配其他命令
-            return false;
-            //Created by Yoolan.
+            else{return false;}
         }
-        else return false;
     }
 }

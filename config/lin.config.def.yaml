@@ -10,8 +10,8 @@ thumbUp_cfg:
 
 # 青云客 设置:初始概率和，每次改变量
 ai_cfg: 
-  gailv: 0.1
-  gailv_: 0.1
+  gailv: 10
+  gailv_: 10
   ai_api: http://api.qingyunke.com/api.php?key=free&appid=0&msg=
 
 # 决斗系列插件 设置
