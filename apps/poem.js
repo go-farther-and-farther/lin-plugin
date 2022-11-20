@@ -1,20 +1,24 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import { segment } from "oicq";
 import fetch from "node-fetch";
-
+import fs from "fs";
+import { segment } from "oicq";
+var date = new Date();
+let month = date.getMonth() + 1
+let data = `${date.getFullYear()}-${month}-${date.getDate()}-poem.json`
+const dirpath = `plugins/lin-plugin/data/poem/${data}`;//文件夹路径
 //项目路径
 const _path = process.cwd();
 
 //简单应用示例
 
 //1.定义命令规则
-export class idiom extends plugin {
+export class poem extends plugin {
   constructor() {
     super({
       /** 功能名称 */
-      name: '跑路插件',
+      name: '诗词接龙',
       /** 功能描述 */
-      dsc: '#跑路，bot就不接受消息了',
+      dsc: '诗词接龙',
       /** https://oicqjs.github.io/oicq/#events */
       event: 'message',
       /** 优先级，数字越小等级越高 */
@@ -22,7 +26,7 @@ export class idiom extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: "^成语接龙$", //匹配消息正则，命令正则
+          reg: "^诗词接龙$", //匹配消息正则，命令正则
           /** 执行方法 */
           fnc: 'idiom1'
         },
@@ -34,7 +38,7 @@ export class idiom extends plugin {
         },
         {
           /** 命令正则匹配 */
-          reg: "^结束成语接龙$",
+          reg: "^结束诗词接龙$",
           /** 执行方法 */
           fnc: 'idiom3'
         }
@@ -57,8 +61,7 @@ export class idiom extends plugin {
       return true;
     }
 
-    let dm = await (await fetch(`https://xiaoapi.cn/API/cyjl.php?id=${e.user_id}&msg=开始成语接龙`)).text();
-
+    //let dm = await (await fetch(`https://xiaoapi.cn/API/cyjl.php?id=${e.user_id}&msg=开始成语接龙`)).text();
     //e.reply(dm + `发送【我接+成语】,小月才有反应噢`, true);
     e.reply(`发送【我接+成语】,小月才有反应噢`, true);
 
@@ -69,7 +72,6 @@ export class idiom extends plugin {
       if (guessConfig.gameing) {
         guessConfig.gameing = false;
         e.reply(`嘿嘿,成语接龙结束啦,这局是小月赢了噢！`);
-
         return true;
       }
     }, 120000)//毫秒数
@@ -81,17 +83,17 @@ export class idiom extends plugin {
     let guessConfig = getGuessConfig(e);
     let { gameing, current } = guessConfig;
     let es = e.msg.replace(/我接/g, "").trim();
-    let sz = await (await fetch(`https://xiaoapi.cn/API/cyjl.php?id=${guessConfig.current}&msg=我接${es}`)).text();
+    //let sz = await (await fetch(`https://xiaoapi.cn/API/cyjl.php?id=${guessConfig.current}&msg=我接${es}`)).text();
 
     if (gameing) {
-      e.reply('我想想')
-      e.reply(sz)
-      if (sz.includes("赢了")) {
-        e.reply(`成语接龙结束`);
-        guessConfig.gameing = false
-        clearTimeout(guessConfig.timer);
-        return true;
-      }
+      //e.reply('我想想')
+      //e.reply(sz)
+      //if (sz.includes("赢了")) {
+        //e.reply(`成语接龙结束`);
+        //guessConfig.gameing = false
+        //clearTimeout(guessConfig.timer);
+        //return true;
+      //}
     }
 
 
