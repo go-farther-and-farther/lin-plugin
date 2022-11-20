@@ -7,9 +7,9 @@ export class biluo extends plugin {
     constructor() {
         super({
             /** 功能名称 */
-            name: '历史上的今天',
+            name: 'biluo',
             /** 功能描述 */
-            dsc: '历史上的今天',
+            dsc: 'biluo',
             event: 'message',
             /** 优先级，数字越小等级越高 */
             priority: 799,

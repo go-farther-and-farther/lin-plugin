@@ -5,7 +5,7 @@ export class geterror extends plugin {
     constructor() {
         super({
             /** 功能名称 */
-            name: '发送错误日志',
+            name: 'lin发送错误日志',
             /** 功能描述 */
             dsc: '',
             /** https://oicqjs.github.io/oicq/#events */
