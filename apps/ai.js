@@ -129,12 +129,12 @@ export class ai extends plugin {
             e.reply(`已经是开启状态了,目前青云客ai触发概率：${gailv}%，`)
             return true;
         }
-        if (e.msg.includes('只关注@信息')) {
+        if (e.msg.includes('ai只关注@消息')) {
             onlyReplyAt = true;
             e.reply("好啦，现在只回复@消息了")
             return true;
         }
-        if (e.msg.includes('关注所有消息')) {
+        if (e.msg.includes('ai关注所有消息')) {
             onlyReplyAt = false;
             e.reply("现在我会关注每一条消息了")
             return true;
