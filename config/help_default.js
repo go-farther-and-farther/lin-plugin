@@ -122,16 +122,6 @@ export const helpList = [{
     desc: '帮助规划路线'
   }]
 }, {
-<<<<<<< HEAD
-=======
-  group: "其他功能",
-  list: [{
-    icon: 38,
-    title: '#Lin文案帮助',
-    desc: '查询文案帮助'
-  }]
-}, {
->>>>>>> 0fd8ed20385bd0e4eca585cbe97d9f2d47455f08
   group: '管理命令，仅管理员可用',
   auth: 'master',
   list: [{
