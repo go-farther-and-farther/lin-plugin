@@ -9,7 +9,7 @@ export class name extends plugin {
 	constructor() {
 		super({
 			/** 功能名称 */
-			name: '点赞',
+			name: 'lin改资料',
 			/** 功能描述 */
 			dsc: '',
 			/** https://oicqjs.github.io/oicq/#events */

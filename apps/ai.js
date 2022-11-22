@@ -42,7 +42,7 @@ export class ai extends plugin {
             /** https://oicqjs.github.io/oicq/#events */
             event: 'message',
             /** 优先级，数字越小等级越高 */
-            priority: 12000,
+            priority: 66666,
             rule: [
                 {
                     /** 命令正则匹配 */
@@ -68,42 +68,124 @@ export class ai extends plugin {
     }
     async qyk(e) {
         //是否为文本消息和指令
-        if (!e.msg) return false;
+        if (!e.msg || e.msg.charAt(0) == '#') return false;
         //e.msg 用户的命令消息
         console.log("用户命令：", e.msg);
         //一个控制ai回复概率的模块
-        let j = Math.random();
-        var huifu = 0;
-        if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('ai关闭')) { gailv = 0; huifu = 1 }
-        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('ai开启')) { gailv = 1; huifu = 1 }
-        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('只关注@')) { onlyReplyAt = true; huifu = 1 }
-        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('关注所有')) { onlyReplyAt = false; huifu = 1 }
-        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('太安静')) {
-            //如果概率等于1
-            if (gailv > 0.99) {
-                //提示不能修改了
-                gailv = 1
-                e.reply("很吵了，不能修改了");
-                return false;
+    if(e.isMaster){
+        if (e.msg.includes('ai设置概率') && gailv > 0) {
+            if(e.msg.includes('10')){
+            gailv = 10
+            e.reply("ai概率已设置为10%")
             }
-            gailv = gailv + gailv_;
-            huifu = 1;
+            else if(e.msg.includes( '20')){
+            gailv = 20
+            e.reply("ai概率已设置为20%")
+            }
+            else if(e.msg.includes('30')){
+            gailv = 30
+            e.reply("ai概率已设置为30%")
+            }
+            else if(e.msg.includes('40')){
+            gailv = 40
+            e.reply("ai概率已设置为40%")
+            }
+            else if(e.msg.includes('50')){
+            gailv = 50
+            e.reply("ai概率已设置为50%")
+            }
+            else if(e.msg.includes('60')){
+            gailv = 60
+            e.reply("ai概率已设置为60%")
+            }
+            else if(e.msg.includes('70')){
+            gailv = 70
+            e.reply("ai概率已设置为70%")
+            }
+            else if(e.msg.includes('80')){
+            gailv = 80
+            e.reply("ai概率已设置为80%")
+            }
+            else if(e.msg.includes('90')){
+            gailv = 90
+            e.reply("ai概率已设置为90%")
+            }
+            else if(e.msg.includes('拉满')){
+            gailv = 100
+            e.reply("ai概率已拉满,建议搭配只关注@消息使用")
+            }
+            return true;
         }
-        else if ((e.isMaster || e.sender.role == "admin") && e.msg.includes('太吵')) {
-            //如果概率等于0
-            if (gailv < 0.01) {
+        else if(e.msg.includes('ai设置概率')){
+            e.reply("ai已关闭,请先开启")
+            return true;
+        }
+        if (e.msg.includes('ai关闭') && gailv >= 10) {
+            gailv = 0
+            e.reply("ai已关闭")
+            return true;
+        }
+        else if(e.msg.includes('ai关闭')){
+            e.reply("ai已经是关闭状态了")
+            return true;
+        }
+        if (e.msg.includes('ai开启') && gailv == 0 ) {
+            gailv = 10
+            e.reply("ai已开启。概率为10％")
+            return true;
+        }
+        else if(e.msg.includes('ai开启')){
+            e.reply(`已经是开启状态了,目前青云客ai触发概率：${gailv}%，`)
+            return true;
+        }
+        if (e.msg.includes('ai只关注@消息')) {
+            onlyReplyAt = true;
+            e.reply("好啦，现在只回复@消息了")
+            return true;
+        }
+        if (e.msg.includes('ai关注所有消息')) {
+            onlyReplyAt = false;
+            e.reply("现在我会关注每一条消息了")
+            return true;
+        }
+        if (e.msg.includes('太安静了') && gailv > 0) {
+            //如果概率等于1
+            if (gailv == 100) {
                 //提示不能修改了
-                gailv = 0
-                e.reply("很安静了，不能修改了");
-                return false;
+                e.reply("概率100％了，不能再加了！");
+                return true;;
             }
-            huifu = 1;
-            gailv = gailv - gailv_;
-        }//前面几个是判断是否是本插件指令
-        else if (e.msg.charAt(0) == '#') { return false }
-        //带有#，是其他插件指令，退出
-        else if (gailv == 0) { return false }
-        else if (j >= gailv && (e.msg.includes(BotName) || (e.at && e.at == e.uin) || e.isPrivate || !onlyReplyAt)) {
+            else{
+            gailv += gailv_;
+            e.reply(`概率提升，目前青云客ai触发概率：${gailv}%，`)
+            return true;
+            }
+        }
+        else if(e.msg.includes('太安静了')){
+            e.reply("ai已关闭,请先开启")
+           return true;
+        }
+        if (e.msg.includes('太吵了') && gailv > 0) {
+            //如果概率等于0
+            if (gailv == 10) {
+                //提示不能修改了
+                e.reply("很安静了，再改就关掉了>_<");
+                return true;
+            }
+            else{
+            gailv -= gailv_;
+            e.reply(`概率降低，目前青云客ai触发概率：${gailv}%，`)
+            return true;
+            }
+        }
+        else if(e.msg.includes('太吵了')){
+            e.reply("ai已关闭,请先开启")
+           return true;
+        }
+        }
+        let b = Math.round(Math.random() * 99)
+        //群聊是否需要消息中带有机器人昵称或者@机器人才触发
+        if ((e.msg.includes(BotName)||e.atme||e.isPrivate||!onlyReplyAt) && gailv > b){
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
@@ -139,10 +221,7 @@ export class ai extends plugin {
                 return true;
             }
             //返回false继续匹配其他命令
-            return false;
-        }//含return
-        if (huifu == 1) { e.reply(`可以输入“太吵了”、“太安静了”、“ai开启”、“ai关闭”、“关注所有消息”、“只关注@信息”调节\n目前青云客ai触发概率：${(gailv * 100).toFixed(0)}%，是否只关注@信息：${onlyReplyAt}`) }
-        return false;
-
+            else{return false;}
+        }
     }
 }

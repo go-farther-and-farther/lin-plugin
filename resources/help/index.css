@@ -36,7 +36,7 @@ body {
 
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #dd2d8e;
+  color: blue;
 }
 
 .help-group {
@@ -53,7 +53,7 @@ body {
   display: table;
   overflow: hidden;
   width: 100%;
-  color: rgb(0, 0, 0);
+  color: white;
 }
 
 .help-table .tr {
@@ -95,7 +95,7 @@ body {
 
 .help-title {
   display: block;
-  color: #dd2d8e;
+  color: #00FFFF;
   font-size: 16px;
   line-height: 24px;
 }

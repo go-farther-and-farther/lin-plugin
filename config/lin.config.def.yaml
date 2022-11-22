@@ -2,7 +2,7 @@
 # 点赞 设置
 thumbUp_cfg: 
   # 是否全局点赞(还需要你点赞名单为空)和是否回复提醒,1是，2否
-  everyone: 1 
+  everyone: 2
   reply_something: 2
   # 最短点赞时间间隔，单位秒；回复概率
   time: 60
@@ -10,6 +10,7 @@ thumbUp_cfg:
 
 # 青云客 设置:初始概率和，每次改变量
 ai_cfg: 
+<<<<<<< HEAD
   gailv: 0.1
   gailv_: 0.1
   ai_num: 3
@@ -21,6 +22,12 @@ ai_cfg:
 	"http://xiaobai.klizi.cn/API/other/xiaoai.php?data=&msg=",//小白ai
 	"http://www.tuling123.com/openapi/api?key=d8dee202a87940bd866332938dd9ec52&info="//图灵ai
 
+=======
+  gailv: 10
+  gailv_: 10
+  ai_api: http://api.qingyunke.com/api.php?key=free&appid=0&msg=
+  
+>>>>>>> 2d7d7c909174d669aa8e351e0ebc772bcb95fb0e
 # 决斗系列插件 设置
 duel_cfg: 
   # 随机依赖系数和战斗力依赖系数，不需要战斗力把Magnification2改成0就可以了

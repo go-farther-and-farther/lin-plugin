@@ -69,6 +69,10 @@ export const helpList = [{
     icon: 57,
     title: '#来句诗',
     desc: '今日份诗句，请查收'
+  }, {
+    icon: 58,
+    title: '成语接龙/结束成语接龙',
+    desc: '我接+内容'
   }]
 }, {
   group: "查询指令",
@@ -118,20 +122,6 @@ export const helpList = [{
     desc: '帮助规划路线'
   }]
 }, {
-  group: '决斗小游戏',
-  list: [{
-    icon: 21,
-    title: '#游戏帮助',
-    desc: '获取决斗游戏帮助'
-  }]
-}, {
-  group: "其他功能",
-  list: [{
-    icon: 38,
-    title: '#Lin文案帮助',
-    desc: '查询文案帮助'
-  }]
-}, {
   group: '管理命令，仅管理员可用',
   auth: 'master',
   list: [{
@@ -156,8 +146,12 @@ export const helpList = [{
     desc: 'ai触发概率调整'
   }, {
     icon: 80,
-    title: '只关注@消息/关注所有消息',
+    title: 'ai只关注@消息/ai关注所有消息',
     desc: 'ai模式调整'
+  }, {
+    icon: 80,
+    title: 'ai设置概率',
+    desc: '10-90十的倍数,ai设置概率拉满则为100'
   }, {
     icon: 22,
     title: '#Lin发送报错',

@@ -12,9 +12,9 @@ export class idiom extends plugin {
   constructor() {
     super({
       /** 功能名称 */
-      name: '跑路插件',
+      name: 'lin成语接龙',
       /** 功能描述 */
-      dsc: '#跑路，bot就不接受消息了',
+      dsc: '',
       /** https://oicqjs.github.io/oicq/#events */
       event: 'message',
       /** 优先级，数字越小等级越高 */
