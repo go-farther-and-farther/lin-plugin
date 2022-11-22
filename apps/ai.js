@@ -67,10 +67,10 @@ export class ai extends plugin {
      * @param e oicq传递的事件参数e
      */
     async api(e) {
-        let num = ai_api.length
+        let num = ai_api.length - 1
         if (e.msg.includes('全部')) {
             let msg = ''
-            for (i of num - 1) {
+            for (i of num) {
                 msg = msg + ai_name[i]
                 msg = msg + ai_api[i]
             }
