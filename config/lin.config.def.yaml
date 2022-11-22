@@ -10,24 +10,16 @@ thumbUp_cfg:
 
 # 青云客 设置:初始概率和，每次改变量
 ai_cfg: 
-<<<<<<< HEAD
-  gailv: 0.1
-  gailv_: 0.1
-  ai_num: 3
-  ai_api: "http://api.qingyunke.com/api.php?key=free&appid=0&msg=", //青云客ai
-  "https://api.ownthink.com/bot?appid=xiaosi&userid=user&spoken=", //思知ai
-	// "http://ovooa.com/API/kuake/api.php?msg=", //夸克ai（科普问答的）
-	"http://fuyhi.top/api/xiaoai_ts/api.php?msg=", //小爱ai
-	"http://fuyhi.top/api/peiliao/api.php?msg=", //小源ai
-	"http://xiaobai.klizi.cn/API/other/xiaoai.php?data=&msg=",//小白ai
-	"http://www.tuling123.com/openapi/api?key=d8dee202a87940bd866332938dd9ec52&info="//图灵ai
-
-=======
   gailv: 10
   gailv_: 10
-  ai_api: http://api.qingyunke.com/api.php?key=free&appid=0&msg=
-  
->>>>>>> 2d7d7c909174d669aa8e351e0ebc772bcb95fb0e
+  ai_num: 7
+  ai_api1: "http://api.qingyunke.com/api.php?key=free&appid=0&msg=", #青云客ai
+  ai_api2: "https://api.ownthink.com/bot?appid=xiaosi&userid=user&spoken=", #思知ai
+	ai_api3: "http://ovooa.com/API/kuake/api.php?msg=", #夸克ai（科普问答的）
+	ai_api4: "http://fuyhi.top/api/xiaoai_ts/api.php?msg=", #小爱ai
+	ai_api5: "http://fuyhi.top/api/peiliao/api.php?msg=", #小源ai
+	ai_api6: "http://xiaobai.klizi.cn/API/other/xiaoai.php?data=&msg=",#/小白ai
+	ai_api7: "http://www.tuling123.com/openapi/api?key=d8dee202a87940bd866332938dd9ec52&info="#图灵ai
 # 决斗系列插件 设置
 duel_cfg: 
   # 随机依赖系数和战斗力依赖系数，不需要战斗力把Magnification2改成0就可以了

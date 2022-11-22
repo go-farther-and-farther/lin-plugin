@@ -10,7 +10,13 @@ const BotName = global.Bot.nickname;
 //机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
 var gailv = await command.getConfig("ai_cfg", "gailv");
 var gailv_ = await command.getConfig("ai_cfg", "gailv_");
-var ai_api = await command.getConfig("ai_cfg", "ai_api");
+var ai_num = await command.getConfig("ai_cfg", "ai_num");
+var ai_api
+for (let i in ai_num)
+{
+    ai_api[i] = await command.getConfig("ai_cfg", "ai_api");
+}
+
 //var ai_api = 'http://api.qingyunke.com/api.php?key=free&appid=0&msg='
 var onlyReplyAt = true //群聊是否只关注@信息
 var bad2good = {
@@ -64,7 +70,7 @@ export class ai extends plugin {
      * @param e oicq传递的事件参数e
      */
     async jk(e) {
-        e.reply(ai_api);
+        e.reply(ai_api[3]);
     }
     async qyk(e) {
         //是否为文本消息和指令
