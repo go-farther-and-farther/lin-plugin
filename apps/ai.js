@@ -16,7 +16,8 @@ for (let i in ai_num)
 {
     ai_api[i] = await command.getConfig("ai_cfg", "ai_api");
 }
-
+var sz = "";
+var msgsz = "";
 //var ai_api = 'http://api.qingyunke.com/api.php?key=free&appid=0&msg='
 var onlyReplyAt = true //群聊是否只关注@信息
 var bad2good = {
@@ -80,45 +81,19 @@ export class ai extends plugin {
         //一个控制ai回复概率的模块
     if(e.isMaster){
         if (e.msg.includes('ai设置概率') && gailv > 0) {
-            if(e.msg.includes('10')){
-            gailv = 10
-            e.reply("ai概率已设置为10%")
+            msgsz = e.msg.replace(/ai设置概率/g, "").trim()
+            if(isNaN(msgsz)){
+                e.reply(`${msgsz}不是有效值,请输入正确的数值`)
             }
-            else if(e.msg.includes( '20')){
-            gailv = 20
-            e.reply("ai概率已设置为20%")
-            }
-            else if(e.msg.includes('30')){
-            gailv = 30
-            e.reply("ai概率已设置为30%")
-            }
-            else if(e.msg.includes('40')){
-            gailv = 40
-            e.reply("ai概率已设置为40%")
-            }
-            else if(e.msg.includes('50')){
-            gailv = 50
-            e.reply("ai概率已设置为50%")
-            }
-            else if(e.msg.includes('60')){
-            gailv = 60
-            e.reply("ai概率已设置为60%")
-            }
-            else if(e.msg.includes('70')){
-            gailv = 70
-            e.reply("ai概率已设置为70%")
-            }
-            else if(e.msg.includes('80')){
-            gailv = 80
-            e.reply("ai概率已设置为80%")
-            }
-            else if(e.msg.includes('90')){
-            gailv = 90
-            e.reply("ai概率已设置为90%")
-            }
-            else if(e.msg.includes('拉满')){
-            gailv = 100
-            e.reply("ai概率已拉满,建议搭配只关注@消息使用")
+            else{
+                if(msgsz > 100 || msgsz <= 0){
+                    e.reply("数值不在有效范围内,请输入0以上100以内的整数")
+                }
+                else{
+                   sz = Math.round(msgsz)
+                   gailv = sz
+                   e.reply(`已四舍五入设置青云客ai触发概率：${gailv}%，`)
+                }
             }
             return true;
         }
@@ -189,9 +164,9 @@ export class ai extends plugin {
            return true;
         }
         }
-        let b = Math.round(Math.random() * 99)
+        let b = Math.round(Math.random() * 100)
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
-        if ((e.msg.includes(BotName)||e.atme||e.isPrivate||!onlyReplyAt) && gailv > b){
+        if ((e.msg.includes(BotName)||e.atme||e.isPrivate||!onlyReplyAt) && gailv >= b){
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
