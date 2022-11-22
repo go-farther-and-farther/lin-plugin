@@ -68,7 +68,6 @@ export class ai extends plugin {
      */
     async api(e) {
         let message = e.msg.trim().replace('#查看ai接口', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
-        message = e.msg.trim().replace('#切换ai接口', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
         let num = ai_api.length
         if (message < num)//判断是不是api个数里面的,是则返回
         {
