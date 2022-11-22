@@ -66,9 +66,12 @@ export class ai extends plugin {
      */
     async api(e) {
         let message = e.msg.trim().replace('#ai接口', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
-        e.reply(`接口数量${ai_api[1]}`)
-        if (message<ai_api[1])//判断是不是api个数里面的
-        e.reply(ai_api[message]);
+        let num = ai_api.length
+        if (message<num)//判断是不是api个数里面的
+        e.reply(ai_api[message-1]);
+        else{
+            e.reply(`接口数量${num},超出范围`)
+        }
     }
     async qyk(e) {
         //是否为文本消息和指令

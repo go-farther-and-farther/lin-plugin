@@ -13,7 +13,6 @@ ai_cfg:
   gailv: 10
   gailv_: 10
   ai_api: 
-  - 7 #数量
   - http://api.qingyunke.com/api.php?key=free&appid=0&msg= #青云客
   - https://api.ownthink.com/bot?appid=xiaosi&userid=user&spoken= #思知ai
   - http://ovooa.com/API/kuake/api.php?msg= #夸克ai（科普问答的）
