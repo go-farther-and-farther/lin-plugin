@@ -12,7 +12,7 @@ var gailv = await command.getConfig("ai_cfg", "gailv");
 var gailv_ = await command.getConfig("ai_cfg", "gailv_");
 var ai_api = await command.getConfig("ai_cfg", "ai_api");
 var ai_name = await command.getConfig("ai_cfg", "ai_name");
-var postUrl = `${ai_api[0]}${message}`;
+var ai_api_1 = ai_api[0];//正在用的接口
 var sz = "";
 var msgsz = "";
 var onlyReplyAt = true //群聊是否只关注@信息
@@ -74,7 +74,7 @@ export class ai extends plugin {
         {
             e.reply(`${ai_name[message - 1]}${ai_api[message - 1]}`);
             if (e.msg.includes("#切换ai接口")) {//如果包括切换
-                postUrl = `${ai_api[0]}${message}`;
+                ai_api_1 = `${ai_api[0]}${message}`;
             }
         }
         else {
@@ -181,6 +181,7 @@ export class ai extends plugin {
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
             //抓取消息并转换为Json
             let response = await fetch(postUrl);
+            let postUrl = `${ai_api_1}${message}`;
             let replyData = await response.json();
             //处理消息
             let tempReplyMsg = [];
