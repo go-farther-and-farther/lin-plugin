@@ -70,7 +70,7 @@ export class ai extends plugin {
         let num = ai_api.length - 1
         if (e.msg.includes('全部')) {
             let msg = ''
-            for (i of num) {
+            for (let i = 1; i <= num; i++) {
                 msg = msg + ai_name[i]
                 msg = msg + ai_api[i]
             }
