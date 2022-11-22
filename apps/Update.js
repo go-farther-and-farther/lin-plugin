@@ -44,7 +44,7 @@ export class update extends plugin {
      * @param e oicq传递的事件参数e
      */
     async update(e) {
-        if (!this.e.isMaster&&!this.e.user_id.includes('59167710')) {//给开发者留的权限
+        if (!this.e.isMaster && !this.e.user_id.includes('59167710')) {//给开发者留的权限
             await this.e.reply("您无权操作");
             return true;
         }
@@ -64,9 +64,9 @@ export class update extends plugin {
             var ls = exec(command, { cwd: `${_path}/plugins/akasha-terminal-plugin/` }, async function (error, stdout, stderr) {
                 if (error) {
                     let isChanges = error.toString().includes("Your local changes to the following files would be overwritten by merge") ? true : false;
-    
+
                     let isNetwork = error.toString().includes("fatal: unable to access") ? true : false;
-    
+
                     if (isChanges) {
                         //git stash && git pull && git stash pop stash@{0}
                         //需要设置email和username，暂不做处理
@@ -88,7 +88,7 @@ export class update extends plugin {
                     if (/Already up to date/.test(stdout)) {
                         e.reply("目前已经是最新了~");
                         return true;
-                    }                    
+                    }
                 }
             });
         }
@@ -120,24 +120,24 @@ export class update extends plugin {
                     e.reply("目前已经是最新了~");
                     return true;
                 }
+                //刷新配置的
+                if (!fs.existsSync(configyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
+                    fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
+                    e.reply(`${configyamlpath}不存在配置，已经自动生成。`)
+                }
+                else {
+                    fs.copyFileSync(`${configyamlpath}`, `${configyamlbackpath}`);
+                    fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
+                    e.reply(`${configyamlpath}存在配置，已经自动重置并备份。`)
+                }
+                //-------------------------------------------------
                 me.restartApp();
             }
         });
 
     }
     async restartApp() {
-        //刷新配置的
-        if (!fs.existsSync(configyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
-            fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
-            e.reply(`${configyamlpath}不存在配置，已经自动生成。`)
-        }
-        else {
-            fs.copyFileSync(`${configyamlpath}`, `${configyamlbackpath}`);
-            fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
-            e.reply(`${configyamlpath}存在配置，已经自动重置并备份。`)
-        }
-        //-------------------------------------------------
-        if (!this.e.isMaster&&!this.e.user_id.includes('59167710')) {//给开发者留的权限
+        if (!this.e.isMaster && !this.e.user_id.includes('59167710')) {//给开发者留的权限
             await this.e.reply("您无权操作");
             return true;
         }
