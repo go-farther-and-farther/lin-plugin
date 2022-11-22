@@ -68,7 +68,7 @@ export class ai extends plugin {
      */
     async api(e) {
         let num = ai_api.length
-        if (e.msg.includes('全部接口')) {
+        if (e.msg.includes('全部')) {
             let msg = ''
             for (i of num - 1) {
                 msg = msg + ai_name[i]
