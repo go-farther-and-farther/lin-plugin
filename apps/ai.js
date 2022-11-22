@@ -174,7 +174,7 @@ export class ai extends plugin {
            return true;
         }
         }
-        let b = Math.round(Math.random() * 100)
+        let b = Math.round(Math.random() * 99)
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
         if ((e.msg.includes(BotName)||e.atme||e.isPrivate||!onlyReplyAt) && gailv > b){
             console.log("青云客消息：", e.msg);
