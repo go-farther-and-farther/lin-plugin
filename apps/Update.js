@@ -1,6 +1,9 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import fs from "fs";
+const _defpath = `./plugins/lin-plugin/config/lin.config.def.yaml`;
+const configyamlpath = `./plugins/lin-plugin/config/lin.config.yaml`;
+const configyamlbackpath = `./plugins/lin-plugin/config/lin.config.back.yaml`;
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
@@ -123,6 +126,17 @@ export class update extends plugin {
 
     }
     async restartApp() {
+        //刷新配置的
+        if (!fs.existsSync(configyamlpath)) {//如果配置不存在，则复制一份默认配置到配置里面
+            fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
+            e.reply(`${configyamlpath}不存在配置，已经自动生成。`)
+        }
+        else {
+            fs.copyFileSync(`${configyamlpath}`, `${configyamlbackpath}`);
+            fs.copyFileSync(`${_defpath}`, `${configyamlpath}`);
+            e.reply(`${configyamlpath}存在配置，已经自动重置并备份。`)
+        }
+        //-------------------------------------------------
         if (!this.e.isMaster&&!this.e.user_id.includes('59167710')) {//给开发者留的权限
             await this.e.reply("您无权操作");
             return true;
