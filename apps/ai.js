@@ -49,6 +49,12 @@ export class ai extends plugin {
                     reg: '',
                     /** 执行方法 */
                     fnc: 'qyk'
+                },
+                {
+                    /** 命令正则匹配 */
+                    reg: '#ai接口',
+                    /** 执行方法 */
+                    fnc: 'jk'
                 }
             ]
         })
@@ -57,6 +63,9 @@ export class ai extends plugin {
      * 
      * @param e oicq传递的事件参数e
      */
+    async jk(e) {
+        e.reply(ai_api);
+    }
     async qyk(e) {
         //是否为文本消息和指令
         if (!e.msg) return false;

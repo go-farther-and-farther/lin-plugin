@@ -12,7 +12,14 @@ thumbUp_cfg:
 ai_cfg: 
   gailv: 0.1
   gailv_: 0.1
-  ai_api: http://api.qingyunke.com/api.php?key=free&appid=0&msg=
+  ai_num: 3
+  ai_api: "http://api.qingyunke.com/api.php?key=free&appid=0&msg=", //青云客ai
+  "https://api.ownthink.com/bot?appid=xiaosi&userid=user&spoken=", //思知ai
+	// "http://ovooa.com/API/kuake/api.php?msg=", //夸克ai（科普问答的）
+	"http://fuyhi.top/api/xiaoai_ts/api.php?msg=", //小爱ai
+	"http://fuyhi.top/api/peiliao/api.php?msg=", //小源ai
+	"http://xiaobai.klizi.cn/API/other/xiaoai.php?data=&msg=",//小白ai
+	"http://www.tuling123.com/openapi/api?key=d8dee202a87940bd866332938dd9ec52&info="//图灵ai
 
 # 决斗系列插件 设置
 duel_cfg: 

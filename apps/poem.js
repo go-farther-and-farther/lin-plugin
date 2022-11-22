@@ -2,6 +2,8 @@ import plugin from '../../../lib/plugins/plugin.js'
 import fetch from "node-fetch";
 import fs from "fs";
 import { segment } from "oicq";
+
+
 var date = new Date();
 let month = date.getMonth() + 1
 let data = `${date.getFullYear()}-${month}-${date.getDate()}-poem.json`
@@ -19,14 +21,14 @@ export class poem extends plugin {
       name: '诗词接龙',
       /** 功能描述 */
       dsc: '诗词接龙',
-      /** https://oicqjs.github.io/oicq/#events */
+      /** https://oicqjs.github.io/oicq///events */
       event: 'message',
       /** 优先级，数字越小等级越高 */
       priority: 100, //优先级，越小优先度越高
       rule: [
         {
           /** 命令正则匹配 */
-          reg: "^诗词接龙$", //匹配消息正则，命令正则
+          reg: "^(多人)诗词接龙$", //匹配消息正则，命令正则
           /** 执行方法 */
           fnc: 'idiom1'
         },
@@ -57,24 +59,35 @@ export class poem extends plugin {
   async idiom1(e) {
     let guessConfig = getGuessConfig(e)
     if (guessConfig.gameing) {
-      e.reply('成语接龙正在进行哦!')
+      e.reply('成语接龙正在进行哦!可以发送【结束诗词接龙】结束')
       return true;
     }
+    if (e.msg.include('多人')) {
+      e.reply(`发送【我接+成语】,小月才有反应噢，若果需要进入多人模式，请发送【#多人诗词接龙】`)
+      guessConfig.gameing = true;
+      guessConfig.current = e.user_id;//这个要改成群号
+      guessConfig.timer = setTimeout(() => {
+        if (guessConfig.gameing) {
+          guessConfig.gameing = false;
+          e.reply(`嘿嘿,成语接龙结束啦,这局是小月赢了噢！`);
+          return true;
+        }
+      }, 120000)//毫秒数
+    }
+    else {
+      e.reply(`发送【我接+成语】,小月才有反应噢`, true);
+      guessConfig.gameing = true;
+      guessConfig.current = e.user_id;
+      guessConfig.timer = setTimeout(() => {
+        if (guessConfig.gameing) {
+          guessConfig.gameing = false;
+          e.reply(`嘿嘿,成语接龙结束啦,这局是小月赢了噢！`);
+          return true;
+        }
+      }, 120000)//毫秒数
+    }
 
-    //let dm = await (await fetch(`https://xiaoapi.cn/API/cyjl.php?id=${e.user_id}&msg=开始成语接龙`)).text();
-    //e.reply(dm + `发送【我接+成语】,小月才有反应噢`, true);
-    e.reply(`发送【我接+成语】,小月才有反应噢`, true);
 
-    guessConfig.gameing = true;
-    guessConfig.current = e.user_id;
-
-    guessConfig.timer = setTimeout(() => {
-      if (guessConfig.gameing) {
-        guessConfig.gameing = false;
-        e.reply(`嘿嘿,成语接龙结束啦,这局是小月赢了噢！`);
-        return true;
-      }
-    }, 120000)//毫秒数
     return true; //返回true 阻挡消息不再往下
 
   }
@@ -83,16 +96,36 @@ export class poem extends plugin {
     let guessConfig = getGuessConfig(e);
     let { gameing, current } = guessConfig;
     let es = e.msg.replace(/我接/g, "").trim();
-    //let sz = await (await fetch(`https://xiaoapi.cn/API/cyjl.php?id=${guessConfig.current}&msg=我接${es}`)).text();
+
 
     if (gameing) {
       //e.reply('我想想')
       //e.reply(sz)
-      //if (sz.includes("赢了")) {
-        //e.reply(`成语接龙结束`);
-        //guessConfig.gameing = false
-        //clearTimeout(guessConfig.timer);
-        //return true;
+      f = open('./poem/poemDict.pk', 'rb') //rb二进制读的方式
+      poem_dict = pickle.load(f)//打开字典文件
+      try {
+        enter = str(es)
+        while (enter != 'exit') {
+          test = Pinyin().get_pinyin(enter, tone_marks = 'marks', splitter = ' ')//每个字的拼音
+          tail = test.split()[-1]//获取到该句诗的最后一个字
+          if (!tail in poem_dict.keys()) //如果没有在字典中找到这个字
+          {
+            e.reply('无法接这句诗。\n')//显示无法接这句诗
+            break//进行中断，退出该模式
+          }
+          else {
+            e.reply('\n机器回复：%s' % random.sample(poem_dict[tail], 1)[0]) //如果找到的话，电脑从字典中随机获取一句诗
+            enter = str(input('您的回复：'))[-1]//获取你输入在控制台的诗词中的最后一个数字，再次进行循环查找
+          }
+        }
+      }
+      catch {
+        e.reply("错误")
+      }
+      //e.reply(`成语接龙结束`);
+      //guessConfig.gameing = false
+      //clearTimeout(guessConfig.timer);
+      //return true;
       //}
     }
 
