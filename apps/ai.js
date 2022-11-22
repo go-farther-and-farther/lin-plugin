@@ -13,7 +13,6 @@ var gailv_ = await command.getConfig("ai_cfg", "gailv_");
 var ai_api = await command.getConfig("ai_cfg", "ai_api");
 var sz = "";
 var msgsz = "";
-//var ai_api = 'http://api.qingyunke.com/api.php?key=free&appid=0&msg='
 var onlyReplyAt = true //群聊是否只关注@信息
 var bad2good = {
     "傻逼": ["天使", "大可爱"],
@@ -54,9 +53,9 @@ export class ai extends plugin {
                 },
                 {
                     /** 命令正则匹配 */
-                    reg: '#ai接口',
+                    reg: '#ai接口(.*)',
                     /** 执行方法 */
-                    fnc: 'jk'
+                    fnc: 'api'
                 }
             ]
         })
@@ -65,8 +64,11 @@ export class ai extends plugin {
      * 
      * @param e oicq传递的事件参数e
      */
-    async jk(e) {
-        e.reply(ai_api);
+    async api(e) {
+        let message = e.msg.trim().replace('#ai接口', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
+        e.reply(`接口数量${ai_api[1]}`)
+        if (message<ai_api[1])//判断是不是api个数里面的
+        e.reply(ai_api[message]);
     }
     async qyk(e) {
         //是否为文本消息和指令
