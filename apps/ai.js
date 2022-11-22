@@ -55,7 +55,7 @@ export class ai extends plugin {
                 },
                 {
                     /** 命令正则匹配 */
-                    reg: '#(查看|切换)ai接口(.*)',
+                    reg: '#(查看|切换)(全部)?ai接口(.*)',
                     /** 执行方法 */
                     fnc: 'api'
                 }
@@ -67,8 +67,18 @@ export class ai extends plugin {
      * @param e oicq传递的事件参数e
      */
     async api(e) {
-        let message = e.msg.trim().replace('#查看ai接口', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
         let num = ai_api.length
+        if (e.msg.includes('全部接口')) {
+            let msg = ''
+            for (i of num - 1) {
+                msg = msg + ai_name[i]
+                msg = msg + ai_api[i]
+            }
+            e.reply(msg)
+            return
+        }
+        let message = e.msg.trim().replace('#查看ai接口', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
+        message = message.trim().replace('#切换ai接口', "").replace(/[\n|\r]/g, "，")
         if (message < num)//判断是不是api个数里面的,是则返回
         {
             e.reply(`${ai_name[message - 1]}${ai_api[message - 1]}`);
