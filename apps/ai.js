@@ -10,15 +10,11 @@ const BotName = global.Bot.nickname;
 //机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
 var gailv = await command.getConfig("ai_cfg", "gailv");
 var gailv_ = await command.getConfig("ai_cfg", "gailv_");
-var ai_num = await command.getConfig("ai_cfg", "ai_num");
-var ai_api
-for (let i in ai_num)
-{
-    ai_api[i] = await command.getConfig("ai_cfg", "ai_api");
-}
+var ai_api = await command.getConfig("ai_cfg", "ai_api");
+var ai_name = await command.getConfig("ai_cfg", "ai_name");
+var ai_api_1 = ai_api[0];//正在用的接口
 var sz = "";
 var msgsz = "";
-//var ai_api = 'http://api.qingyunke.com/api.php?key=free&appid=0&msg='
 var onlyReplyAt = true //群聊是否只关注@信息
 var bad2good = {
     "傻逼": ["天使", "大可爱"],
@@ -43,9 +39,9 @@ export class ai extends plugin {
     constructor() {
         super({
             /** 功能名称 */
-            name: '青云客ai',
+            name: 'LinAI',
             /** 功能描述 */
-            dsc: '调用青云客免费接口回答消息',
+            dsc: '调用免费接口回答消息',
             /** https://oicqjs.github.io/oicq/#events */
             event: 'message',
             /** 优先级，数字越小等级越高 */
@@ -55,13 +51,13 @@ export class ai extends plugin {
                     /** 命令正则匹配 */
                     reg: '',
                     /** 执行方法 */
-                    fnc: 'qyk'
+                    fnc: 'ai'
                 },
                 {
                     /** 命令正则匹配 */
-                    reg: '#ai接口',
+                    reg: '#(查看|切换)(全部)?ai接口(.*)',
                     /** 执行方法 */
-                    fnc: 'jk'
+                    fnc: 'api'
                 }
             ]
         })
@@ -70,113 +66,138 @@ export class ai extends plugin {
      * 
      * @param e oicq传递的事件参数e
      */
-    async jk(e) {
-        e.reply(ai_api[3]);
+    async api(e) {
+        let num = ai_api.length - 1
+        if (e.msg.includes('#查看全部ai接口')) {
+            let msg = ''
+            for (let i = 1; i <= num; i++) {
+                msg = msg + ai_name[i]
+            }
+            e.reply(msg)
+        }
+        if(e.msg.includes('#切换ai接口')){
+            let message = e.msg.replace(/#切换ai接口/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
+            if (message <= num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
+            {
+                ai_api_1 = `${ai_api[0]}${message}`;
+                e.reply(`已切换到${message}号接口${ai_name[message - 1]},因为部分接口被tx视作高风险，已屏蔽接口链接`);
+            }
+            else {
+                e.reply(`接口序号${message}超出范围或不合规，目前总量${num}`)
+            }    
+        }
+        return true;
     }
-    async qyk(e) {
+    async ai(e) {
         //是否为文本消息和指令
         if (!e.msg || e.msg.charAt(0) == '#') return false;
         //e.msg 用户的命令消息
         console.log("用户命令：", e.msg);
         //一个控制ai回复概率的模块
-    if(e.isMaster){
-        if (e.msg.includes('ai设置概率') && gailv > 0) {
-            msgsz = e.msg.replace(/ai设置概率/g, "").trim()
-            if(isNaN(msgsz)){
-                e.reply(`${msgsz}不是有效值,请输入正确的数值`)
-            }
-            else{
-                if(msgsz > 100 || msgsz <= 0){
-                    e.reply("数值不在有效范围内,请输入0以上100以内的整数")
+        if (e.isMaster) {
+            if (e.msg.includes('ai设置概率') && gailv > 0) {
+                msgsz = e.msg.replace(/ai设置概率/g, "").replace(/[\n|\r]/g, "，").trim()
+                if (isNaN(msgsz)) {
+                    e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
-                else{
-                   sz = Math.round(msgsz)
-                   gailv = sz
-                   e.reply(`已四舍五入设置青云客ai触发概率：${gailv}%，`)
+                else {
+                    if (msgsz > 100 || msgsz <= 0) {
+                        e.reply("数值不在有效范围内,请输入0以上100以内的整数")
+                    }
+                    else {
+                        sz = Math.round(msgsz)
+                        gailv = sz
+                        e.reply(`已四舍五入设置ai触发概率：${gailv}%，`)
+                    }
                 }
-            }
-            return true;
-        }
-        else if(e.msg.includes('ai设置概率')){
-            e.reply("ai已关闭,请先开启")
-            return true;
-        }
-        if (e.msg.includes('ai关闭') && gailv >= 10) {
-            gailv = 0
-            e.reply("ai已关闭")
-            return true;
-        }
-        else if(e.msg.includes('ai关闭')){
-            e.reply("ai已经是关闭状态了")
-            return true;
-        }
-        if (e.msg.includes('ai开启') && gailv == 0 ) {
-            gailv = 10
-            e.reply("ai已开启。概率为10％")
-            return true;
-        }
-        else if(e.msg.includes('ai开启')){
-            e.reply(`已经是开启状态了,目前青云客ai触发概率：${gailv}%，`)
-            return true;
-        }
-        if (e.msg.includes('ai只关注@消息')) {
-            onlyReplyAt = true;
-            e.reply("好啦，现在只回复@消息了")
-            return true;
-        }
-        if (e.msg.includes('ai关注所有消息')) {
-            onlyReplyAt = false;
-            e.reply("现在我会关注每一条消息了")
-            return true;
-        }
-        if (e.msg.includes('太安静了') && gailv > 0) {
-            //如果概率等于1
-            if (gailv == 100) {
-                //提示不能修改了
-                e.reply("概率100％了，不能再加了！");
-                return true;;
-            }
-            else{
-            gailv += gailv_;
-            e.reply(`概率提升，目前青云客ai触发概率：${gailv}%，`)
-            return true;
-            }
-        }
-        else if(e.msg.includes('太安静了')){
-            e.reply("ai已关闭,请先开启")
-           return true;
-        }
-        if (e.msg.includes('太吵了') && gailv > 0) {
-            //如果概率等于0
-            if (gailv == 10) {
-                //提示不能修改了
-                e.reply("很安静了，再改就关掉了>_<");
                 return true;
             }
-            else{
-            gailv -= gailv_;
-            e.reply(`概率降低，目前青云客ai触发概率：${gailv}%，`)
-            return true;
+            else if (e.msg.includes('ai设置概率')) {
+                e.reply("ai已关闭,请先开启")
+                return true;
             }
-        }
-        else if(e.msg.includes('太吵了')){
-            e.reply("ai已关闭,请先开启")
-           return true;
-        }
+            if (e.msg.includes('ai关闭') && gailv >= 10) {
+                gailv = 0
+                e.reply("ai已关闭")
+                return true;
+            }
+            else if (e.msg.includes('ai关闭')) {
+                e.reply("ai已经是关闭状态了")
+                return true;
+            }
+            if (e.msg.includes('ai开启') && gailv == 0) {
+                gailv = 10
+                e.reply("ai已开启。概率为10％")
+                return true;
+            }
+            else if (e.msg.includes('ai开启')) {
+                e.reply(`已经是开启状态了,目前ai触发概率：${gailv}%，`)
+                return true;
+            }
+            if (e.msg.includes('ai只关注@消息')) {
+                onlyReplyAt = true;
+                e.reply("好啦，现在只回复@消息了")
+                return true;
+            }
+            if (e.msg.includes('ai关注所有消息')) {
+                onlyReplyAt = false;
+                e.reply("现在我会关注每一条消息了")
+                return true;
+            }
+            if (e.msg.includes('太安静了') && gailv > 0) {
+                //如果概率等于1
+                if (gailv == 100) {
+                    //提示不能修改了
+                    e.reply("概率100％了，不能再加了！");
+                    return true;;
+                }
+                else {
+                    gailv += gailv_;
+                    e.reply(`概率提升，目前ai触发概率：${gailv}%，`)
+                    return true;
+                }
+            }
+            else if (e.msg.includes('太安静了')) {
+                e.reply("ai已关闭,请先开启")
+                return true;
+            }
+            if (e.msg.includes('太吵了') && gailv > 0) {
+                //如果概率等于0
+                if (gailv == 10) {
+                    //提示不能修改了
+                    e.reply("很安静了，再改就关掉了>_<");
+                    return true;
+                }
+                else {
+                    gailv -= gailv_;
+                    e.reply(`概率降低，目前ai触发概率：${gailv}%，`)
+                    return true;
+                }
+            }
+            else if (e.msg.includes('太吵了')) {
+                e.reply("ai已关闭,请先开启")
+                return true;
+            }
         }
         let b = Math.round(Math.random() * 100)
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
-        if ((e.msg.includes(BotName)||e.atme||e.isPrivate||!onlyReplyAt) && gailv >= b){
-            console.log("青云客消息：", e.msg);
+        if ((e.msg.includes(BotName) || e.atme || e.isPrivate || !onlyReplyAt) && gailv >= b) {
+            console.log("ai消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
+
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
-            let postUrl = `http://api.qingyunke.com/api.php?key=free&appid=0&msg=${message}`;
+            //这里需要处理一下，先埋个坑
+
+
             //抓取消息并转换为Json
+            let postUrl = await `${ai_api_1}${message}`;
+            
             let response = await fetch(postUrl);
+            
             let replyData = await response.json();
             //处理消息
             let tempReplyMsg = [];
-            let replyMsg = replyData.content.replace(/菲菲/g, BotName)
+            let replyMsg = replyData.content.replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂)/g, BotName)
                 .replace(/\{br\}/g, "\n")
                 .replace(/&nbsp;/g, " ")
                 .replace(/\{face:([\d]+)\}/g, "#face$1#[div]")
@@ -202,7 +223,7 @@ export class ai extends plugin {
                 return true;
             }
             //返回false继续匹配其他命令
-            else{return false;}
+            else { return false; }
         }
     }
 }
