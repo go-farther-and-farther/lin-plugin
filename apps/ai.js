@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import { segment } from "oicq";
 import lodash from "lodash";
 import command from '../command/command.js'
-
+const dirpath = "plugins/lin-plugin/data/test";//文件夹路径
 
 const BotName = global.Bot.nickname;
 // 机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
@@ -216,8 +216,16 @@ export class ai extends plugin {
 
             let replyData = await response.json();//将返回的数据转化为json文件
 
-            let replyMsg = [];//这个保存返回信息里面的文本文件
 
+            //******************************//
+            //将返回的数据转化为的json文件保存研究
+            var date = new Date();
+            let filename = `${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes}-${date.getSeconds}`
+            fs.writeFileSync(dirpath + "/" + `ai_test_${filename}.json`, JSON.stringify(replyData, null, "\t"));//写入文件
+
+
+
+            let replyMsg = [];//这个保存返回信息里面的文本文件
             replyData = JSON.stringify(replyData) //转换字符串用于判断返回值
             if (replyData) {
                 //匹配不同ai接口返回规则:cv自c佬自定义ai.js
