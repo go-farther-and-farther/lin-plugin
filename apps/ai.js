@@ -13,6 +13,7 @@ var gailv_ = await command.getConfig("ai_cfg", "gailv_");
 var ai_api = await command.getConfig("ai_cfg", "ai_api");
 var ai_name = await command.getConfig("ai_cfg", "ai_name");
 var ai_api_1 = ai_api[0];//正在用的接口
+var ai_name_1 = ai_name[0];
 var sz = "";
 var msgsz = "";
 var onlyReplyAt = true //群聊是否只关注@信息
@@ -55,7 +56,7 @@ export class ai extends plugin {
                 },
                 {
                     /** 命令正则匹配 */
-                    reg: '#(查看|切换)(全部)?ai接口(.*)',
+                    reg: '#(查看|切换|当前)(全部)?ai接口(.*)',
                     /** 执行方法 */
                     fnc: 'api'
                 }
@@ -75,11 +76,16 @@ export class ai extends plugin {
             }
             e.reply(msg)
         }
-        if(e.msg.includes('#切换ai接口')){
+        else if(e.msg.includes('当前'))
+        {
+            e.reply(`正在使用${ai_name_1}`)
+        }
+        else if(e.msg.includes('#切换ai接口')){
             let message = e.msg.replace(/#切换ai接口/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
             if (message <= num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
             {
-                ai_api_1 = `${ai_api[0]}${message}`;
+                ai_api_1 = `${ai_api[message - 1]}`;
+                ai_name_1 = `${ai_name[message - 1]}`;
                 e.reply(`已切换到${message}号接口${ai_name[message - 1]},因为部分接口被tx视作高风险，已屏蔽接口链接`);
             }
             else {
