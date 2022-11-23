@@ -99,7 +99,7 @@ export class ai extends plugin {
             if (message <= num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
             {
                 ai_now = message - 1
-                e.reply(`已切换到${ai_now}号接口${ai_name[ai_now]},因为部分接口被tx视作高风险，已屏蔽接口链接`);
+                e.reply(`已切换到${ai_now + 1}号接口${ai_name[ai_now]},接口链接已隐藏。`);
             }
             else {
                 e.reply(`接口序号${message}超出范围或不合规，目前总量${num}`)
@@ -204,6 +204,7 @@ export class ai extends plugin {
             console.log("ai消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
 
+
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
             //这里需要处理一下，先埋个坑
 
@@ -213,10 +214,29 @@ export class ai extends plugin {
 
             let response = await fetch(postUrl);
 
-            let replyData = await response.json();
+            let replyData = await response.json();//将返回的数据转化为json文件
+
+            let replyMsg = [];//这个保存返回信息里面的文本文件
+
+            replyData = JSON.stringify(replyData) //转换字符串用于判断返回值
+            if (replyData) {
+                //匹配不同ai接口返回规则:cv自c佬自定义ai.js
+                if (replyData.indexOf("result") != -1) {
+                    replyMsg.push(JSON.parse(replyData).content)
+                } else if (replyData.indexOf("desc") != -1) {
+                    replyMsg.push(JSON.parse(replyData).data.desc)
+                } else if (replyData.indexOf("info") != -1) {
+                    replyMsg.push(JSON.parse(replyData).data.info.text)
+                } else if (replyData.indexOf("text") != -1 && replyData.indexOf("mp3") != -1) {
+                    replyMsg.push(JSON.parse(replyData).text)
+                } else if (replyData.indexOf("code") != -1 && replyData.indexOf("text") != -1) {
+                    replyMsg.push(JSON.parse(replyData).text)
+                }
+            }
+
             //处理消息
             let tempReplyMsg = [];
-            let replyMsg = replyData.content.replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂)/g, BotName)
+            replyMsg = replyMsg.replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂)/g, BotName)
                 .replace(/\{br\}/g, "\n")
                 .replace(/&nbsp;/g, " ")
                 .replace(/\{face:([\d]+)\}/g, "#face$1#[div]")
@@ -235,7 +255,7 @@ export class ai extends plugin {
             //是否有消息输出
             if (replyMsg) {
                 //设置了log: false; 好像是没有输出日志的
-                logger.mark(`[青云客回复] ${e.msg}`);
+                logger.mark(`[${ai_name[ai_now]}回复] ${e.msg}`);
                 //发送消息
                 e.reply(replyMsg, e.isGroup);
                 //阻止继续匹配其他命令
