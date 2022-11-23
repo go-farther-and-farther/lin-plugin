@@ -38,7 +38,7 @@ export class lin_help extends plugin {
     return await help(this.e,"help");
   }
   async message2() {
-    return await help(this.e,"help2");
+    return await help(this.e,"aihelp");
   }
 
 }

@@ -38,6 +38,37 @@ export const helpCfg = {
 
 // 帮助菜单内容
 export const helpList = [{
+  group: 'ai介绍',
+  list: [{
+    icon: 80,
+    title: '1号青云客',
+    desc: ''
+  }, {
+    icon: 80,
+    title: '2号思知',
+    desc: ''
+  }, {
+    icon: 80,
+    title: '3号夸克',
+    desc: ''
+  }, {
+    icon: 80,
+    title: '4号小爱',
+    desc: ''
+  }, {
+    icon: 80,
+    title: '5号小源',
+    desc: ''
+  }, {
+    icon: 80,
+    title: '7号小白',
+    desc: ''
+  }, {
+    icon: 80,
+    title: '更多ai',
+    desc: '敬请期待'
+  }]
+}, {
   group: '管理命令，仅管理员可用',
   auth: 'master',
   list: [{
