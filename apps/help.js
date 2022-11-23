@@ -28,7 +28,7 @@ export class lin_help extends plugin {
           /** 命令正则匹配 */
           reg: '#(ai|智能回复)(规则|帮助|版本)',
           /** 执行方法 */
-          fnc: 'message'
+          fnc: 'message2'
         }
       ]
     });

@@ -68,6 +68,7 @@ export class ai extends plugin {
      */
     async api(e) {
         let num = ai_api.length - 1
+<<<<<<< HEAD
         if (e.msg.includes('#查看全部ai接口')) {
             let msg = ''
             for (let i = 1; i <= num; i++) {
@@ -87,6 +88,29 @@ export class ai extends plugin {
             }    
         }
         return true;
+=======
+        if (e.msg.includes('全部')) {
+            let msg = ''
+            for (let i = 1; i <= num; i++) {
+                msg = msg + ai_name[i]
+                //msg = msg + ai_api[i]
+            }
+            e.reply(msg)
+            return
+        }
+        let message = e.msg.trim().replace(/(#查看|ai|接口|#切换)/g, "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
+        if (message < num)//判断是不是api个数里面的,是则返回
+        {
+            e.reply(`${message}号接口${ai_name[message - 1]},因为部分接口被tx视作高风险，已屏蔽接口链接`);
+            if (e.msg.includes("#切换ai接口")) {//如果包括切换
+                ai_api_1 = `${ai_api[0]}${message}`;
+            }
+        }
+        else {
+            e.reply(`接口数量${num},超出范围`)
+        }
+        return
+>>>>>>> 4ad9769b53b95b775d2930ae91711a5adfd2b651
     }
     async ai(e) {
         //是否为文本消息和指令
@@ -96,7 +120,11 @@ export class ai extends plugin {
         //一个控制ai回复概率的模块
         if (e.isMaster) {
             if (e.msg.includes('ai设置概率') && gailv > 0) {
+<<<<<<< HEAD
                 msgsz = e.msg.replace(/ai设置概率/g, "").replace(/[\n|\r]/g, "，").trim()
+=======
+                msgsz = e.msg.replace(/ai设置概率/g, "").trim()
+>>>>>>> 4ad9769b53b95b775d2930ae91711a5adfd2b651
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
@@ -107,7 +135,11 @@ export class ai extends plugin {
                     else {
                         sz = Math.round(msgsz)
                         gailv = sz
+<<<<<<< HEAD
                         e.reply(`已四舍五入设置ai触发概率：${gailv}%，`)
+=======
+                        e.reply(`已四舍五入设置青云客ai触发概率：${gailv}%，`)
+>>>>>>> 4ad9769b53b95b775d2930ae91711a5adfd2b651
                     }
                 }
                 return true;
@@ -131,7 +163,11 @@ export class ai extends plugin {
                 return true;
             }
             else if (e.msg.includes('ai开启')) {
+<<<<<<< HEAD
                 e.reply(`已经是开启状态了,目前ai触发概率：${gailv}%，`)
+=======
+                e.reply(`已经是开启状态了,目前青云客ai触发概率：${gailv}%，`)
+>>>>>>> 4ad9769b53b95b775d2930ae91711a5adfd2b651
                 return true;
             }
             if (e.msg.includes('ai只关注@消息')) {
@@ -153,7 +189,11 @@ export class ai extends plugin {
                 }
                 else {
                     gailv += gailv_;
+<<<<<<< HEAD
                     e.reply(`概率提升，目前ai触发概率：${gailv}%，`)
+=======
+                    e.reply(`概率提升，目前青云客ai触发概率：${gailv}%，`)
+>>>>>>> 4ad9769b53b95b775d2930ae91711a5adfd2b651
                     return true;
                 }
             }
@@ -170,7 +210,11 @@ export class ai extends plugin {
                 }
                 else {
                     gailv -= gailv_;
+<<<<<<< HEAD
                     e.reply(`概率降低，目前ai触发概率：${gailv}%，`)
+=======
+                    e.reply(`概率降低，目前青云客ai触发概率：${gailv}%，`)
+>>>>>>> 4ad9769b53b95b775d2930ae91711a5adfd2b651
                     return true;
                 }
             }
@@ -182,7 +226,11 @@ export class ai extends plugin {
         let b = Math.round(Math.random() * 100)
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
         if ((e.msg.includes(BotName) || e.atme || e.isPrivate || !onlyReplyAt) && gailv >= b) {
+<<<<<<< HEAD
             console.log("ai消息：", e.msg);
+=======
+            console.log("青云客消息：", e.msg);
+>>>>>>> 4ad9769b53b95b775d2930ae91711a5adfd2b651
             //接收时将机器人名字替换为青云客AI的菲菲
 
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
@@ -190,7 +238,11 @@ export class ai extends plugin {
 
 
             //抓取消息并转换为Json
+<<<<<<< HEAD
             let postUrl = await `${ai_api_1}${message}`;
+=======
+            let postUrl = `${ai_api_1}${message}`;
+>>>>>>> 4ad9769b53b95b775d2930ae91711a5adfd2b651
             
             let response = await fetch(postUrl);
             

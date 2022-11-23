@@ -7,7 +7,7 @@
 
 export const helpCfg = {
   // 帮助标题
-  title: 'Lin帮助2',
+  title: 'LinAI帮助',
 
   // 帮助副标题
   subTitle: 'Yunzai-Bot & Lin-Plugin',
@@ -38,137 +38,36 @@ export const helpCfg = {
 
 // 帮助菜单内容
 export const helpList = [{
-  group: '娱乐功能',
-  list: [{
-    icon: 80,
-    title: '#摸鱼日记',
-    desc: '诶嘿。'
-  }, {
-    icon: 46,
-    title: '#我在人间凑数的日子',
-    desc: '人终究还是要活着'
-  }, {
-    icon: 33,
-    title: '#舔狗日记',
-    desc: '其实当舔狗也不容易......'
-  }, {
-    icon: 31,
-    title: '#生成签名xx',
-    desc: '随机生成签名'
-  }, {
-    icon: 22,
-    title: '#举牌xx',
-    desc: '打call'
-  }, {
-    icon: 52,
-    title: '#骂我',
-    desc: '承受能力弱的请勿使用此指令'
-  }, {
-    icon: 57,
-    title: '#来句诗',
-    desc: '今日份诗句，请查收'
-  }]
-}, {
-  group: "查询指令",
-  list: [{
-    icon: 58,
-    title: '#来份动漫图',
-    desc: '随机发送动漫图片'
-  }, {
-    icon: 43,
-    title: '#搜歌xx #搜动漫xx',
-    desc: '功能请看指令'
-  }, {
-    icon: 59,
-    title: '#历史上的今天',
-    desc: '了解历史上的今天发生的事情'
-  }, {
-    icon: 21,
-    title: '#知乎热榜',
-    desc: '发送知乎热榜'
-  }, {
-    icon: 39,
-    title: '#微博热搜',
-    desc: '发送当前微博热搜'
-  }, {
-    icon: 55,
-    title: '#网易云热评',
-    desc: '发送网易云上的热评'
-  }, {
-    icon: 52,
-    title: '#翻译xx',
-    desc: '只是翻译而已'
-  }, {
-    icon: 76,
-    title: '#王者xx语音',
-    desc: '发送王者里xx的语音'
-  }, {
-    icon: 78,
-    title: '#查询手机号xx',
-    desc: '了解手机号的信息'
-  }, {
-    icon: 79,
-    title: '#地点查询xx',
-    desc: '查询某一地方的信息'
-  }, {
-    icon: 60,
-    title: '#路线规划查询xx到xx',
-    desc: '帮助规划路线'
-  }]
-}, {
-  group: "其他功能",
-  list: [{
-    icon: 38,
-    title: '#Lin文案帮助',
-    desc: '查询文案帮助'
-  }]
-}, {
   group: '管理命令，仅管理员可用',
   auth: 'master',
   list: [{
-    icon: 95,
-    title: '#Lin更新',
-    desc: '更新Lin插件'
-  }, {
-    icon: 80,
-    title: '#Lin版本',
-    desc: '查看版本记录'
-  }, {
-    icon: 11,
-    title: '#跑路 #回来',
-    desc: '是否回复本群消息'
-  }, {
     icon: 80,
     title: 'ai开启/关闭',
     desc: 'ai开关'
   }, {
     icon: 80,
     title: '太吵了/太安静了',
-    desc: 'ai触发概率调整'
+    desc: 'ai触发概率小幅度调整'
   }, {
     icon: 80,
-    title: '只关注@消息/关注所有消息',
-    desc: 'ai模式调整'
-  }, {
-    icon: 22,
-    title: '#Lin发送报错',
-    desc: '获取Lin报错日志'
-  }, {
-    icon: 22,
-    title: '#Lin重置报错',
-    desc: 'Lin重置报错消息'
-  }, {
-    icon: 71,
-    title: '#Lin发送日志',
-    desc: '获取Lin运行日志'
-  }, {
-    icon: 74,
-    title: '发送Lin配置',
-    desc: '管理功能'
+    title: 'ai只关注@消息',
+    desc: 'ai模式调整为仅@时概率触发'
   }, {
     icon: 54,
-    title: '#重置Lim配置',
-    desc: '管理功能'
+    title: 'ai关注所有消息',
+    desc: 'ai模式调整为全局概率触发'
+  }, {
+    icon: 54,
+    title: 'ai设置概率',
+    desc: '设置ai触发概率为0以上100以内'
+  }, {
+    icon: 54,
+    title: '#查看全部ai接口',
+    desc: '查看已配置的ai接口'
+  }, {
+    icon: 54,
+    title: '#切换ai接口+序号',
+    desc: '切换ai的接口'
   }]
 }]
 
