@@ -85,7 +85,7 @@ export class ai extends plugin {
             let msg = ''
             for (let i = 1; i <= num; i++) {
                 msg = msg + ai_name[i]
-                if (e.msg.includes('#链接')) {
+                if (e.msg.includes('链接')) {
                     msg = msg + ai_api[i]
                 }
             }
