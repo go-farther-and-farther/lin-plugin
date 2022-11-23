@@ -221,7 +221,7 @@ export class ai extends plugin {
             //******************************//
             //将返回的数据转化为的json文件保存研究         
             var date = new Date();
-            let filename = `${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes}-${date.getSeconds}`
+            let filename = `ai_test_${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes}-${date.getSeconds}-ai.json`
             if (!fs.existsSync(dirpath)) {//如果文件夹不存在
                 fs.mkdirSync(dirpath);//创建文件夹
             }
@@ -229,7 +229,7 @@ export class ai extends plugin {
                 fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
                 }));
             }
-            fs.writeFileSync(dirpath + "/" + `ai_test_${filename}.json`, JSON.stringify(replyData, null, "\t"));//写入文件
+            fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(replyData, null, "\t"));//写入文件
 
 
             let replyMsg = [];//这个保存返回信息里面的文本文件
