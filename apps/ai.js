@@ -3,27 +3,33 @@ import fetch from "node-fetch";
 import { segment } from "oicq";
 import lodash from "lodash";
 import command from '../command/command.js'
-//感谢前边所有版本的青云客作者
-//@苏苏@dmhfd(1695037643);@Yoolan.
-//项目路径
+
+
 const BotName = global.Bot.nickname;
-//机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
+// 机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
 var gailv = await command.getConfig("ai_cfg", "gailv");
 var gailv_ = await command.getConfig("ai_cfg", "gailv_");
-var ai_api = await command.getConfig("ai_cfg", "ai_api");
-var ai_name = await command.getConfig("ai_cfg", "ai_name");
-var ai_api_1 = ai_api[0];//正在用的接口
-var ai_name_1 = ai_name[0];
+// 读yaml文件里面的设置的初始回复概率
 var sz = "";
 var msgsz = "";
-var onlyReplyAt = true //群聊是否只关注@信息
+//这两个是与概率有关的
+var ai_api = await command.getConfig("ai_cfg", "ai_api");
+var ai_name = await command.getConfig("ai_cfg", "ai_name");
+var ai_nick = await command.getConfig("ai_cfg", "ai_nick");
+// 读取api接口
+var ai_now = 0;//正在用的接口
+// 定义现在正在用的接口赋初值
+var onlyReplyAt = true
+//群聊是否只关注@信息
+
+
+
 var bad2good = {
     "傻逼": ["天使", "大可爱"],
     "去死": ["去玩", "去打电动"],
     "测试你妹": "测试"
 };
-
-//1.定义命令规则
+//这是有关
 String.prototype.beGood = function () {
     let output = this;
     for (let item in bad2good) {
@@ -31,11 +37,13 @@ String.prototype.beGood = function () {
         //如果是数组则随机获取
         if (bad2good[item] instanceof Array) get = bad2good[item][lodash.random(item.length - 1)];
         else get = bad2good[item];
+        //把不好的item和好的get调换
         output = output.replace(eval(`/${item}/g`), get);
     }
     //输出转化结果
     return output;
 };
+
 export class ai extends plugin {
     constructor() {
         super({
@@ -52,7 +60,8 @@ export class ai extends plugin {
                     /** 命令正则匹配 */
                     reg: '',
                     /** 执行方法 */
-                    fnc: 'ai'
+                    fnc: 'ai',
+                    log: false
                 },
                 {
                     /** 命令正则匹配 */
@@ -68,29 +77,33 @@ export class ai extends plugin {
      * @param e oicq传递的事件参数e
      */
     async api(e) {
+        //读取api接口总数
         let num = ai_api.length - 1
+        //发送全部接口
         if (e.msg.includes('#查看全部ai接口')) {
             let msg = ''
             for (let i = 1; i <= num; i++) {
                 msg = msg + ai_name[i]
+                if (e.msg.includes('#链接')) {
+                    msg = msg + ai_api[i]
+                }
             }
             e.reply(msg)
         }
-        else if(e.msg.includes('当前'))
-        {
-            e.reply(`正在使用${ai_name_1}`)
+        // 发送当前的接口名字
+        else if (e.msg.includes('当前')) {
+            e.reply(`正在使用${ai_name[ai_now]}`)
         }
-        else if(e.msg.includes('#切换ai接口')){
+        else if (e.msg.includes('#切换ai接口')) {
             let message = e.msg.replace(/#切换ai接口/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
             if (message <= num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
             {
-                ai_api_1 = `${ai_api[message - 1]}`;
-                ai_name_1 = `${ai_name[message - 1]}`;
-                e.reply(`已切换到${message}号接口${ai_name[message - 1]},因为部分接口被tx视作高风险，已屏蔽接口链接`);
+                ai_now = message - 1
+                e.reply(`已切换到${ai_now}号接口${ai_name[ai_now]},因为部分接口被tx视作高风险，已屏蔽接口链接`);
             }
             else {
                 e.reply(`接口序号${message}超出范围或不合规，目前总量${num}`)
-            }    
+            }
         }
         return true;
     }
@@ -196,10 +209,10 @@ export class ai extends plugin {
 
 
             //抓取消息并转换为Json
-            let postUrl = await `${ai_api_1}${message}`;
-            
+            let postUrl = `${ai_api[ai_now]}${message}`;
+
             let response = await fetch(postUrl);
-            
+
             let replyData = await response.json();
             //处理消息
             let tempReplyMsg = [];
