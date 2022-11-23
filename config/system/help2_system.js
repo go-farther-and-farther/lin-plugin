@@ -69,5 +69,6 @@ export const helpList = [{
     title: '#切换ai接口+序号',
     desc: '切换ai的接口'
   }]
-}
+}]
+
 export const isSys = true
