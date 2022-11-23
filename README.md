@@ -1,6 +1,8 @@
+<div origin="center">
+<img width=250 src = "resources/logo.png">
 <h1 align="center" ><i>lin-plugin</i></h1>
-
 [![访问量](https://profile-counter.glitch.me/lin-plugin/count.svg)](https://gitee.com/go-farther-and-farther/lin-plugin)
+</div>
 
 本人水平有限，有Bug请下老版本，或者等待一段时间重新拉取更新版本，重新拉取不能解决可以反馈到Issues，谢谢。
 
