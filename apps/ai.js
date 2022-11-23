@@ -77,8 +77,7 @@ export class ai extends plugin {
             e.reply(msg)
             return
         }
-        let message = e.msg.trim().replace('#查看ai接口', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
-        message = message.trim().replace('#切换ai接口', "").replace(/[\n|\r]/g, "，")
+        let message = e.msg.trim().replace(/(#查看ai接口|#切换ai接口)/g, "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
         if (message < num)//判断是不是api个数里面的,是则返回
         {
             e.reply(`${ai_name[message - 1]}${ai_api[message - 1]}`);
@@ -187,14 +186,18 @@ export class ai extends plugin {
         if ((e.msg.includes(BotName) || e.atme || e.isPrivate || !onlyReplyAt) && gailv >= b) {
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
+            
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
+            //这里需要处理一下，先埋个坑
+
+
             //抓取消息并转换为Json
             let response = await fetch(postUrl);
             let postUrl = `${ai_api_1}${message}`;
             let replyData = await response.json();
             //处理消息
             let tempReplyMsg = [];
-            let replyMsg = replyData.content.replace(/菲菲/g, BotName)
+            let replyMsg = replyData.content.replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂)/g, BotName)
                 .replace(/\{br\}/g, "\n")
                 .replace(/&nbsp;/g, " ")
                 .replace(/\{face:([\d]+)\}/g, "#face$1#[div]")
