@@ -224,7 +224,6 @@ export class ai extends plugin {
             fs.writeFileSync(dirpath + "/" + `ai_test_${filename}.json`, JSON.stringify(replyData, null, "\t"));//写入文件
 
 
-
             let replyMsg = [];//这个保存返回信息里面的文本文件
             replyData = JSON.stringify(replyData) //转换字符串用于判断返回值
             if (replyData) {
@@ -244,7 +243,7 @@ export class ai extends plugin {
 
             //处理消息
             let tempReplyMsg = [];
-            replyMsg = replyMsg.replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂)/g, BotName)
+            replyMsg = replyMsg.join(",").replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂)/g, BotName)
                 .replace(/\{br\}/g, "\n")
                 .replace(/&nbsp;/g, " ")
                 .replace(/\{face:([\d]+)\}/g, "#face$1#[div]")
