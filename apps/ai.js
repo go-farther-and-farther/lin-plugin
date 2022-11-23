@@ -186,14 +186,16 @@ export class ai extends plugin {
         if ((e.msg.includes(BotName) || e.atme || e.isPrivate || !onlyReplyAt) && gailv >= b) {
             console.log("青云客消息：", e.msg);
             //接收时将机器人名字替换为青云客AI的菲菲
-            
+
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), "菲菲").replace(/[\n|\r]/g, "，");
             //这里需要处理一下，先埋个坑
 
 
             //抓取消息并转换为Json
-            let response = await fetch(postUrl);
             let postUrl = `${ai_api_1}${message}`;
+            
+            let response = await fetch(postUrl);
+            
             let replyData = await response.json();
             //处理消息
             let tempReplyMsg = [];
