@@ -72,15 +72,15 @@ export class ai extends plugin {
             let msg = ''
             for (let i = 1; i <= num; i++) {
                 msg = msg + ai_name[i]
-                msg = msg + ai_api[i]
+                //msg = msg + ai_api[i]
             }
             e.reply(msg)
             return
         }
-        let message = e.msg.trim().replace(/(#查看ai接口|#切换ai接口)/g, "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
+        let message = e.msg.trim().replace(/(#查看|ai|接口|#切换)/g, "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
         if (message < num)//判断是不是api个数里面的,是则返回
         {
-            e.reply(`${ai_name[message - 1]}${ai_api[message - 1]}`);
+            e.reply(`${message}号接口${ai_name[message - 1]},因为部分接口被tx视作高风险，已屏蔽接口链接`);
             if (e.msg.includes("#切换ai接口")) {//如果包括切换
                 ai_api_1 = `${ai_api[0]}${message}`;
             }

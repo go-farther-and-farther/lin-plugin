@@ -21,13 +21,13 @@ ai_cfg:
   - http://xiaobai.klizi.cn/API/other/xiaoai.php?data=&msg= #小白ai
   - http://www.tuling123.com/openapi/api?key=d8dee202a87940bd866332938dd9ec52&info= #图灵ai
   ai_name:
-  - 1号接口青云客
-  - 2号接口思知ai
-  - 3号接口夸克ai（科普问答的）
-  - 4号接口小爱ai
-  - 5号接口小源ai
-  - 6号接口小白ai
-  - 7号接口图灵ai
+  - 青云客
+  - 思知ai
+  - 夸克ai（科普问答的）
+  - 小爱ai
+  - 小源ai
+  - 小白ai
+  - 图灵ai
 # 决斗系列插件 设置
 duel_cfg: 
   # 随机依赖系数和战斗力依赖系数，不需要战斗力把Magnification2改成0就可以了
