@@ -6,6 +6,7 @@ import puppeteer from '../../../lib/puppeteer/puppeteer.js'
 import cfg from '../../../lib/config/config.js'
 import { Cfg, Common, Data, Version, Plugin_Name, Plugin_Path } from '../components/index.js'
 // import Theme from './help/theme.js'
+var theme = 'imgs'//没有主题，我这里自己写个
 
 export class lin_help extends plugin {
   constructor() {
@@ -24,7 +25,7 @@ export class lin_help extends plugin {
           reg: '#(lin|麟)(规则|帮助|版本)',
           /** 执行方法 */
           fnc: 'message'
-        },{
+        }, {
           /** 命令正则匹配 */
           reg: '#(ai|智能回复)(规则|帮助|版本)',
           /** 执行方法 */
@@ -35,15 +36,17 @@ export class lin_help extends plugin {
   }
 
   async message() {
-    return await help(this.e,"help");
+    theme = 'img'
+    return await help(this.e, "help");
   }
   async message2() {
-    return await help(this.e,"aihelp");
+    theme = 'img2'
+    return await help(this.e, "aihelp");
   }
 
 }
 
-async function help(e,key) {
+async function help(e, key) {
   let custom = {}
   let help = {}
 
@@ -88,7 +91,7 @@ async function help(e,key) {
 }
 
 const rodom = async function () {
-  var image = fs.readdirSync(`./plugins/lin-plugin/resources/help/imgs/`);
+  var image = fs.readdirSync(`./plugins/lin-plugin/resources/help/${theme}/`);
   var list_img = [];
   for (let val of image) {
     list_img.push(val)
