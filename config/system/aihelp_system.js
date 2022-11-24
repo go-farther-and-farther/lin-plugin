@@ -25,9 +25,8 @@ export const helpCfg = {
   // 皮肤名为对应文件夹名
   // theme: 'all', // 设置为全部皮肤
   // theme: ['default','theme2'], // 设置为指定皮肤
-  
-  theme: ['default','main'],
-  //theme: 'all',
+
+  theme: 'all',
 
   // 排除皮肤：在存在其他皮肤时会忽略该项内设置的皮肤
   // 默认忽略default：即存在其他皮肤时会忽略自带的default皮肤
