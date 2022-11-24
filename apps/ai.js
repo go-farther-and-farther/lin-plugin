@@ -63,12 +63,6 @@ export class ai extends plugin {
                     /** 执行方法 */
                     fnc: 'ai',
                     log: false
-                },
-                {
-                    /** 命令正则匹配 */
-                    reg: '#(查看|切换|当前)(全部)?ai接口(.*)',
-                    /** 执行方法 */
-                    fnc: 'api'
                 }
             ]
         })
@@ -77,46 +71,43 @@ export class ai extends plugin {
      * 
      * @param e oicq传递的事件参数e
      */
-    async api(e) {
-        //读取api接口总数
-        let num = ai_api.length - 1
-        //发送全部接口
-        if (e.msg.includes('#查看全部ai接口')) {
-            let msg = ''
-            for (let i = 1; i <= num; i++) {
-                msg = msg + ai_name[i]
-                if (e.msg.includes('链接')) {
-                    msg = msg + ai_api[i]
-                }
-            }
-            e.reply(msg)
-        }
-        // 发送当前的接口名字
-        else if (e.msg.includes('当前')) {
-            e.reply(`正在使用${ai_name[ai_now]}`)
-        }
-        else if (e.msg.includes('#切换ai接口')) {
-            let message = e.msg.replace(/#切换ai接口/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
-            if (message <= num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
-            {
-                ai_now = message - 1
-                e.reply(`已切换到${ai_now + 1}号接口${ai_name[ai_now]},接口链接已隐藏。`);
-            }
-            else {
-                e.reply(`接口序号${message}超出范围或不合规，目前总量${num}`)
-            }
-        }
-        return true;
-    }
     async ai(e) {
         //是否为文本消息和指令
-        if (!e.msg || e.msg.charAt(0) == '#') return false;
+        if (!e.msg) return false;
         //e.msg 用户的命令消息
         console.log("用户命令：", e.msg);
         //一个控制ai回复概率的模块
         if (e.isMaster) {
-            if (e.msg.includes('ai设置概率') && gailv > 0) {
-                msgsz = e.msg.replace(/ai设置概率/g, "").replace(/[\n|\r]/g, "，").trim()
+            //控制接口-------------------------------------------
+            let num = ai_api.length - 1
+            //发送全部接口
+            if (e.msg.includes('查看全部ai接口')) {
+                let msg = ''
+                for (let i = 1; i <= num; i++) {
+                    msg = msg + ai_name[i]
+                    if (e.msg.includes('链接')) {
+                        msg = msg + ai_api[i]
+                    }
+                }
+                e.reply(msg)
+                return true;
+            }
+            // 发送当前的接口名字
+            else if (e.msg.includes('切换ai接口')) {
+                let message = e.msg.replace(/#切换ai接口/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
+                if (message <= num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
+                {
+                    ai_now = message - 1
+                    e.reply(`已切换到${ai_now + 1}号接口${ai_name[ai_now]},接口链接已隐藏。`);
+                }
+                else {
+                    e.reply(`接口序号${message}超出范围或不合规，目前总量${num}`)
+                }
+                return true;
+            }
+            //设置概率-----------------------------------------
+            if (e.msg.includes('设置ai回复概率') && gailv > 0) {
+                msgsz = e.msg.replace(/设置ai回复概率/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
@@ -198,7 +189,12 @@ export class ai extends plugin {
                 e.reply("ai已关闭,请先开启")
                 return true;
             }
+            //查看状态----------------------------------
+            if (e.msg.includes('ai状态')) {
+                e.reply(`目前ai触发概率：${gailv}%,是否需要@${onlyReplyAt},正在使用${ai_name[ai_now]}`)
+            }
         }
+        if (e.msg.charAt(0) == '#') return false;
         let b = Math.round(Math.random() * 100)
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
         if ((e.msg.includes(BotName) || e.atme || e.isPrivate || !onlyReplyAt) && gailv >= b) {

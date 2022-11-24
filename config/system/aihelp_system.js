@@ -25,7 +25,9 @@ export const helpCfg = {
   // 皮肤名为对应文件夹名
   // theme: 'all', // 设置为全部皮肤
   // theme: ['default','theme2'], // 设置为指定皮肤
-  theme: 'all',
+  
+  theme: ['default','main'],
+  //theme: 'all',
 
   // 排除皮肤：在存在其他皮肤时会忽略该项内设置的皮肤
   // 默认忽略default：即存在其他皮肤时会忽略自带的default皮肤
@@ -38,11 +40,11 @@ export const helpCfg = {
 
 // 帮助菜单内容
 export const helpList = [{
-  group: 'ai介绍',
+  group: '各种免费ai接口介绍',
   list: [{
     icon: 80,
     title: '1号青云客',
-    desc: ''
+    desc: '言语风格比较犀利'
   }, {
     icon: 80,
     title: '2号思知',
@@ -66,10 +68,10 @@ export const helpList = [{
   }, {
     icon: 80,
     title: '更多ai',
-    desc: '敬请期待'
+    desc: '敬请期待，有合适的接口也可以联系我们'
   }]
 }, {
-  group: '管理命令，仅管理员可用',
+  group: '管理命令，仅Bot管理员可用',
   auth: 'master',
   list: [{
     icon: 80,
@@ -78,7 +80,7 @@ export const helpList = [{
   }, {
     icon: 80,
     title: '太吵了/太安静了',
-    desc: 'ai触发概率小幅度调整'
+    desc: 'ai触发概率小幅度调整,具体调整数值在config文件里面查看'
   }, {
     icon: 80,
     title: 'ai只关注@消息',
@@ -89,20 +91,24 @@ export const helpList = [{
     desc: 'ai模式调整为全局概率触发'
   }, {
     icon: 54,
-    title: 'ai设置概率',
+    title: '设置ai回复概率',
     desc: '设置ai触发概率为0以上100以内'
   }, {
     icon: 54,
-    title: '#查看全部ai接口',
+    title: '查看全部ai接口',
     desc: '查看已配置的ai接口'
   }, {
     icon: 54,
-    title: '#当前ai接口',
+    title: '当前ai接口',
     desc: '查看正在使用的ai接口'
   }, {
     icon: 54,
-    title: '#切换ai接口+序号',
+    title: '切换ai接口+序号',
     desc: '切换ai的接口'
+  },{
+    icon: 55,
+    title: 'ai状态',
+    desc: '查看ai状态'
   }]
 }]
 
