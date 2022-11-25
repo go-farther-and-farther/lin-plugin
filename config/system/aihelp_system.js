@@ -74,7 +74,7 @@ export const helpList = [{
   auth: 'master',
   list: [{
     icon: 80,
-    title: 'ai开启/关闭',
+    title: 'ai开启/ai关闭',
     desc: 'ai开关'
   }, {
     icon: 80,
@@ -90,7 +90,7 @@ export const helpList = [{
     desc: 'ai模式调整为全局概率触发'
   }, {
     icon: 54,
-    title: 'ai设置概率',
+    title: 'ai设置概率/设置ai概率/设置回复概率',
     desc: '设置ai触发概率为0以上100以内'
   }, {
     icon: 54,
@@ -98,7 +98,7 @@ export const helpList = [{
     desc: '查看已配置的ai接口'
   }, {
     icon: 54,
-    title: 'ai设置接口+序号',
+    title: 'ai设置接口/设置ai接口/切换ai接口+序号',
     desc: '切换ai的接口'
   }, {
     icon: 55,
