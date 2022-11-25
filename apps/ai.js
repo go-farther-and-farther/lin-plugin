@@ -80,20 +80,8 @@ export class ai extends plugin {
         if (e.isMaster) {
             //控制接口-------------------------------------------
             let num = ai_api.length - 1
-            //发送全部接口
-            if (e.msg.includes('查看全部ai接口')) {
-                let msg = ''
-                for (let i = 1; i <= num; i++) {
-                    msg = msg + ai_name[i]
-                    if (e.msg.includes('链接')) {
-                        msg = msg + ai_api[i]
-                    }
-                }
-                e.reply(msg)
-                return true;
-            }
             // 发送当前的接口名字
-            else if (e.msg.includes('切换ai接口')) {
+            if (e.msg.includes('切换ai接口')) {
                 let message = e.msg.replace(/#切换ai接口/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
                 if (message <= num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
                 {
@@ -155,7 +143,7 @@ export class ai extends plugin {
                 e.reply("现在我会关注每一条消息了")
                 return true;
             }
-            if (e.msg.includes('太安静了') && gailv > 0) {
+            if (e.msg == '太安静了' && gailv > 0) {
                 //如果概率等于1
                 if (gailv == 100) {
                     //提示不能修改了
@@ -168,11 +156,11 @@ export class ai extends plugin {
                     return true;
                 }
             }
-            else if (e.msg.includes('太安静了')) {
+            else if (e.msg == '太安静了') {
                 e.reply("ai已关闭,请先开启")
                 return true;
             }
-            if (e.msg.includes('太吵了') && gailv > 0) {
+            if (e.msg == '太吵了' && gailv > 0) {
                 //如果概率等于0
                 if (gailv == 10) {
                     //提示不能修改了
@@ -185,7 +173,7 @@ export class ai extends plugin {
                     return true;
                 }
             }
-            else if (e.msg.includes('太吵了')) {
+            else if (e.msg == '太吵了') {
                 e.reply("ai已关闭,请先开启")
                 return true;
             }
