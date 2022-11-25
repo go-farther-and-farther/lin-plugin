@@ -94,10 +94,6 @@ export const helpList = [{
     desc: '设置ai触发概率为0以上100以内'
   }, {
     icon: 54,
-    title: '查看全部ai接口',
-    desc: '查看已配置的ai接口'
-  }, {
-    icon: 54,
     title: 'ai设置接口/设置ai接口/切换ai接口+序号',
     desc: '切换ai的接口'
   }, {
