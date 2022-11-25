@@ -81,8 +81,8 @@ export class ai extends plugin {
             //控制接口-------------------------------------------
             let num = ai_api.length - 1
             // 发送当前的接口名字
-            if (e.msg.includes('ai设置接口')) {
-                let message = e.msg.replace(/ai设置接口/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
+            if (e.msg.includes('ai设置接口') || e.msg.includes('设置ai接口') || e.msg.includes('切换ai接口')) {
+                let message = e.msg.replace(/(ai设置接口|设置ai接口|切换ai接口|#)/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
                 if (message <= num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
                 {
                     ai_now = message - 1
@@ -94,8 +94,12 @@ export class ai extends plugin {
                 return true;
             }
             //设置概率-----------------------------------------
-            if (e.msg.includes('ai设置概率') && gailv > 0) {
-                msgsz = e.msg.replace(/ai设置概率/g, "").replace(/[\n|\r]/g, "，").trim()
+            if (e.msg.includes('ai设置概率') || e.msg.includes('设置ai概率') || e.msg.includes('设置回复概率')) {
+                if (gailv < 0) {
+                    e.reply("ai已关闭,请先开启")
+                    return true;
+                }
+                msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
@@ -111,28 +115,25 @@ export class ai extends plugin {
                 }
                 return true;
             }
-            else if (e.msg.includes('ai设置概率')) {
-                e.reply("ai已关闭,请先开启")
-                return true;
-            }
-            if (e.msg.includes('ai关闭') && gailv >= 10) {
+            if (e.msg.includes('ai关闭')) {
+                if (gailv <= 10) {
+                    e.reply("ai已经是关闭状态了")
+                    return true;
+                }
                 gailv = 0
                 e.reply("ai已关闭")
                 return true;
             }
-            else if (e.msg.includes('ai关闭')) {
-                e.reply("ai已经是关闭状态了")
+            if (e.msg.includes('ai开启')) {
+                if (gailv == 0) {
+                    e.reply(`已经是开启状态了,目前ai触发概率：${gailv}%，`)
+                    return true;
+                }
+                gailv = 50
+                e.reply("ai已开启。概率为50％")
                 return true;
             }
-            if (e.msg.includes('ai开启') && gailv == 0) {
-                gailv = 10
-                e.reply("ai已开启。概率为10％")
-                return true;
-            }
-            else if (e.msg.includes('ai开启')) {
-                e.reply(`已经是开启状态了,目前ai触发概率：${gailv}%，`)
-                return true;
-            }
+
             if (e.msg.includes('ai只关注@消息')) {
                 onlyReplyAt = true;
                 e.reply("好啦，现在只回复@消息了")
@@ -143,8 +144,12 @@ export class ai extends plugin {
                 e.reply("现在我会关注每一条消息了")
                 return true;
             }
-            if (e.msg == '太安静了' && gailv > 0) {
+            if (e.msg == '太安静了') {
                 //如果概率等于1
+                if (gailv <= 0) {
+                    e.reply("ai已关闭,请先开启")
+                    return true;
+                }
                 if (gailv == 100) {
                     //提示不能修改了
                     e.reply("概率100％了，不能再加了！");
@@ -156,27 +161,24 @@ export class ai extends plugin {
                     return true;
                 }
             }
-            else if (e.msg == '太安静了') {
-                e.reply("ai已关闭,请先开启")
-                return true;
-            }
-            if (e.msg == '太吵了' && gailv > 0) {
-                //如果概率等于0
-                if (gailv == 10) {
-                    //提示不能修改了
-                    e.reply("很安静了，再改就关掉了>_<");
-                    return true;
+            else
+                if (e.msg == '太吵了') {
+                    //如果概率等于0
+                    if (gailv > 0) {
+                        e.reply("ai已关闭,请先开启")
+                        return true;
+                    }
+                    if (gailv == 10) {
+                        //提示不能修改了
+                        e.reply("很安静了，再改就关掉了>_<");
+                        return true;
+                    }
+                    else {
+                        gailv -= gailv_;
+                        e.reply(`概率降低，目前ai触发概率：${gailv}%，`)
+                        return true;
+                    }
                 }
-                else {
-                    gailv -= gailv_;
-                    e.reply(`概率降低，目前ai触发概率：${gailv}%，`)
-                    return true;
-                }
-            }
-            else if (e.msg == '太吵了') {
-                e.reply("ai已关闭,请先开启")
-                return true;
-            }
             //查看状态----------------------------------
             if (e.msg.includes('ai状态')) {
                 e.reply(`目前ai触发概率：${gailv}%,是否需要@${onlyReplyAt},正在使用${ai_name[ai_now]}`)
