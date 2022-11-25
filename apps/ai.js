@@ -94,8 +94,8 @@ export class ai extends plugin {
                 return true;
             }
             //设置概率-----------------------------------------
-            if (e.msg.includes('设置ai回复概率') && gailv > 0) {
-                msgsz = e.msg.replace(/设置ai回复概率/g, "").replace(/[\n|\r]/g, "，").trim()
+            if (e.msg.includes('ai设置概率') && gailv > 0) {
+                msgsz = e.msg.replace(/a设置概率/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
