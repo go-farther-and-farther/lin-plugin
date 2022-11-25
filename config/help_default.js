@@ -138,20 +138,8 @@ export const helpList = [{
     desc: '是否回复本群消息'
   }, {
     icon: 80,
-    title: 'ai开启/关闭',
-    desc: 'ai开关'
-  }, {
-    icon: 80,
-    title: '太吵了/太安静了',
-    desc: 'ai触发概率调整'
-  }, {
-    icon: 80,
-    title: 'ai只关注@消息/ai关注所有消息',
-    desc: 'ai模式调整'
-  }, {
-    icon: 80,
-    title: 'ai设置概率',
-    desc: '10-90十的倍数,ai设置概率拉满则为100'
+    title: '开始/结束复读',
+    desc: '控制+1功能开关 <复读状态>查看状态'
   }, {
     icon: 22,
     title: '#Lin发送报错',

@@ -81,8 +81,8 @@ export class ai extends plugin {
             //控制接口-------------------------------------------
             let num = ai_api.length - 1
             // 发送当前的接口名字
-            if (e.msg.includes('切换ai接口')) {
-                let message = e.msg.replace(/#切换ai接口/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
+            if (e.msg.includes('ai设置接口')) {
+                let message = e.msg.replace(/ai设置接口/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
                 if (message <= num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
                 {
                     ai_now = message - 1
@@ -95,7 +95,7 @@ export class ai extends plugin {
             }
             //设置概率-----------------------------------------
             if (e.msg.includes('ai设置概率') && gailv > 0) {
-                msgsz = e.msg.replace(/a设置概率/g, "").replace(/[\n|\r]/g, "，").trim()
+                msgsz = e.msg.replace(/ai设置概率/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }

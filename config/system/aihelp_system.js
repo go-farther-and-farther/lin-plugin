@@ -43,27 +43,27 @@ export const helpList = [{
   list: [{
     icon: 80,
     title: '1号青云客',
-    desc: '言语风格比较犀利'
+    desc: '言语风格比较犀利，词库较多'
   }, {
     icon: 80,
     title: '2号思知',
-    desc: ''
+    desc: '言语风格比较平淡，词库一般'
   }, {
     icon: 80,
     title: '3号夸克',
-    desc: ''
+    desc: '问答式，听不懂你在说什么'
   }, {
     icon: 80,
     title: '4号小爱',
-    desc: ''
+    desc: '顾名思义。风格温和'
   }, {
     icon: 80,
     title: '5号小源',
-    desc: ''
+    desc: '等你探索>_<'
   }, {
     icon: 80,
     title: '6号小白',
-    desc: ''
+    desc: '等你来探索>_<'
   }, {
     icon: 80,
     title: '更多ai',
@@ -90,7 +90,7 @@ export const helpList = [{
     desc: 'ai模式调整为全局概率触发'
   }, {
     icon: 54,
-    title: '设置ai回复概率',
+    title: 'ai设置概率',
     desc: '设置ai触发概率为0以上100以内'
   }, {
     icon: 54,
@@ -98,16 +98,12 @@ export const helpList = [{
     desc: '查看已配置的ai接口'
   }, {
     icon: 54,
-    title: '当前ai接口',
-    desc: '查看正在使用的ai接口'
-  }, {
-    icon: 54,
-    title: '切换ai接口+序号',
+    title: 'ai设置接口+序号',
     desc: '切换ai的接口'
-  },{
+  }, {
     icon: 55,
     title: 'ai状态',
-    desc: '查看ai状态'
+    desc: '查看ai状态(开关 接口 概率)'
   }]
 }]
 
