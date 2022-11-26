@@ -23,7 +23,7 @@ export class baidu extends plugin {
                 },
                 {
                     /** 命令正则匹配 */
-                    reg: '#(.*)疫情',
+                    reg: '#?(.*)疫情',
                     /** 执行方法 */
                     fnc: 'yiqing'
                 }
@@ -84,7 +84,7 @@ export class baidu extends plugin {
                 e.reply('请输入“省份-城市疫情”')
             }
             let message = e.msg.trim().replace('疫情', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
-            //message = message.trim().replace('#百度', "").replace(/[\n|\r]/g, "，");
+            message = message.trim().replace('#', "").replace(/[\n|\r]/g, "，");
             var postUrl = `https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_aladin_banner&city=${message}`;
         }
 
