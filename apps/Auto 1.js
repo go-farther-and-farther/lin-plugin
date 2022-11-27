@@ -1,6 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
-var kg = 0
+var kg = 1
 let a = 0
 let b = 0
 let i = 0
