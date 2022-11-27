@@ -44,15 +44,19 @@ git clone https://github.com/go-farther-and-farther/lin.git ./plugins/lin-plugi
 
 ### 常见问题❓
 <details><summary>展开</summary>
+
   - 1: 为什么我更新后一些功能无法正茶使用了?
   -    向机器人发送#重置lin配置
+  
   - 2: 为什么我明明设置了ai/加一的设置,但是却用不了?
   -    查看日志是否有其他插件优先处理完成了指令
+  
   - 3: 为什么突然ai和加一突然没反应了?
   -    重启会恢复默认值
+  
   - 我有其他问题!
   - 联系我们 Q群 906539561
-)
+
 </details>
 
 #### 参与贡献✨
