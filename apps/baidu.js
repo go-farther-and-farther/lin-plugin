@@ -17,13 +17,13 @@ export class baidu extends plugin {
             rule: [
                 {
                     /** 命令正则匹配 */
-                    reg: '#百度(一下)?(.*)',
+                    reg: '^#百度(一下)?(.*)',
                     /** 执行方法 */
                     fnc: 'baidu'
                 },
                 {
                     /** 命令正则匹配 */
-                    reg: '#?(.*)疫情',
+                    reg: '^#?(.*)疫情$',
                     /** 执行方法 */
                     fnc: 'yiqing'
                 }
