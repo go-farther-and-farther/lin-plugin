@@ -74,56 +74,51 @@ export const helpList = [{
   }]
 }, {
   group: "查询指令",
-  list: [
-    {
-      icon: 57,
-      title: '#省份-城市疫情',
-      desc: '查看城市疫情'
-    }, {
-      icon: 58,
-      title: '#来份动漫图',
-      desc: '随机发送动漫图片'
-    }, {
-      icon: 43,
-      title: '#搜歌xx #搜动漫xx',
-      desc: '功能请看指令'
-    }, {
-      icon: 59,
-      title: '#历史上的今天',
-      desc: '了解历史上的今天发生的事情'
-    }, {
-      icon: 21,
-      title: '#知乎热榜',
-      desc: '发送知乎热榜'
-    }, {
-      icon: 39,
-      title: '#微博热搜',
-      desc: '发送当前微博热搜'
-    }, {
-      icon: 55,
-      title: '#网易云热评',
-      desc: '发送网易云上的热评'
-    }, {
-      icon: 52,
-      title: '#翻译xx',
-      desc: '只是翻译而已'
-    }, {
-      icon: 76,
-      title: '#王者xx语音',
-      desc: '发送王者里xx的语音'
-    }, {
-      icon: 78,
-      title: '#查询手机号xx',
-      desc: '了解手机号的信息'
-    }, {
-      icon: 79,
-      title: '#地点查询xx',
-      desc: '查询某一地方的信息'
-    }, {
-      icon: 60,
-      title: '#路线规划查询xx到xx',
-      desc: '帮助规划路线'
-    }]
+  list: [{
+    icon: 58,
+    title: '#来份动漫图',
+    desc: '随机发送动漫图片'
+  }, {
+    icon: 43,
+    title: '#搜歌xx #搜动漫xx',
+    desc: '功能请看指令'
+  }, {
+    icon: 59,
+    title: '#历史上的今天',
+    desc: '了解历史上的今天发生的事情'
+  }, {
+    icon: 21,
+    title: '#知乎热榜',
+    desc: '发送知乎热榜'
+  }, {
+    icon: 39,
+    title: '#微博热搜',
+    desc: '发送当前微博热搜'
+  }, {
+    icon: 55,
+    title: '#网易云热评',
+    desc: '发送网易云上的热评'
+  }, {
+    icon: 52,
+    title: '#翻译xx',
+    desc: '只是翻译而已'
+  }, {
+    icon: 76,
+    title: '#王者xx语音',
+    desc: '发送王者里xx的语音'
+  }, {
+    icon: 78,
+    title: '#查询手机号xx',
+    desc: '了解手机号的信息'
+  }, {
+    icon: 79,
+    title: '#地点查询xx',
+    desc: '查询某一地方的信息'
+  }, {
+    icon: 60,
+    title: '#路线规划查询xx到xx',
+    desc: '帮助规划路线'
+  }]
 }, {
   group: '管理命令，仅管理员可用',
   auth: 'master',
