@@ -105,7 +105,8 @@ export class baidu extends plugin {
         const page = await browser.newPage();
         await page.goto(postUrl);
         await page.setViewport({
-            width: 1920,
+            //width: 1920,
+            width: 960,
             height: 1080
         });
 

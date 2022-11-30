@@ -118,10 +118,6 @@ export const helpList = [{
     icon: 60,
     title: '#路线规划查询xx到xx',
     desc: '帮助规划路线'
-  }, {
-    icon: 60,
-    title: '#省-市疫情',
-    desc: '如 #江西-南昌疫情'
   }]
 }, {
   group: '管理命令，仅管理员可用',
