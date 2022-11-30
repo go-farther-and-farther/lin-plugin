@@ -8,7 +8,8 @@ const dirpath = "plugins/lin-plugin/data/test";//文件夹路径
 
 const BotName = global.Bot.nickname;
 // 机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
-var gailv = await command.getConfig("ai_cfg", "gailv");
+var def_gailv = await command.getConfig("ai_cfg", "gailv");
+var gailv = def_gailv
 var gailv_ = await command.getConfig("ai_cfg", "gailv_");
 // 读yaml文件里面的设置的初始回复概率
 var sz = "";
@@ -95,9 +96,8 @@ export class ai extends plugin {
             }
             //设置概率-----------------------------------------
             if (e.msg.includes('ai设置概率') || e.msg.includes('设置ai概率') || e.msg.includes('设置回复概率')) {
-                if (gailv < 0) {
+                if (gailv <= 0) {
                     e.reply("ai已关闭,请先开启")
-                    return true;
                 }
                 msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
@@ -116,21 +116,21 @@ export class ai extends plugin {
                 return true;
             }
             if (e.msg.includes('ai关闭')) {
-                if (gailv <= 10) {
-                    e.reply("ai已经是关闭状态了")
-                    return true;
+                if (gailv > 0) {
+                    gailv = 0
+                    e.reply("ai关闭成功")
+                    return
                 }
-                gailv = 0
-                e.reply("ai已关闭")
+                e.reply("ai已经是关闭状态了")
                 return true;
             }
             if (e.msg.includes('ai开启')) {
                 if (gailv == 0) {
-                    e.reply(`已经是开启状态了,目前ai触发概率：${gailv}%，`)
-                    return true;
+                    gailv = def_gailv
+                    e.reply(`ai开启成功。概率为${gailv}%，`)
+                    return
                 }
-                gailv = 50
-                e.reply("ai已开启。概率为50％")
+                e.reply(`已经是开启状态了,目前ai触发概率:${gailv}%，`)
                 return true;
             }
 
@@ -145,44 +145,31 @@ export class ai extends plugin {
                 return true;
             }
             if (e.msg == '太安静了') {
-                //如果概率等于1
-                if (gailv <= 0) {
-                    e.reply("ai已关闭,请先开启")
-                    return true;
+                //如果概率增加后大于100
+                if (gailv + gailv_ > 100) {
+                    e.reply(`目前ai触发概率：${gailv}%，再加${gailv_}就溢出来了ヾ(≧▽≦*)o`)
+                    return
                 }
-                if (gailv == 100) {
-                    //提示不能修改了
-                    e.reply("概率100％了，不能再加了！");
-                    return true;;
-                }
-                else {
-                    gailv += gailv_;
-                    e.reply(`概率提升，目前ai触发概率：${gailv}%，`)
-                    return true;
-                }
+                gailv += gailv_;
+                e.reply(`概率提升，目前ai触发概率：${gailv}%，`)
+                return true;
             }
-            else
-                if (e.msg == '太吵了') {
-                    //如果概率等于0
-                    if (gailv > 0) {
-                        e.reply("ai已关闭,请先开启")
-                        return true;
-                    }
-                    if (gailv == 10) {
-                        //提示不能修改了
-                        e.reply("很安静了，再改就关掉了>_<");
-                        return true;
-                    }
-                    else {
-                        gailv -= gailv_;
-                        e.reply(`概率降低，目前ai触发概率：${gailv}%，`)
-                        return true;
-                    }
+            if (e.msg == '太吵了') {
+                    //如果概率减少后小于等于0
+                if (gailv - gailv_  <= 0) {
+                    e.reply(`目前ai触发概率：${gailv}%，再降${gailv_}就要关了ヾ(≧▽≦*)o`)
+                    return
                 }
+                gailv -= gailv_;
+                 e.reply(`概率降低，目前ai触发概率：${gailv}%，`)
+                return true;
+            }
             //查看状态----------------------------------
             if (e.msg.includes('ai状态')) {
                 e.reply(`目前ai触发概率：${gailv}%,是否需要@${onlyReplyAt},正在使用${ai_name[ai_now]}`)
+                return true;
             }
+            return false;
         }
         if (e.msg.charAt(0) == '#') return false;
         let b = Math.round(Math.random() * 100)
