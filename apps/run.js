@@ -17,7 +17,8 @@ export class run extends plugin {
           /** 命令正则匹配 */
           reg: '',
           /** 执行方法 */
-          fnc: 'run'
+          fnc: 'run',
+          log: false
         }
       ]
     })

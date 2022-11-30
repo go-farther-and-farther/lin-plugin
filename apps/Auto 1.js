@@ -26,7 +26,8 @@ export class example extends plugin {
           /** 命令正则匹配 */
           reg: '',
           /** 执行方法 */
-          fnc: 'cs'
+          fnc: 'cs',
+          log: false
         }
       ]
     })
