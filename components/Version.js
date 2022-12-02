@@ -10,6 +10,9 @@ let logs = {}
 let changelogs = []
 let currentVersion
 let versionCount = 6
+
+let packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'))
+
 //这里申明了几个变量
 const getLine = function (line) {
   line = line.replace(/(^\s*\*|\r)/g, '')
@@ -20,11 +23,11 @@ const getLine = function (line) {
   line = line.replace(/ⁿᵉʷ/g, '<span class="new"></span>')
   return line
 }
-
+//对一行数据进行处理
 try {
   if (fs.existsSync(CHANGELOG_path)) {
     logs = fs.readFileSync(CHANGELOG_path, 'utf8') || ''
-	logs = logs.replace(/\t/g,'   ').split('\n')
+    logs = logs.replace(/\t/g, '   ').split('\n')
     let temp = {};
     let lastLine = {}
     lodash.forEach(logs, (line) => {
@@ -40,7 +43,7 @@ try {
           changelogs.push(temp)
           if (/0\s*$/.test(v) && versionCount > 0) {
             //versionCount = 0
-			versionCount--
+            versionCount--
           } else {
             versionCount--
           }
@@ -53,18 +56,18 @@ try {
         if (!line.trim()) {
           return
         }
-		if (/^\*/.test(line)) {
-			lastLine = {
-				title: getLine(line),
-				logs: []
-		}
-		if(!temp.logs){
-			temp = {
-				version: line,
-				logs: []
-			}
-		}
-		temp.logs.push(lastLine)
+        if (/^\*/.test(line)) {
+          lastLine = {
+            title: getLine(line),
+            logs: []
+          }
+          if (!temp.logs) {
+            temp = {
+              version: line,
+              logs: []
+            }
+          }
+          temp.logs.push(lastLine)
         } else if (/^\s{2,}\*/.test(line)) {
           lastLine.logs.push(getLine(line))
         }
@@ -72,30 +75,38 @@ try {
     })
   }
 } catch (e) {
-	logger.error(e);
+  logger.error(e);
   // do nth
 }
 
-try{
-	if(fs.existsSync(README_path)){
-		let README = fs.readFileSync(README_path, 'utf8') || ''
-		let reg = /版本：(.*)/.exec(README)
-		if(reg){
-			currentVersion = reg[1]
-		}
-	}
-}catch(err){}
+try {
+  if (fs.existsSync(README_path)) {
+    let README = fs.readFileSync(README_path, 'utf8') || ''
+    let reg = /版本：(.*)/.exec(README)
+    if (reg) {
+      currentVersion = reg[1]
+    }
+  }
+} catch (err) { }
+
+const yunzaiVersion = packageJson.version
+const isV3 = yunzaiVersion[0] === '3'
 
 //这个是version出口的东西
 let Version = {
-  get ver () {
+  get ver() {
     return currentVersion;
   },
-  get yunzai(){
-	  return yunzai_ver;
+  get yunzai() {
+    return yunzai_ver;
   },
-  get logs(){
-	  return changelogs;
+  get logs() {
+    return changelogs;
+  },
+  runtime() {
+    console.log(`未能找到e.runtime，请升级至最新版${isV3 ? 'V3' : 'V2'}-Yunzai以使用lin-plugin`)
+    //这个是cv喵佬的，但是我没找到package.json，有点害怕报错
+    //现在找到了，这个是云崽根目录的那个
   }
 }
 export default Version
