@@ -97,9 +97,8 @@ export class ai extends plugin {
             }
             //设置概率-----------------------------------------
             if (e.msg.includes('ai设置概率') || e.msg.includes('设置ai概率') || e.msg.includes('设置回复概率')) {
-                if (gailv < 0) {
+                if (gailv <= 0) {
                     e.reply("ai已关闭,请先开启")
-                    return true;
                 }
                 msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
@@ -147,30 +146,23 @@ export class ai extends plugin {
                 return true;
             }
             if (e.msg == '太安静了') {
-                //如果概率等于1
-                if (gailv <= 0) {
-                    e.reply("ai已关闭,请先开启")
-                    return true;
+                //如果概率增加后大于100
+                if (gailv + gailv_ > 100) {
+                    e.reply(`目前ai触发概率：${gailv}%，再加${gailv_}就溢出来了ヾ(≧▽≦*)o`)
+                    return
                 }
-                if (gailv == 100) {
-                    //提示不能修改了
-                    e.reply("概率100％了，不能再加了！");
-                    return true;;
-                }
-                else {
-                    gailv += gailv_;
-                    e.reply(`概率提升，目前ai触发概率：${gailv}%，`)
-                    return true;
-                }
+                gailv += gailv_;
+                e.reply(`概率提升，目前ai触发概率：${gailv}%，`)
+                return true;
             }
             else
                 if (e.msg == '太吵了') {
                     //如果概率等于0
-                    if (gailv == 0) {
+                    if (gailv > 0) {
                         e.reply("ai已关闭,请先开启")
                         return true;
                     }
-                    else if (gailv <= 10) {
+                    if (gailv == 10) {
                         //提示不能修改了
                         e.reply("很安静了，再改就关掉了>_<");
                         return true;
@@ -184,7 +176,9 @@ export class ai extends plugin {
             //查看状态----------------------------------
             if (e.msg.includes('ai状态')) {
                 e.reply(`目前ai触发概率：${gailv}%,是否需要@${onlyReplyAt},正在使用${ai_name[ai_now]}`)
+                return true;
             }
+            return false;
         }
         if (e.msg.charAt(0) == '#') return false;
         let b = Math.round(Math.random() * 100)
