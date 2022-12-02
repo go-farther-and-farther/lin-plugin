@@ -72,7 +72,7 @@ export class example extends plugin {
     }
     else if(kg == 1 && e.isGroup){
       if(!i) {a = e.msg; i++
-      return
+      return false;
       }
       else{b = e.msg;}
       if(a == b) {
