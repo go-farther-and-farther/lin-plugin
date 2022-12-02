@@ -9,7 +9,7 @@ let ret = []
 
 if (Bot?.logger?.info) {
     Bot.logger.info(chalk.green('------^-^------'))
-    Bot.logger.info(chalk.yellow(`麟插件${Ver.ver}初始化~`))
+    Bot.logger.info(chalk.yellow(`麟插件${Version.version}初始化~`))
     Bot.logger.info(chalk.green('---------------'))
 } else {
     console.log(`lin插件${Version.version}初始化~`)
