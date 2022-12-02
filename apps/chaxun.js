@@ -1,7 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import { segment } from 'oicq'
-import command from '../command/command.js'
+import command from '../components/command.js'
 import puppeteer from '../../../lib/puppeteer/puppeteer.js'
 
 const gaodekey = 'c28ee5d8553ef1800bdce344a3b39c68'

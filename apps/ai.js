@@ -2,7 +2,7 @@ import plugin from '../../../lib/plugins/plugin.js'
 import fetch from "node-fetch";
 import { segment } from "oicq";
 import lodash from "lodash";
-import command from '../command/command.js'
+import command from '../components/command.js'
 import fs from 'fs';
 const dirpath = "plugins/lin-plugin/data/test";//文件夹路径
 
