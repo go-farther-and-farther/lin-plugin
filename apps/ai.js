@@ -8,8 +8,10 @@ const dirpath = "plugins/lin-plugin/data/test";//文件夹路径
 
 const BotName = global.Bot.nickname;
 // 机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
-var gailv = await command.getConfig("ai_cfg", "gailv");
-var gailv_ = await command.getConfig("ai_cfg", "gailv_");
+var def_gailv = await command.getConfig("ai_cfg", "gailv");
+var def_gailv_ = await command.getConfig("ai_cfg", "gailv_");
+var gailv = def_gailv
+var gailv_ = def_gailv_
 // 读yaml文件里面的设置的初始回复概率
 var sz = "";
 var msgsz = "";
@@ -116,30 +118,30 @@ export class ai extends plugin {
                 return true;
             }
             if (e.msg.includes('ai关闭')) {
-                if (gailv <= 10) {
+                if (gailv <= 0) {
                     e.reply("ai已经是关闭状态了")
                     return true;
                 }
                 gailv = 0
-                e.reply("ai已关闭")
+                e.reply("ai成功关闭")
                 return true;
             }
             if (e.msg.includes('ai开启')) {
                 if (gailv == 0) {
-                    e.reply(`已经是开启状态了,目前ai触发概率：${gailv}%，`)
+                    gailv = def_gailv
+                    e.reply(`成功开启,目前ai触发概率:${gailv}%!`)
                     return true;
                 }
-                gailv = 50
-                e.reply("ai已开启。概率为50％")
+                e.reply(`ai已经是开启状态了,概率为${gailv}%`)
                 return true;
             }
 
-            if (e.msg.includes('ai只关注@消息')) {
+            if (e.msg.includes('只关注@消息')) {
                 onlyReplyAt = true;
                 e.reply("好啦，现在只回复@消息了")
                 return true;
             }
-            if (e.msg.includes('ai关注所有消息')) {
+            if (e.msg.includes('关注所有消息')) {
                 onlyReplyAt = false;
                 e.reply("现在我会关注每一条消息了")
                 return true;
@@ -164,11 +166,11 @@ export class ai extends plugin {
             else
                 if (e.msg == '太吵了') {
                     //如果概率等于0
-                    if (gailv > 0) {
+                    if (gailv == 0) {
                         e.reply("ai已关闭,请先开启")
                         return true;
                     }
-                    if (gailv == 10) {
+                    else if (gailv <= 10) {
                         //提示不能修改了
                         e.reply("很安静了，再改就关掉了>_<");
                         return true;
