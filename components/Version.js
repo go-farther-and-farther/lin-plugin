@@ -2,15 +2,15 @@ import fs from 'fs'
 import lodash from 'lodash'
 import cfg from '../../../lib/config/config.js'
 const Plugin_Path = `${process.cwd()}/plugins/lin-plugin`;
-const README_path = `${Plugin_Path}/README.md`
-const CHANGELOG_path = `${Plugin_Path}/CHANGELOG.md`
-const yunzai_ver = `v${cfg.package.version}`;
+const README_path = `${Plugin_Path}/README.md`//帮助
+const CHANGELOG_path = `${Plugin_Path}/CHANGELOG.md`//更新
+const yunzai_ver = `v${cfg.package.version}`;//云崽的版本
 
 let logs = {}
 let changelogs = []
 let currentVersion
 let versionCount = 6
-
+//这里申明了几个变量
 const getLine = function (line) {
   line = line.replace(/(^\s*\*|\r)/g, '')
   line = line.replace(/\s*`([^`]+`)/g, '<span class="cmd">$1')
@@ -86,6 +86,7 @@ try{
 	}
 }catch(err){}
 
+//这个是version出口的东西
 let Version = {
   get ver () {
     return currentVersion;
@@ -98,3 +99,4 @@ let Version = {
   }
 }
 export default Version
+//export default向外暴露的成员，可以使用任意变量来接收，看不懂
