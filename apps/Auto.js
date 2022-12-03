@@ -85,7 +85,7 @@ export class Auto extends plugin {
           i[id] = 1
         }
         if (i[id] >= num) {//重复次数足够多，复读并刷新i
-          e.reply(a[id])
+          e.reply(`打断施法，不要再发“${a[id]}”了！`)
           i[id] = 1
         }
       }
