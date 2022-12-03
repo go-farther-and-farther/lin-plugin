@@ -21,7 +21,7 @@
 使用gitee
 
 ```base
-git clone  clone https://gitee.com/go-farther-and-farther/lin-plugin.git ./plugins/lin-plugin/
+git clone https://gitee.com/go-farther-and-farther/lin-plugin.git ./plugins/lin-plugin/
 ```
 使用github
 
