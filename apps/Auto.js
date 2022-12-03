@@ -1,5 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
+import command from '../components/command.js'
 var kg = 1
 let a = 0
 let b = 0
