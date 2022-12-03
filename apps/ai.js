@@ -103,7 +103,7 @@ export class ai extends plugin {
 
         //---------------------------------------------------
         //一个控制ai回复概率的模块
-        if (e.isMaster) {
+        if (e.isMaster || e.member.is_owner || e.member.is_admin) {
             //控制接口-------------------------------------------
             let api_num = ai_api.length - 1//接口数量
             // 发送当前的接口名字
