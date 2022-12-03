@@ -75,6 +75,7 @@ export class Auto extends plugin {
       let id = e.group_id
       if (!a[id]) {//第一次运行,a=0时候
         a[id] = e.msg;
+        i[id] = 1;
         return false;
       }
       else {
