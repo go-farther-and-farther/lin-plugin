@@ -26,7 +26,7 @@ git clone https://gitee.com/go-farther-and-farther/lin-plugin.git ./plugins/lin-
 使用github
 
 ```base
-git clone https://github.com/go-farther-and-farther/lin.git ./plugins/lin-plugin/
+git clone https://github.com/go-farther-and-farther/lin-plugin.git ./plugins/lin-plugin/
 ```
 使用`lin更新`来更新插件。
 
