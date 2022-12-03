@@ -17,7 +17,7 @@ async function getConfig(name, key) {//获取
 
     let config = YAML.parse(fs.readFileSync(configyamlpath, 'utf8'));
 
-    if (!config[name][key]) {
+    if (!config[name][key] && config[name][key] != false) {
         logger.error(`没有设置[${name}]:[${key}],请使用“#lin重置配置”指令或者前往[${configyamlpath}]设置！`);
     }
     return config[name][key];
@@ -35,4 +35,4 @@ async function getresources(name, key) {//获取
 }
 
 
-export default { getConfig ,getresources}
+export default { getConfig, getresources }
