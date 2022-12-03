@@ -189,7 +189,11 @@ export class ai extends plugin {
             }
             //查看状态----------------------------------
             else if (e.msg.includes('ai状态')) {
-                e.reply(`目前ai触发概率：${gailv}%,是否需要@${onlyReplyAt},正在使用${ai_name[ai_now]},是否开机${open}`)
+                e.reply(`目前所在的私聊或群聊${id},
+                ai触发概率：${gailv}%,
+                是否需要@${onlyReplyAt},
+                正在使用${ai_name[ai_now]},
+                ai是否是开启状态${open}。`)
             }
             json[id].gailv = gailv
             json[id].open = open
