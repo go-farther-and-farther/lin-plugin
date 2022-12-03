@@ -97,7 +97,7 @@ export class example extends plugin {
         }
         if (i >= num) {//重复次数足够多，复读并刷新i
           e.reply(a)
-          i = 0
+          i = 1
         }
       }
     }
