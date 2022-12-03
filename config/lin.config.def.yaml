@@ -7,7 +7,8 @@ thumbUp_cfg:
   # 最短点赞时间间隔，单位秒；回复概率
   time: 60
   huifu: 30
-
+Auto:
+  num: 3
 # 青云客 设置:初始概率,每次改变量,只关注@,默认接口,开关
 ai_cfg: 
   def_gailv: 10

@@ -4,14 +4,14 @@ var kg = 1
 let a = 0
 let b = 0
 let i = 0
-let num = 3
+var num = await command.getConfig("Auto", "num");
 /*纯小白，大佬勿喷，有问题找大佬。没问题找我2113752439
 此插件可实现群聊中机器人跟着+1的功能，目前仅支持文字内容
 因为我不会写*/
 /*1.0.0 纯文字+1，开关功能实现
   1.0.1 增加状态提示，
 */
-export class example extends plugin {
+export class Auto extends plugin {
   constructor() {
     super({
       /** 功能名称 */
