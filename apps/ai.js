@@ -117,7 +117,7 @@ export class ai extends plugin {
                     e.reply(`接口序号${message}超出范围或不合规，目前总量${api_num}`)
                 }
             }
-            if (e.msg.includes('ai设置概率') || e.msg.includes('设置ai概率') || e.msg.includes('设置回复概率')) {
+            else if (e.msg.includes('ai设置概率') || e.msg.includes('设置ai概率') || e.msg.includes('设置回复概率')) {
                 if (!open) {
                     e.reply("ai已关闭,请先开启,不然设置了概率我也说不了话啊(～￣▽￣)～")
                 }
@@ -136,7 +136,7 @@ export class ai extends plugin {
                     }
                 }
             }
-            if (e.msg.includes('ai关闭')) {
+            else if (e.msg.includes('ai关闭')) {
                 if (!open) {
                     e.reply("ai已经是关闭状态了哦(～￣▽￣)～")
                 }
@@ -145,7 +145,7 @@ export class ai extends plugin {
                     e.reply("ai成功关闭!")
                 }
             }
-            if (e.msg.includes('ai开启')) {
+            else if (e.msg.includes('ai开启')) {
                 if (!open) {
                     open = true
                     e.reply(`成功开启,您目前设置的ai触发概率:${gailv}%!`)
@@ -153,11 +153,11 @@ export class ai extends plugin {
                 else
                 e.reply(`ai已经是开启状态了,不需要再开启一遍哦！`)
             }
-           if (e.msg.includes('只关注@消息')) {
+            else if (e.msg.includes('只关注@消息')) {
                 onlyReplyAt = true;
                 e.reply("好啦，现在只回复@消息了哦")
             }
-            if (e.msg.includes('关注所有消息')) {
+            else if (e.msg.includes('关注所有消息')) {
                 onlyReplyAt = false;
                 e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
