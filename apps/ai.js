@@ -191,6 +191,10 @@ export class ai extends plugin {
             else if (e.msg.includes('ai状态')) {
                 e.reply(`目前ai触发概率：${gailv}%,是否需要@${onlyReplyAt},正在使用${ai_name[ai_now]},是否开机${open}`)
             }
+            json[id].gailv = gailv
+            json[id].open = open
+            json[id].onlyReplyAt = onlyReplyAt
+            json[id].ai_now = ai_now
             fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
             return true;
         }
