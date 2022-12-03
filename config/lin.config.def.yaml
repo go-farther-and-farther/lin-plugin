@@ -8,10 +8,13 @@ thumbUp_cfg:
   time: 60
   huifu: 30
 
-# 青云客 设置:初始概率和，每次改变量
+# 青云客 设置:初始概率,每次改变量,只关注@,默认接口,开关
 ai_cfg: 
-  gailv: 10
-  gailv_: 10
+  def_gailv: 10
+  def_gailv_: 10
+  def_onlyReplyAt : true
+  def_ai_now : 1
+  def_open : true
   ai_api: 
   - http://api.qingyunke.com/api.php?key=free&appid=0&msg= #青云客
   - https://api.ownthink.com/bot?appid=xiaosi&userid=user&spoken= #思知ai
@@ -33,6 +36,8 @@ ai_cfg:
   - 小思 
   - 夸克宝宝
   - 小爱
+  #下面三个不清楚
+  - 小源
   - 琪琪
   - 吴珂
 # 决斗系列插件 设置

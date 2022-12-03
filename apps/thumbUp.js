@@ -1,6 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import schedule from "node-schedule";
-import command from '../command/command.js'
+import command from '../components/command.js'
 import cfg from '../../../lib/config/config.js'
 var everyone = await command.getConfig("thumbUp_cfg", "everyone") //是否全局点赞
 var reply_something = await command.getConfig("thumbUp_cfg", "reply_something") //是否有点赞提示
