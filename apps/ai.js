@@ -119,7 +119,7 @@ export class ai extends plugin {
             }
             if (e.msg.includes('ai设置概率') || e.msg.includes('设置ai概率') || e.msg.includes('设置回复概率')) {
                 if (!open) {
-                    e.reply("ai已关闭,请先开启")
+                    e.reply("ai已关闭,请先开启,不然设置了概率我也说不了话啊(～￣▽￣)～")
                 }
                 let msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
@@ -138,28 +138,28 @@ export class ai extends plugin {
             }
             if (e.msg.includes('ai关闭')) {
                 if (!open) {
-                    e.reply("ai已经是关闭状态了")
+                    e.reply("ai已经是关闭状态了哦(～￣▽￣)～")
                 }
                 else{
                     open = false
-                    e.reply("ai成功关闭")
+                    e.reply("ai成功关闭!")
                 }
             }
             if (e.msg.includes('ai开启')) {
                 if (!open) {
                     open = true
-                    e.reply(`成功开启,目前ai触发概率为关闭时概率:${gailv}%!`)
+                    e.reply(`成功开启,您目前设置的ai触发概率:${gailv}%!`)
                 }
                 else
                 e.reply(`ai已经是开启状态了,不需要再开启一遍哦！`)
             }
            if (e.msg.includes('只关注@消息')) {
                 onlyReplyAt = true;
-                e.reply("好啦，现在只回复@消息了")
+                e.reply("好啦，现在只回复@消息了哦")
             }
             if (e.msg.includes('关注所有消息')) {
                 onlyReplyAt = false;
-                e.reply("现在我会关注每一条消息了")
+                e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
             if (e.msg == '太安静了') {
                 if (open) {
@@ -168,7 +168,7 @@ export class ai extends plugin {
                         return true;
                     }
                     gailv += def_gailv_;
-                    e.reply(`概率提升，目前ai触发概率：${gailv}%，`)
+                    e.reply(`概率提升!，目前ai触发概率：${gailv}%，`)
                 }
                 else {
                     e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
@@ -177,7 +177,7 @@ export class ai extends plugin {
             if (e.msg == '太吵了') {
                 //如果概率等于0
                 if (!open) {
-                    e.reply("ai已关闭,请先开启")
+                    e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
                 }
                 else {
                     if (gailv - def_gailv_ <= 0) {
@@ -185,7 +185,7 @@ export class ai extends plugin {
                     }
                     else {
                         gailv -= def_gailv_;
-                        e.reply(`概率降低，目前ai触发概率：${gailv}%，`)
+                        e.reply(`概率降低!，目前ai触发概率：${gailv}%，`)
                     }
                 }
             }
