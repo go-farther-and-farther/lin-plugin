@@ -140,7 +140,7 @@ export class ai extends plugin {
                 if (!open) {
                     e.reply("ai已经是关闭状态了哦(～￣▽￣)～")
                 }
-                else{
+                else {
                     open = false
                     e.reply("ai成功关闭!")
                 }
@@ -151,7 +151,7 @@ export class ai extends plugin {
                     e.reply(`成功开启,您目前设置的ai触发概率:${gailv}%!`)
                 }
                 else
-                e.reply(`ai已经是开启状态了,不需要再开启一遍哦！`)
+                    e.reply(`ai已经是开启状态了,不需要再开启一遍哦！`)
             }
             else if (e.msg.includes('只关注@消息')) {
                 onlyReplyAt = true;
