@@ -83,8 +83,8 @@ export class Auto extends plugin {
           a[id] = e.msg
           i[id] = 1
         }
-        if (i >= num) {//重复次数足够多，复读并刷新i
-          e.reply(a)
+        if (i[id] >= num) {//重复次数足够多，复读并刷新i
+          e.reply(a[id])
           i[id] = 1
         }
       }
