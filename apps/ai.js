@@ -86,7 +86,6 @@ export class ai extends plugin {
             }));
         }
         var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
-
         if (e.isGroup) {
             var id = e.group_id
         }
@@ -196,9 +195,8 @@ export class ai extends plugin {
             json[id].onlyReplyAt = onlyReplyAt
             json[id].ai_now = ai_now
             fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
-            return true;
         }
-        else if (e.msg.charAt(0) == '#') return false;
+        if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
         if ((e.msg.includes(BotName) || e.atme || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 100)) {
             console.log("ai消息：", e.msg);
