@@ -90,24 +90,23 @@ export class Auto extends plugin {
         open2 = true
         if (!open2) { e.reply('已经开启自动打断施法') }
         if (open2) { e.reply('已经开启自动打断施法，并关闭自动复读') }
-
-        else if (e.msg.includes('设置开始复读次数') || e.msg.includes('设置打断施法次数')) {
-          if (!open) {
-            e.reply("自动复读已关闭,请先开启,不然设置了我复读不了啊(～￣▽￣)～")
-          }
-          let msgsz = e.msg.replace(/(设置开始复读次数|设置打断施法次数|#)/g, "").replace(/[\n|\r]/g, "，").trim()
-          if (isNaN(msgsz)) {
-            e.reply(`${msgsz}不是有效值,请输入正确的数值`)
+      }
+      else if (e.msg.includes('设置开始复读次数') || e.msg.includes('设置打断施法次数')) {
+        if (!open) {
+          e.reply("自动复读已关闭,请先开启,不然设置了我复读不了啊(～￣▽￣)～")
+        }
+        let msgsz = e.msg.replace(/(设置开始复读次数|设置打断施法次数|#)/g, "").replace(/[\n|\r]/g, "，").trim()
+        if (isNaN(msgsz)) {
+          e.reply(`${msgsz}不是有效值,请输入正确的数值`)
+        }
+        else {
+          if (msgsz < 2) {
+            e.reply("数值不在有效范围内,请输入2及以上的整数")
           }
           else {
-            if (msgsz < 2) {
-              e.reply("数值不在有效范围内,请输入2及以上的整数")
-            }
-            else {
-              let sz = Math.round(msgsz)
-              num = sz
-              e.reply(`已四舍五入设置开始复读次数：${num}%，`)
-            }
+            let sz = Math.round(msgsz)
+            num = sz
+            e.reply(`已四舍五入设置开始复读次数：${num}%，`)
           }
         }
       }
@@ -117,20 +116,17 @@ export class Auto extends plugin {
       fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
       return false
     }
+
     else if (e.msg == "开始复读" || e.msg == "结束复读" || e.msg == "复读状态") {
-      if (!e.isGroup) {
-        e.reply("仅群聊可用")
-        return
-      }
-      else if (e.isMaster || e.member.is_owner || e.member.is_admin) {
-        if (e.msg.includes("开") && kg == 0) {
+      if (e.isMaster || e.member.is_owner || e.member.is_admin) {
+        if (e.msg.includes("开")) {
           kg = 1
           e.reply("已开启复读只因模式，现在我会随时+1了！!")
         }
         else if (e.msg.includes("开")) {
           e.reply("已经开了！")
         }
-        if (e.msg.includes("结") && kg == 1) {
+        if (e.msg.includes("结")) {
           kg = 0
           e.reply("已关闭复读只因模式，现在我不会主动+1了!")
         }
@@ -166,6 +162,7 @@ export class Auto extends plugin {
         }
       }
     }
+
     return false;
   }
 }
