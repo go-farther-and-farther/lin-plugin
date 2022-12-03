@@ -1,10 +1,9 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import command from '../components/command.js'
-var kg = 1
-let a = 0
-let b = 0
-let i = 0
+var open = true
+var a = {}
+var i = {}
 var num = await command.getConfig("Auto", "num");
 /*纯小白，大佬勿喷，有问题找大佬。没问题找我2113752439
 此插件可实现群聊中机器人跟着+1的功能，目前仅支持文字内容
@@ -72,33 +71,21 @@ export class Auto extends plugin {
       }
       return true;
     }
-    else if (kg == 1 && e.isGroup) {
-      // if (!i) {
-      //   a = e.msg; i++
-      //   return false;
-      // }
-      // else { b = e.msg; }
-      // if (a == b) {
-      //   e.reply(a)
-      //   a = 0
-      //   b = 0
-      //   i = 0
-      // }
-      // else { i = 0 }
-
-      if (!a) {//第一次运行,a=0时候
-        a = e.msg;
+    else if (open && e.isGroup) {
+      let id = e.group_id
+      if (!a[id]) {//第一次运行,a=0时候
+        a[id] = e.msg;
         return false;
       }
       else {
-        if (a == e.msg) { i++ }
+        if (a[id] == e.msg) { i[id]++ }
         else {//不等于的时候，a被刷新
-          a = e.msg
-          i = 1
+          a[id] = e.msg
+          i[id] = 1
         }
         if (i >= num) {//重复次数足够多，复读并刷新i
           e.reply(a)
-          i = 1
+          i[id] = 1
         }
       }
     }
