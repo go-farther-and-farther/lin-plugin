@@ -51,6 +51,10 @@ export class Auto extends plugin {
   async cs(e) {
     /** e.msg 用户的命令消息 */
     //logger.info('[用户命令]', e.msg)
+    //是否为文本消息和指令
+    if (!e.msg) return false;
+    //e.msg 用户的命令消息
+    console.log("用户命令：", e.msg);
     if (!fs.existsSync(dirpath)) {//如果文件夹不存在
       fs.mkdirSync(dirpath);//创建文件夹
     }
@@ -95,7 +99,7 @@ export class Auto extends plugin {
         if (!open) {
           e.reply("自动复读已关闭,请先开启,不然设置了我复读不了啊(～￣▽￣)～")
         }
-        let msgsz = e.msg.replace(/(设置开始复读次数|设置打断施法次数|#)/g, "").replace(/[\n|\r]/g, "，").trim()
+        var msgsz = e.msg.replace(/(设置开始复读次数|设置打断施法次数|#)/g, "").replace(/[\n|\r]/g, "，").trim()
         if (isNaN(msgsz)) {
           e.reply(`${msgsz}不是有效值,请输入正确的数值`)
         }
