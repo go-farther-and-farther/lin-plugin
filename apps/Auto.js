@@ -111,7 +111,7 @@ export class Auto extends plugin {
         }
       }
       else if (e.msg.includes("自动复读状态")) {
-        e.reply(`目前所在的私聊或群聊${id},\n自动复读开启：${open},\n自动打断施法${open2},\n自动复读触发次数${num}。`)
+        e.reply(`目前所在的私聊或群聊${id},\n自动复读开启：${open},\n自动打断施法：${open2},\n自动复读触发次数：${num}。`)
     }
       json[id].num = num
       json[id].open = open
