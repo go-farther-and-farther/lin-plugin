@@ -110,14 +110,16 @@ export class Auto extends plugin {
           }
         }
       }
+      else if (e.msg.includes("自动复读状态")) {
+        e.reply(`目前所在的私聊或群聊${id},\n自动复读开启：${open}%,\n自动打断施法${open2},\n自动复读触发次数${num}。`)
+    }
       json[id].num = num
       json[id].open = open
       json[id].open2 = open2
       fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
-      return false
+      //return false
     }
-
-    else if (e.msg == "开始复读" || e.msg == "结束复读" || e.msg == "复读状态") {
+    if (e.msg == "开始复读" || e.msg == "结束复读" || e.msg == "复读状态") {
       if (e.isMaster || e.member.is_owner || e.member.is_admin) {
         if (e.msg.includes("开")) {
           kg = 1
@@ -143,7 +145,7 @@ export class Auto extends plugin {
       }
       return true;
     }
-    else if (open || open2) {
+    if (open || open2) {
       if (!a[id]) {//第一次运行,a=0时候
         a[id] = e.msg;
         i[id] = 1;
@@ -162,7 +164,6 @@ export class Auto extends plugin {
         }
       }
     }
-
     return false;
   }
 }
