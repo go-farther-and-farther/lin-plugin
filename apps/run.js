@@ -36,29 +36,29 @@ export class run extends plugin {
     }
     var json = {}
     json = await lin_data.getdata(id, json, false)
-    if (e.msg == "#跑路列表") {//如果消息内容是跑路列表指令
-      if (e.isMaster) {//如果是主人
-        let runnum = 0
-        let msg = `在以下群聊跑路啦！\n`
-        //let list = Object.keys(json)//获取群号
-        for (let i of json) {
-          if (json[i].run) {
-            msg = msg + `${json[i]}\n`
-          }
-          runnum++
-        }
-        if (runnum == 0) {//如果跑路列表为空
-          e.reply("当前没有跑路的群聊哦！");//回复消息
-          return true;//拦截指令
-        } else {//如果跑路列表不为空
-          e.reply(msg);//回复消息
-          return true;//拦截指令
-        }
-      } else {//如果不是主人
-        e.reply("只有主人才能查看跑路列表哦！");//回复消息
-        return true;//拦截指令
-      }
-    }
+    // if (e.msg == "#跑路列表") {//如果消息内容是跑路列表指令
+    //   if (e.isMaster) {//如果是主人
+    //     let runnum = 0
+    //     let msg = `在以下群聊跑路啦！\n`
+    //     let list = Object.keys(json)//获取群号
+    //     for (let i of list) {
+    //       if (json[i].run) {
+    //         msg = msg + `${i}\n`
+    //       }
+    //       runnum++
+    //     }
+    //     if (runnum == 0) {//如果跑路列表为空
+    //       e.reply("当前没有跑路的群聊哦！");//回复消息
+    //       return true;//拦截指令
+    //     } else {//如果跑路列表不为空
+    //       e.reply(msg);//回复消息
+    //       return true;//拦截指令
+    //     }
+    //   } else {//如果不是主人
+    //     e.reply("只有主人才能查看跑路列表哦！");//回复消息
+    //     return true;//拦截指令
+    //   }
+    // }
     if (!e.isGroup) {//如果不是群聊
       return false;//放行指令
     }
