@@ -110,7 +110,7 @@ export class run extends plugin {
     }
     else {
       //如果该群聊在跑路列表中
-      if (json[id]) {
+      if (json[id].run) {
         return true;//拦截指令
       } else {
         return false;//放行指令
