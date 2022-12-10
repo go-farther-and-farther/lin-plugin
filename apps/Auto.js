@@ -2,16 +2,9 @@ import plugin from '../../../lib/plugins/plugin.js'
 //import fetch from 'node-fetch'
 import command from '../components/command.js'
 import fs from 'fs';
+import lin_data from '../components/lin_data.js'
 var a = {}
 var i = {}
-var def_num = await command.getConfig("Auto", "def_num");
-var def_open = await command.getConfig("Auto", "def_open");
-var def_open2 = await command.getConfig("Auto", "def_open2");
-var Template = {//创建该用户
-  "open": def_open,
-  "open2": def_open2,
-  "num": def_num
-};
 const dirpath = "plugins/lin-plugin/data";//文件夹路径
 const filename = `Auto.json`;//文件名
 /*纯小白，大佬勿喷，有问题找大佬。没问题找我2113752439
@@ -55,23 +48,14 @@ export class Auto extends plugin {
     if (!e.msg) return false;
     //e.msg 用户的命令消息
     console.log("用户命令：", e.msg);
-    if (!fs.existsSync(dirpath)) {//如果文件夹不存在
-      fs.mkdirSync(dirpath);//创建文件夹
-    }
-    if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
-      fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
-      }));
-    }
-    var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
     if (e.isGroup) {
       var id = e.group_id
     }
     else if (e.isPrivate) {
       var id = e.user_id
     }
-    if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
-      json[id] = Template
-    }
+    let json = await lin_data.getAuto(id)
+    //从json中读取需要的数据
     var open = json[id].open
     var open2 = json[id].open2
     var num = json[id].num
@@ -116,7 +100,7 @@ export class Auto extends plugin {
       }
       else if (e.msg.includes("自动复读状态")) {
         e.reply(`目前所在的私聊或群聊${id},\n自动复读开启：${open},\n自动打断施法：${open2},\n自动复读触发次数：${num}。`)
-    }
+      }
       json[id].num = num
       json[id].open = open
       json[id].open2 = open2

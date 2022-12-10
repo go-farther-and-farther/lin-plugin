@@ -4,6 +4,7 @@ import { segment } from "oicq";
 import lodash from "lodash";
 import command from '../components/command.js'
 import fs from 'fs';
+import lin_data from '../components/lin_data.js';
 
 const BotName = global.Bot.nickname;
 // 机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
@@ -77,24 +78,13 @@ export class ai extends plugin {
         if (!e.msg) return false;
         //e.msg 用户的命令消息
         console.log("用户命令：", e.msg);
-        //---------------------------------------------------
-        if (!fs.existsSync(dirpath)) {//如果文件夹不存在
-            fs.mkdirSync(dirpath);//创建文件夹
-        }
-        if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
-            fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
-            }));
-        }
-        var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
         if (e.isGroup) {
             var id = e.group_id
         }
         else if (e.isPrivate) {
             var id = e.user_id
         }
-        if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
-            json[id] = Template
-        }
+        json = lin_data.getai(id)
         let gailv = json[id].gailv
         let open = json[id].open
         let onlyReplyAt = json[id].onlyReplyAt
@@ -191,10 +181,15 @@ export class ai extends plugin {
             }
             //查看状态----------------------------------
             if (e.msg.includes("ai状态")) {
-                if(e.isPrivate)
-                e.reply(`你的QQ是：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用：${ai_name[ai_now]},\nai是否是开启状态：${open}。`)
-                if(e.isGroup) 
-                e.reply(`当前所在群聊群号${id},\nai触发概率：${gailv}%,\n是否需要@${onlyReplyAt},\n正在使用${ai_name[ai_now]},\nai是否是开启状态${open}。`)           
+                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用：${ai_name[ai_now]},\nai是否是开启状态：${open}。`
+                if (e.isPrivate) {
+                    msg = '你的QQ是' + msg
+                    e.reply(msg)
+                }
+                if (e.isGroup) {
+                    msg = '所在群聊是' + msg
+                    e.reply(msg)
+                }
             }
             json[id].gailv = gailv
             json[id].open = open
