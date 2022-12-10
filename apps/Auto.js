@@ -61,23 +61,24 @@ export class Auto extends plugin {
     var num = json[id].num
 
     if (e.isMaster || e.member.is_owner || e.member.is_admin) {
+      let change = false
       if (e.msg == "关闭自动复读" || e.msg == "关闭自动复读") {
         open = false
-        e.reply('已经关闭自动复读')
-      }
-      else if (e.msg == "开启自动复读" || e.msg == "开启自动复读") {
-        open = true
-        if (!open2) { e.reply('已经开启自动复读') }
-        if (open2) { e.reply('已经开启自动复读，并关闭自动打断施法') }
+        change = true
       }
       else if (e.msg == "关闭自动打断施法" || e.msg == "关闭自动打断施法") {
         open2 = false
-        e.reply('已经关闭打断施法')
+        change = true
+      }
+      else if (e.msg == "开启自动复读" || e.msg == "开启自动复读") {
+        open = true
+        open2 = false
+        change = true
       }
       else if (e.msg == "开启自动打断施法" || e.msg == "开启自动打断施法") {
         open2 = true
-        if (!open2) { e.reply('已经开启自动打断施法') }
-        if (open2) { e.reply('已经开启自动打断施法，并关闭自动复读') }
+        open = false
+        change = true
       }
       else if (e.msg.includes('设置开始复读次数') || e.msg.includes('设置打断施法次数')) {
         if (!open) {
@@ -94,12 +95,22 @@ export class Auto extends plugin {
           else {
             let sz = Math.round(msgsz)
             num = sz
-            e.reply(`已四舍五入设置开始复读次数：${num}%，`)
+            change = true
           }
         }
       }
-      else if (e.msg.includes("自动复读状态")) {
-        e.reply(`目前所在的私聊或群聊${id},\n自动复读开启：${open},\n自动打断施法：${open2},\n自动复读触发次数：${num}。`)
+      else if (e.msg.includes("自动复读状态")) change = true
+      if (change) {
+        change = false
+        let msg = `：${id},\n自动复读开启：${open},\n自动打断施法：${open2},\n自动复读触发次数：${num}。`
+        if (e.isPrivate) {
+          msg = '你的QQ是' + msg
+          e.reply(msg)
+        }
+        if (e.isGroup) {
+          msg = '所在群聊是' + msg
+          e.reply(msg)
+        }
       }
       json[id].num = num
       json[id].open = open

@@ -26,7 +26,6 @@ var Auto_Template = {//创建该用户
 };
 
 async function getAuto(id) {
-    let dirpath = "plugins/lin-plugin/data";//文件夹路径
     let filename = `Auto.json`;//文件名
 
     if (!fs.existsSync(dirpath)) {//如果文件夹不存在
@@ -58,6 +57,7 @@ async function getai(id) {
     if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
         json[id] = ai_Template
     }
+    return json;
 }
 
 export default { getAuto, getai }

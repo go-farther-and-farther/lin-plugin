@@ -84,7 +84,7 @@ export class ai extends plugin {
         else if (e.isPrivate) {
             var id = e.user_id
         }
-        json = lin_data.getai(id)
+        let json = await lin_data.getai(id)
         let gailv = json[id].gailv
         let open = json[id].open
         let onlyReplyAt = json[id].onlyReplyAt
@@ -151,7 +151,7 @@ export class ai extends plugin {
                 onlyReplyAt = false;
                 e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
-            if (e.msg.includes('太安静了')) {
+            else if (e.msg.includes('太安静了')) {
                 if (open) {
                     if (gailv + def_gailv_ > 100) {
                         e.reply(`目前ai触发概率：${gailv}%，再加${def_gailv_}就溢出来了ヾ(≧▽≦*)o`)
@@ -164,7 +164,7 @@ export class ai extends plugin {
                     e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
                 }
             }
-            if (e.msg.includes('太吵了')) {
+            else if (e.msg.includes('太吵了')) {
                 //如果概率等于0
                 if (!open) {
                     e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
@@ -180,7 +180,7 @@ export class ai extends plugin {
                 }
             }
             //查看状态----------------------------------
-            if (e.msg.includes("ai状态")) {
+            else if (e.msg.includes("ai状态")) {
                 let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用：${ai_name[ai_now]},\nai是否是开启状态：${open}。`
                 if (e.isPrivate) {
                     msg = '你的QQ是' + msg
