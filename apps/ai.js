@@ -192,7 +192,7 @@ export class ai extends plugin {
             //查看状态----------------------------------
             if (e.msg.includes("ai状态")) {
                 if(e.isPrivate)
-                e.reply(`你的QQ是${id},\nai触发概率：${gailv}%,\n是否需要@${onlyReplyAt},\n正在使用${ai_name[ai_now]},\nai是否是开启状态${open}。`)
+                e.reply(`你的QQ是：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用：${ai_name[ai_now]},\nai是否是开启状态：${open}。`)
                 if(e.isGroup) 
                 e.reply(`当前所在群聊群号${id},\nai触发概率：${gailv}%,\n是否需要@${onlyReplyAt},\n正在使用${ai_name[ai_now]},\nai是否是开启状态${open}。`)           
             }
