@@ -25,6 +25,11 @@ var Auto_Template = {//创建该用户
     "num": def_num
 };
 
+var run_Template = {//创建该用户
+    "run": false,
+};
+
+
 async function getAuto(id) {
     let filename = `Auto.json`;//文件名
 
@@ -59,5 +64,19 @@ async function getai(id) {
     }
     return json;
 }
+async function getrun() {
+    let filename = `run.json`;//文件名
 
-export default { getAuto, getai }
+    if (!fs.existsSync(dirpath)) {//如果文件夹不存在
+        fs.mkdirSync(dirpath);//创建文件夹
+    }
+
+    if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
+        fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
+        }));
+    }
+    var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
+
+    return json;
+}
+export default { getAuto, getai, getrun }
