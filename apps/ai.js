@@ -121,7 +121,7 @@ export class ai extends plugin {
                 if (!open) {
                     e.reply("ai已关闭,请先开启,不然设置了概率我也说不了话啊(～￣▽￣)～")
                 }
-                var msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
+                let msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
@@ -153,7 +153,7 @@ export class ai extends plugin {
                 else
                     e.reply(`ai已经是开启状态了,不需要再开启一遍哦！`)
             }
-            else if (e.msg.includes('只关注@消息')) {
+            else if (e.msg.includes('只关注@消息') || e.msg.includes('@必回复')) {
                 onlyReplyAt = true;
                 e.reply("好啦，现在只回复@消息了哦")
             }
@@ -161,7 +161,7 @@ export class ai extends plugin {
                 onlyReplyAt = false;
                 e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
-            if (e.msg == '太安静了') {
+            if (e.msg.includes('太安静了')) {
                 if (open) {
                     if (gailv + def_gailv_ > 100) {
                         e.reply(`目前ai触发概率：${gailv}%，再加${def_gailv_}就溢出来了ヾ(≧▽≦*)o`)
@@ -174,7 +174,7 @@ export class ai extends plugin {
                     e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
                 }
             }
-            if (e.msg == '太吵了') {
+            if (e.msg.includes('太吵了')) {
                 //如果概率等于0
                 if (!open) {
                     e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
@@ -190,8 +190,11 @@ export class ai extends plugin {
                 }
             }
             //查看状态----------------------------------
-            if (e.msg == "ai状态") {
-                e.reply(`目前所在的私聊或群聊${id},\nai触发概率：${gailv}%,\n是否需要@${onlyReplyAt},\n正在使用${ai_name[ai_now]},\nai是否是开启状态${open}。`)
+            if (e.msg.includes("ai状态")) {
+                if(e.isPrivate)
+                e.reply(`你的QQ是${id},\nai触发概率：${gailv}%,\n是否需要@${onlyReplyAt},\n正在使用${ai_name[ai_now]},\nai是否是开启状态${open}。`)
+                if(e.isGroup) 
+                e.reply(`当前所在群聊群号${id},\nai触发概率：${gailv}%,\n是否需要@${onlyReplyAt},\n正在使用${ai_name[ai_now]},\nai是否是开启状态${open}。`)           
             }
             json[id].gailv = gailv
             json[id].open = open
@@ -201,7 +204,8 @@ export class ai extends plugin {
         }
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
-        if ((e.msg.includes(BotName) || e.atme || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 100)) {
+        //被@必然触发
+        if ((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 100) || e.atme) {
             console.log("ai消息：", e.msg);
             //接收时将机器人名字替换为对应ai的名字
 
