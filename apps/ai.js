@@ -74,7 +74,8 @@ export class ai extends plugin {
         else if (e.isPrivate) {
             var id = e.user_id
         }
-        let json = await lin_data.getai(id)
+        let json = {}
+        json = await lin_data.getdata(id, json, false)
         let gailv = json[id].gailv
         let open = json[id].open
         let onlyReplyAt = json[id].onlyReplyAt
@@ -184,7 +185,7 @@ export class ai extends plugin {
             json[id].open = open
             json[id].onlyReplyAt = onlyReplyAt
             json[id].ai_now = ai_now
-            fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
+            json = await lin_data.getdata(id, json, true)
         }
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发

@@ -54,7 +54,8 @@ export class Auto extends plugin {
     else if (e.isPrivate) {
       var id = e.user_id
     }
-    let json = await lin_data.getAuto(id)
+    let json = {}
+    json = await lin_data.getdata(id, json, false)
     //从json中读取需要的数据
     var open = json[id].open
     var open2 = json[id].open2
@@ -115,7 +116,7 @@ export class Auto extends plugin {
       json[id].num = num
       json[id].open = open
       json[id].open2 = open2
-      fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
+      json = await lin_data.getdata(id, json, true)
       //return false
     }
     if (e.msg == "开始复读" || e.msg == "结束复读" || e.msg == "复读状态") {
