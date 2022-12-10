@@ -40,10 +40,10 @@ export class run extends plugin {
       if (e.isMaster) {//如果是主人
         let runnum = 0
         let msg = `在以下群聊跑路啦！\n`
-        let list = Object.keys(json)//获取群号
-        for (let i of list) {
+        //let list = Object.keys(json)//获取群号
+        for (let i of json) {
           if (json[i].run) {
-            msg = msg + `${i}\n`
+            msg = msg + `${json[i]}\n`
           }
           runnum++
         }
