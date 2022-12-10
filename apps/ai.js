@@ -8,11 +8,7 @@ import lin_data from '../components/lin_data.js';
 
 const BotName = global.Bot.nickname;
 // 机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
-var def_gailv = await command.getConfig("ai_cfg", "def_gailv");
 var def_gailv_ = await command.getConfig("ai_cfg", "def_gailv_");
-var def_ai_now = await command.getConfig("ai_cfg", "def_ai_now");
-var def_onlyReplyAt = await command.getConfig("ai_cfg", "def_onlyReplyAt");
-var def_open = await command.getConfig("ai_cfg", "def_open");
 // 读yaml文件里面的设置的初始回复概率
 //这两个是与概率有关的
 var ai_api = await command.getConfig("ai_cfg", "ai_api");
@@ -21,12 +17,6 @@ var ai_nick = await command.getConfig("ai_cfg", "ai_nick");
 //群聊是否只关注@信息
 const dirpath = "plugins/lin-plugin/data";//文件夹路径
 const filename = `ai.json`;//文件名
-var Template = {//创建该用户
-    "gailv": def_gailv,
-    "open": def_open,
-    "onlyReplyAt": def_onlyReplyAt,
-    "ai_now": def_ai_now
-};
 var bad2good = {
     "傻逼": ["天使", "大可爱"],
     "去死": ["去玩", "去打电动"],
@@ -89,7 +79,6 @@ export class ai extends plugin {
         let open = json[id].open
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
-
         //---------------------------------------------------
         //一个控制ai回复概率的模块
         if (e.isMaster || e.member.is_owner || e.member.is_admin) {
@@ -213,18 +202,6 @@ export class ai extends plugin {
 
             let replyData = await response.json();//将返回的数据转化为json文件
 
-            //******************************//
-            // //将返回的数据转化为的json文件保存研究         
-            // var date = new Date();
-            // let filename = `ai_test_${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes}-${date.getSeconds}-ai.json`
-            // if (!fs.existsSync(dirpath)) {//如果文件夹不存在
-            //     fs.mkdirSync(dirpath);//创建文件夹
-            // }
-            // if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
-            //     fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
-            //     }));
-            // }
-            // fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(replyData, null, "\t"));//写入文件
 
             let replyMsg = [];//这个保存返回信息里面的文本文件
             replyData = JSON.stringify(replyData) //转换字符串用于判断返回值
