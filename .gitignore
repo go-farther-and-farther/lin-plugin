@@ -12,6 +12,7 @@
 /resources/help/theme/*
 !/resources/help/theme/default
 /config/character.js
+/config/lin.config.yaml
 /config/profile.js
 /config/help.js
 /config/cfg.js
