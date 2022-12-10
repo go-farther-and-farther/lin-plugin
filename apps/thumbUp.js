@@ -3,7 +3,7 @@ import schedule from "node-schedule";
 import command from '../components/command.js'
 import lin_data from '../components/lin_data.js';
 import cfg from '../../../lib/config/config.js'
-var delayed = await command.getConfig("thumbUp_cfg", "time") * 100;//这个是间隔时间
+var delayed = await command.getConfig("thumbUp_cfg", "time") * 1000;//这个是间隔时间
 var Template = {//创建该用户
 	"thumbUp": false
 };
@@ -48,7 +48,6 @@ export class thumbUp extends plugin {
 	async thumbUp(e) {
 		e.reply('开始了哦！')
 		thumbUp_start();
-		e.reply('完成了哦！')
 	}
 	async thumbUplist(e) {
 		id = uin
@@ -98,7 +97,7 @@ async function thumbUp_start() {
 			if (json.hasOwnProperty(idlist[i]) && idlist[i] != Bot.uin) {
 				if (json[idlist[i]]) {//判断是否在黑名单中，在则跳过
 					//新增了点赞跳过自己，解决了重启的问题
-					//Bot.pickFriend(idlist[i]).thumbUp(10);//点赞10次，默认没有svip
+					Bot.pickFriend(idlist[i]).thumbUp(10);//点赞10次，默认没有svip
 				}
 			}
 		}, delayed * i);//设置延时
