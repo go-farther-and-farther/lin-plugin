@@ -74,6 +74,22 @@ export const helpList = [{
   auth: 'master',
   list: [{
     icon: 80,
+    title: '开启/关闭复读',
+    desc: '复读加一开关'
+  }, {
+    icon: 80,
+    title: '开启/关闭打断',
+    desc: '打断幅度开关'
+  }, {
+    icon: 80,
+    title: '设置复读/打断条件+数字',
+    desc: '设置触发消息数量条件'
+  }, {
+    icon: 80,
+    title: '复读状态',
+    desc: 'ai开关'
+  }, {
+    icon: 80,
     title: 'ai开启/ai关闭',
     desc: 'ai开关'
   }, {
@@ -100,6 +116,10 @@ export const helpList = [{
     icon: 55,
     title: 'ai状态',
     desc: '查看ai状态(开关 接口 概率)'
+  }, {
+    icon: 80,
+    title: '-特此说明-',
+    desc: '请勿修改js文件,以上设置均分群且重启依然生效'
   }]
 }]
 

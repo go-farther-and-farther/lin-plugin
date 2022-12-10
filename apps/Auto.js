@@ -63,29 +63,29 @@ export class Auto extends plugin {
 
     if (e.isMaster || e.member.is_owner || e.member.is_admin) {
       let change = false
-      if (e.msg == "关闭自动复读" || e.msg == "关闭自动复读") {
+      if (e.msg == "关闭复读" || e.msg == "关闭复读") {
         open = false
         change = true
       }
-      else if (e.msg == "关闭自动打断施法" || e.msg == "关闭自动打断施法") {
+      else if (e.msg == "关闭打断" || e.msg == "关闭打断") {
         open2 = false
         change = true
       }
-      else if (e.msg == "开启自动复读" || e.msg == "开启自动复读") {
+      else if (e.msg == "开启复读" || e.msg == "开启复读") {
         open = true
         open2 = false
         change = true
       }
-      else if (e.msg == "开启自动打断施法" || e.msg == "开启自动打断施法") {
+      else if (e.msg == "开启打断" || e.msg == "开启打断") {
         open2 = true
         open = false
         change = true
       }
-      else if (e.msg.includes('设置开始复读次数') || e.msg.includes('设置打断施法次数')) {
+      else if (e.msg.includes('设置复读条件') || e.msg.includes('设置打断条件')) {
         if (!open) {
           e.reply("自动复读已关闭,请先开启,不然设置了我复读不了啊(～￣▽￣)～")
         }
-        var msgsz = e.msg.replace(/(设置开始复读次数|设置打断施法次数|#)/g, "").replace(/[\n|\r]/g, "，").trim()
+        var msgsz = e.msg.replace(/(设置复读条件|设置打断条件|#)/g, "").replace(/[\n|\r]/g, "，").trim()
         if (isNaN(msgsz)) {
           e.reply(`${msgsz}不是有效值,请输入正确的数值`)
         }
@@ -100,10 +100,10 @@ export class Auto extends plugin {
           }
         }
       }
-      else if (e.msg.includes("自动复读状态")) change = true
+      else if (e.msg.includes("复读状态")) change = true
       if (change) {
         change = false
-        let msg = `：${id},\n自动复读开启：${open},\n自动打断施法：${open2},\n自动复读触发次数：${num}。`
+        let msg = `：${id},\n自动复读开启：${open},\n自动打断施法：${open2},\n触发条件：${num}次以后。`
         if (e.isPrivate) {
           msg = '你的QQ是' + msg
           e.reply(msg)
@@ -118,32 +118,6 @@ export class Auto extends plugin {
       json[id].open2 = open2
       json = await lin_data.getdata(id, json, true)
       //return false
-    }
-    if (e.msg == "开始复读" || e.msg == "结束复读" || e.msg == "复读状态") {
-      if (e.isMaster || e.member.is_owner || e.member.is_admin) {
-        if (e.msg.includes("开")) {
-          kg = 1
-          e.reply("已开启复读只因模式，现在我会随时+1了！!")
-        }
-        else if (e.msg.includes("开")) {
-          e.reply("已经开了！")
-        }
-        if (e.msg.includes("结")) {
-          kg = 0
-          e.reply("已关闭复读只因模式，现在我不会主动+1了!")
-        }
-        else if (e.msg.includes("结")) {
-          e.reply("已经关了！")
-        }
-      }
-      else {
-        e.reply("你没有权限")
-        return
-      }
-      if (e.msg.includes("状")) {
-        e.reply(`当前复读状态为${kg}，0为关1为开`)
-      }
-      return true;
     }
     if (open || open2) {
       if (!a[id]) {//第一次运行,a=0时候
