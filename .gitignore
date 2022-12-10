@@ -15,5 +15,6 @@
 /config/profile.js
 /config/help.js
 /config/cfg.js
+/data/*
 /resources/profile/super-character/*
 /resources/profile/normal-character/*
