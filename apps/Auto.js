@@ -57,32 +57,32 @@ export class Auto extends plugin {
     let json = {}
     json = await lin_data.getdata(id, json, false)
     //从json中读取需要的数据
-    var open = json[id].open
-    var open2 = json[id].open2
+    var fdopen = json[id].fdopen
+    var ddopen2 = json[id].ddopen2
     var num = json[id].num
 
     if (e.isMaster || e.member.is_owner || e.member.is_admin) {
       let change = false
       if (e.msg == "关闭复读" || e.msg == "关闭复读") {
-        open = false
+        fdopen = false
         change = true
       }
       else if (e.msg == "关闭打断" || e.msg == "关闭打断") {
-        open2 = false
+        ddopen2 = false
         change = true
       }
       else if (e.msg == "开启复读" || e.msg == "开启复读") {
-        open = true
-        open2 = false
+        fdopen = true
+        ddopen2 = false
         change = true
       }
       else if (e.msg == "开启打断" || e.msg == "开启打断") {
-        open2 = true
-        open = false
+        ddopen2 = true
+        fdopen = false
         change = true
       }
       else if (e.msg.includes('设置复读条件') || e.msg.includes('设置打断条件')) {
-        if (!open) {
+        if (!fdopen) {
           e.reply("自动复读已关闭,请先开启,不然设置了我复读不了啊(～￣▽￣)～")
         }
         var msgsz = e.msg.replace(/(设置复读条件|设置打断条件|#)/g, "").replace(/[\n|\r]/g, "，").trim()
@@ -103,7 +103,7 @@ export class Auto extends plugin {
       else if (e.msg.includes("复读状态")) change = true
       if (change) {
         change = false
-        let msg = `：${id},\n自动复读开启：${open},\n自动打断施法：${open2},\n触发条件：${num}次以后。`
+        let msg = `：${id},\n自动复读开启：${fdopen},\n自动打断施法：${ddopen2},\n触发条件：${num}次以后。`
         if (e.isPrivate) {
           msg = '你的QQ是' + msg
           e.reply(msg)
@@ -114,12 +114,12 @@ export class Auto extends plugin {
         }
       }
       json[id].num = num
-      json[id].open = open
-      json[id].open2 = open2
+      json[id].fdopen = fdopen
+      json[id].ddopen2 = ddopen2
       json = await lin_data.getdata(id, json, true)
       //return false
     }
-    if (open || open2) {
+    if (fdopen || ddopen2) {
       if (!a[id]) {//第一次运行,a=0时候
         a[id] = e.msg;
         i[id] = 1;
@@ -132,8 +132,8 @@ export class Auto extends plugin {
           i[id] = 1
         }
         if (i[id] >= num) {//重复次数足够多，复读并刷新i
-          if (open) { e.reply(a[id]) }
-          else if (open2) { e.reply(`打断施法，不要再发“${a[id]}”了！`) }
+          if (fdopen) { e.reply(a[id]) }
+          else if (ddopen2) { e.reply(`打断施法，不要再发“${a[id]}”了！`) }
           i[id] = 1
         }
       }

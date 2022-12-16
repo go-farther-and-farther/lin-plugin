@@ -77,7 +77,7 @@ export class ai extends plugin {
         let json = {}
         json = await lin_data.getdata(id, json, false)
         let gailv = json[id].gailv
-        let open = json[id].open
+        let aiopen = json[id].aiopen
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
         //---------------------------------------------------
@@ -98,7 +98,7 @@ export class ai extends plugin {
                 }
             }
             else if (e.msg.includes('ai设置概率') || e.msg.includes('设置ai概率') || e.msg.includes('设置回复概率')) {
-                if (!open) {
+                if (!aiopen) {
                     e.reply("ai已关闭,请先开启,不然设置了概率我也说不了话啊(～￣▽￣)～")
                 }
                 let msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
@@ -117,17 +117,17 @@ export class ai extends plugin {
                 }
             }
             else if (e.msg.includes('ai关闭')) {
-                if (!open) {
+                if (!aiopen) {
                     e.reply("ai已经是关闭状态了哦(～￣▽￣)～")
                 }
                 else {
-                    open = false
+                    aiopen = false
                     e.reply("ai成功关闭!")
                 }
             }
             else if (e.msg.includes('ai开启')) {
-                if (!open) {
-                    open = true
+                if (!aiopen) {
+                    aiopen = true
                     e.reply(`成功开启,您目前设置的ai触发概率:${gailv}%!`)
                 }
                 else
@@ -142,7 +142,7 @@ export class ai extends plugin {
                 e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
             else if (e.msg.includes('太安静了')) {
-                if (open) {
+                if (aiopen) {
                     if (gailv + def_gailv_ > 100) {
                         e.reply(`目前ai触发概率：${gailv}%，再加${def_gailv_}就溢出来了ヾ(≧▽≦*)o`)
                         return true;
@@ -156,7 +156,7 @@ export class ai extends plugin {
             }
             else if (e.msg.includes('太吵了')) {
                 //如果概率等于0
-                if (!open) {
+                if (!aiopen) {
                     e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
                 }
                 else {
@@ -171,7 +171,7 @@ export class ai extends plugin {
             }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
-                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用：${ai_name[ai_now]},\nai是否是开启状态：${open}。`
+                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用：${ai_name[ai_now]},\nai是否是开启状态：${aiopen}。`
                 if (e.isPrivate) {
                     msg = '你的QQ是' + msg
                     e.reply(msg)
@@ -182,7 +182,7 @@ export class ai extends plugin {
                 }
             }
             json[id].gailv = gailv
-            json[id].open = open
+            json[id].aiopen = aiopen
             json[id].onlyReplyAt = onlyReplyAt
             json[id].ai_now = ai_now
             json = await lin_data.getdata(id, json, true)

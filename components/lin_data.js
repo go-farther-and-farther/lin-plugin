@@ -8,25 +8,25 @@ var def_gailv = await command.getConfig("ai_cfg", "def_gailv");
 var def_gailv_ = await command.getConfig("ai_cfg", "def_gailv_");
 var def_ai_now = await command.getConfig("ai_cfg", "def_ai_now");
 var def_onlyReplyAt = await command.getConfig("ai_cfg", "def_onlyReplyAt");
-var def_open = await command.getConfig("ai_cfg", "def_open");
+var def_aiopen = await command.getConfig("ai_cfg", "def_aiopen");
 var def_num = await command.getConfig("Auto", "def_num");
-var def_open = await command.getConfig("Auto", "def_open");
-var def_open2 = await command.getConfig("Auto", "def_open2");
+var def_fdopen = await command.getConfig("Auto", "def_fdopen");
+var def_ddopen2 = await command.getConfig("Auto", "def_ddopen2");
 var Template = {//创建该用户
     "gailv": def_gailv,
-    "open": def_open,
+    "aiopen": def_aiopen,
     "onlyReplyAt": def_onlyReplyAt,
     "ai_now": def_ai_now,
-    "open": def_open,
-    "open2": def_open2,
+    "fdopen": def_fdopen,
+    "ddopen2": def_ddopen2,
     "num": def_num,
     "run": false,
     "thumbUp": false
 };
 
 var Auto_Template = {//创建该用户
-    "open": def_open,
-    "open2": def_open2,
+    "fdopen": def_fdopen,
+    "ddopen2": def_ddopen2,
     "num": def_num
 };
 var run_Template = {//创建该用户
