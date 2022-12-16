@@ -34,7 +34,7 @@ git clone https://github.com/go-farther-and-farther/lin-plugin.git ./plugins/li
 |功能   |描述   |
 |---|---|
 |帮助   |输入"＃lin帮助"以及#ai帮助获取帮助图片   |
-|诗词接龙   |群游戏   |
+|诗词,成语接龙   |群游戏   |
 |点赞部分   |自动点赞，可以去config里面配置   |
 |复读+1/打断施法   |实现让机器人在群里主动+1和主动打断   |
 |ai   |开关,概率,模式,接口分群设置,详情见date/哎.jsonm   |
