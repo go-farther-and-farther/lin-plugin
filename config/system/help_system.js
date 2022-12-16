@@ -71,6 +71,10 @@ export const helpList = [{
     icon: 58,
     title: '成语接龙/结束成语接龙',
     desc: '我接+内容'
+  }, {
+    icon: 58,
+    title: '(多人)诗词接龙/结束诗词接龙',
+    desc: '我接+内容'
   }]
 }, {
   group: "查询指令",
