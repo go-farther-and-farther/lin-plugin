@@ -189,7 +189,7 @@ export class ai extends plugin {
             }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
-                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用：${ai_name[ai_now]},\nai是否是开启状态：${aiopen},\nai是否是开启引用：${ai_at}。`
+                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now}号ai${ai_name[ai_now]},\nai是否是开启状态：${aiopen},\nai是否是开启引用：${ai_at}。`
                 if (e.isPrivate) {
                     msg = '你的QQ是' + msg
                     e.reply(msg)
