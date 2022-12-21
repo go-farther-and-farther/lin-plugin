@@ -12,6 +12,7 @@ var def_aiopen = await command.getConfig("ai_cfg", "def_aiopen");
 var def_num = await command.getConfig("Auto", "def_num");
 var def_fdopen = await command.getConfig("Auto", "def_fdopen");
 var def_ddopen2 = await command.getConfig("Auto", "def_ddopen2");
+//包括ai,run,复读，点赞
 var Template = {//创建该用户
     "gailv": def_gailv,
     "aiopen": def_aiopen,
@@ -52,6 +53,10 @@ async function getdata(id, json, save) {
 
         if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
             json[id] = Template
+        }
+        let list = Object.keys(json)//获取对象
+        for (i of list) {
+            if (!json[id].i) { json[id].i = Template.i }
         }
         return json;
     }
@@ -135,4 +140,4 @@ async function getthumbUp(json, save) {
         return json;
     }
 }
-export default { getAuto, getai, getrun, getthumbUp,getdata }
+export default { getAuto, getai, getrun, getthumbUp, getdata }
