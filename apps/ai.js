@@ -80,6 +80,7 @@ export class ai extends plugin {
         let aiopen = json[id].aiopen
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
+        let ai_at = json[id].ai_at
         //---------------------------------------------------
         //一个控制ai回复概率的模块
         if (e.isMaster || e.member.is_owner || e.member.is_admin) {
@@ -114,6 +115,23 @@ export class ai extends plugin {
                         gailv = sz
                         e.reply(`已四舍五入设置ai触发概率：${gailv}%，`)
                     }
+                }
+            }
+            else if (e.msg.includes('开启') && e.msg.includes('引用模式')) {
+                if (!ai_at) {
+                    aiopen = true
+                    e.reply(`成功开启群聊引用模式`)
+                }
+                else
+                    e.reply(`ai已经是开启状态了,不需要再开启一遍哦！`)
+            }
+            else if (e.msg.includes('关闭') && e.msg.includes('引用模式')) {
+                if (!ai_at) {
+                    e.reply("ai引用模式已经是关闭状态了哦(～￣▽￣)～")
+                }
+                else {
+                    ai_at = false
+                    e.reply("ai成功关闭!")
                 }
             }
             else if (e.msg.includes('关闭') && e.msg.includes('ai')) {
@@ -171,7 +189,7 @@ export class ai extends plugin {
             }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
-                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用：${ai_name[ai_now]},\nai是否是开启状态：${aiopen}。`
+                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用：${ai_name[ai_now]},\nai是否是开启状态：${aiopen},\nai是否是开启引用：${ai_at}。`
                 if (e.isPrivate) {
                     msg = '你的QQ是' + msg
                     e.reply(msg)
@@ -181,6 +199,7 @@ export class ai extends plugin {
                     e.reply(msg)
                 }
             }
+            json[id].ai_at = ai_at
             json[id].gailv = gailv
             json[id].aiopen = aiopen
             json[id].onlyReplyAt = onlyReplyAt
@@ -244,7 +263,10 @@ export class ai extends plugin {
                 //设置了log: false; 好像是没有输出日志的
                 logger.mark(`[${ai_name[ai_now]}回复] ${e.msg}`);
                 //发送消息
-                e.reply(replyMsg, e.isGroup);
+                if (ai_at)
+                    e.reply(replyMsg, e.isGroup);
+                else
+                    e.reply(replyMsg);
                 //阻止继续匹配其他命令
                 return true;
             }

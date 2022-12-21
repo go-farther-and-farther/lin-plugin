@@ -18,6 +18,7 @@ var Template = {//创建该用户
     "aiopen": def_aiopen,
     "onlyReplyAt": def_onlyReplyAt,
     "ai_now": def_ai_now,
+    "ai_at": false,
     "fdopen": def_fdopen,
     "ddopen2": def_ddopen2,
     "num": def_num,
