@@ -117,7 +117,7 @@ export class ai extends plugin {
                     }
                 }
             }
-            else if (e.msg.includes('开启') && e.msg.includes('引用模式')) {
+            else if (e.msg.includes('开启') && e.msg.includes('引用')) {
                 if (!ai_at) {
                     aiopen = true
                     e.reply(`成功开启群聊引用模式`)
@@ -125,7 +125,7 @@ export class ai extends plugin {
                 else
                     e.reply(`ai已经是开启状态了,不需要再开启一遍哦！`)
             }
-            else if (e.msg.includes('关闭') && e.msg.includes('引用模式')) {
+            else if (e.msg.includes('关闭') && e.msg.includes('引用')) {
                 if (!ai_at) {
                     e.reply("ai引用模式已经是关闭状态了哦(～￣▽￣)～")
                 }
