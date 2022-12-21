@@ -119,7 +119,7 @@ export class ai extends plugin {
             }
             else if (e.msg.includes('开启') && e.msg.includes('引用')) {
                 if (!ai_at) {
-                    aiopen = true
+                    ai_at = true
                     e.reply(`成功开启群聊引用模式`)
                 }
                 else
