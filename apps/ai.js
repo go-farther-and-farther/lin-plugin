@@ -97,7 +97,7 @@ export class ai extends plugin {
                     e.reply(`接口序号${message}超出范围或不合规，目前总量${api_num}`)
                 }
             }
-            else if (e.msg.includes('ai设置概率') || e.msg.includes('设置ai概率') || e.msg.includes('设置回复概率')) {
+            else if (e.msg.includes('ai') && e.msg.includes('概率')) {
                 if (!aiopen) {
                     e.reply("ai已关闭,请先开启,不然设置了概率我也说不了话啊(～￣▽￣)～")
                 }
@@ -116,7 +116,7 @@ export class ai extends plugin {
                     }
                 }
             }
-            else if (e.msg.includes('ai关闭')) {
+            else if (e.msg.includes('关闭') && e.msg.includes('ai')) {
                 if (!aiopen) {
                     e.reply("ai已经是关闭状态了哦(～￣▽￣)～")
                 }
@@ -125,7 +125,7 @@ export class ai extends plugin {
                     e.reply("ai成功关闭!")
                 }
             }
-            else if (e.msg.includes('ai开启')) {
+            else if (e.msg.includes('开启') && e.msg.includes('ai')) {
                 if (!aiopen) {
                     aiopen = true
                     e.reply(`成功开启,您目前设置的ai触发概率:${gailv}%!`)
