@@ -63,20 +63,20 @@ export class Auto extends plugin {
 
     if (e.isMaster || e.member.is_owner || e.member.is_admin) {
       let change = false
-      if (e.msg == "关闭复读" || e.msg == "关闭复读") {
+      if (e.msg.includes("关闭复读") || e.msg.includes("关闭复读")) {
         fdopen = false
         change = true
       }
-      else if (e.msg == "关闭打断" || e.msg == "关闭打断") {
+      else if (e.msg.includes("关闭打断") || e.msg.includes("关闭打断")) {
         ddopen2 = false
         change = true
       }
-      else if (e.msg == "开启复读" || e.msg == "开启复读") {
+      else if (e.msg.includes("开启复读") || e.msg.includes("开启复读")) {
         fdopen = true
         ddopen2 = false
         change = true
       }
-      else if (e.msg == "开启打断" || e.msg == "开启打断") {
+      else if (e.msg.includes("开启打断") || e.msg.includes("开启打断")) {
         ddopen2 = true
         fdopen = false
         change = true
