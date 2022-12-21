@@ -54,10 +54,10 @@ async function getdata(id, json, save) {
         if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
             json[id] = Template
         }
-        let list = Object.keys(json)//获取对象
-        for (var i of list) {
-            if (!json[id].i) { json[id].i = Template.i }
-        }
+        // let list = Object.keys(json)//获取对象
+        // for (var i of list) {
+        //     if (!json[id].i) { json[id].i = Template.i }
+        // }
         return json;
     }
     else {
