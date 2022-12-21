@@ -55,7 +55,7 @@ async function getdata(id, json, save) {
             json[id] = Template
         }
         let list = Object.keys(json)//获取对象
-        for (i of list) {
+        for (var i of list) {
             if (!json[id].i) { json[id].i = Template.i }
         }
         return json;
