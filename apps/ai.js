@@ -123,7 +123,7 @@ export class ai extends plugin {
                     e.reply(`成功开启群聊引用模式`)
                 }
                 else
-                    e.reply(`ai已经是开启状态了,不需要再开启一遍哦！`)
+                    e.reply(`ai群聊引用模式已经是开启状态了,不需要再开启一遍哦！`)
             }
             else if (e.msg.includes('关闭') && e.msg.includes('引用')) {
                 if (!ai_at) {
@@ -131,7 +131,7 @@ export class ai extends plugin {
                 }
                 else {
                     ai_at = false
-                    e.reply("ai成功关闭!")
+                    e.reply("成功关闭群聊引用模式!")
                 }
             }
             else if (e.msg.includes('关闭') && e.msg.includes('ai')) {
@@ -189,7 +189,7 @@ export class ai extends plugin {
             }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
-                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now+1}号ai${ai_name[ai_now]},\nai是否是开启状态：${aiopen},\nai是否是开启引用：${ai_at}。`
+                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启状态：${aiopen},\nai是否是开启引用：${ai_at}。`
                 if (e.isPrivate) {
                     msg = '你的QQ是' + msg
                     e.reply(msg)
