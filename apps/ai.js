@@ -209,7 +209,7 @@ export class ai extends plugin {
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称或者@机器人才触发
         //被@必然触发
-        if ((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 100) || e.atme) {
+        if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 99) || e.atme) && aiopen==true) {
             console.log("ai消息：", e.msg);
             //接收时将机器人名字替换为对应ai的名字
 
