@@ -23,7 +23,7 @@ export class shareMusic extends plugin {
       priority: 5000,
       rule: [
         {
-          reg: '^#*(点歌|qq|QQ|kugou|酷狗|网易云|网抑云|网易)(.*)|#听[1-9][0-9]|#听[0-9]*$$',
+          reg: '^#*点歌(qq|QQ|kugou|酷狗|网易云|网抑云|网易)(.*)|#听[1-9][0-9]|#听[0-9]*$$',
           fnc: 'shareMusic'
         },
 		
