@@ -1,0 +1,46 @@
+https://api.ownthink.com/bot?appid=xiaosi&userid=user&spoken=你叫什么
+小思ai
+{
+    "message": "success",
+    "data": {
+        "type": 5000,
+        "info": {
+            "text": "小思、小思、小思，重要的名字说三遍~"
+        }
+    }
+}
+
+http://api.qingyunke.com/api.php?key=free&appid=0&msg=你叫什么
+{"result":0,"content":"亲，叫我菲菲就可以了"}
+
+夸克ai（科普问答的）
+http://ovooa.com/API/kuake/api.php?msg=
+{
+    "code": "1",
+    "text": "生活愉快",
+    "data": {
+        "skill": "chat",
+        "desc": "有时候，还是会听不懂你在说什么…"
+    }
+}
+http://fuyhi.top/api/xiaoai_ts/api.php?msg=你叫什么 #小爱ai
+{
+    "code": 1,
+    "text": "我叫小爱，很高兴这次的遇见，我会一直陪伴你的。",
+    "url": "https://speech.ai.xiaomi.com/speech/1.0/tts_token?token=eyJ2IjoiVjAiLCJuIjoiN2IifQ.AAAXUkp9P1QAFgBdFAwbA1YVTkoaRRsPG2AFFhgAQgBIR0YXRw4PfR9GGBh0VRUfGw9BDxJSUBROT0MVRlhBZwlBT0AIRF4VBVVBG0MAWgBZTTJVQQ4YTE9KERVOAAkUSRNMGBh0XUdeQRtQQ30OV0FEGUZOEgIWYFZHGhtcQVwWUlFGTkIXQBMLG2FTEXNDVkYNRgNSGk9OQBJDC0RuCRoaEg0QDBcFARsfGRQVGxRPJgMAAAAKR0xLVAd9FB8ATABeR2NVQBlHWw8KElUDD0kaERcPAkBlBA8YR1tEDkAOVxQcQhNUDhhLN0QAFhNYFQgQD1UQSEIOVEdCUnQKExoVXBYMEgdXGwA.K2GrhNEP58CIn01qllWCbw"
+}
+
+http://fuyhi.top/api/peiliao/api.php?msg=你叫什么 #小源ai
+{
+    "code": 1,
+    "text": "小朋友你好，我是你的新朋友小源。"
+}
+
+http://xiaobai.klizi.cn/API/other/xiaoai.php?data=&msg=你叫什么 #小白ai
+{"text":"我叫小爱，很高兴这次的遇见，我会一直陪伴你的。","mp3":"https://speech.ai.xiaomi.com/speech/1.0/tts_token?token=eyJ2IjoiVjAiLCJuIjoibmYifQ.AAAXUkp9P1QAFgBdFAwbWlIVTkoaRRsPG2AFFhgAQgBIRx8TRw4PfR9GGBh0BUEVFVoWW0NYUkFIT0cSFFsXN1QaTUNbQAlBClFDHEIAWgBZTTJVQQ4YTE9KEUxKAAkUSRNMGBh0XUdeQRtQQ31XU0FEGUZOEgIWYFZHGhtcQVwWC1VGTkIXQBMLG2FTEXNDVkYNRlpWGk9OQBJDC0RuCRoaEg0QDBdcBRsfGRQVGxRPJgMAAAAKR0xLDQN9FB8ATABeR2NVQBlHWw8KEgwHD0kaERcPAkBlBA8YR1tEDkBXUxQcQhNUDhhLN0QAFhNYFQgQVlERTUgOVEdCUnQKExoVXBYMEl9WEQA.wx0kQud_OfRRFODOS6O5-w"}
+
+这个是付费的
+http://www.tuling123.com/openapi/api?key=d8dee202a87940bd866332938dd9ec52&info=你叫什么 #图灵ai
+{"code":40004,"text":"亲爱的，当天请求次数已用完。"}
+
+http://api.xn--7gqa009h.top/api/xlny_1?msg=你的名字是什么 #韩国妹妹
