@@ -27,6 +27,7 @@ ai_cfg:
   - http://fuyhi.top/api/peiliao/api.php?msg= #小源ai
   - http://xiaobai.klizi.cn/API/other/xiaoai.php?data=&msg= #小白ai
   - http://www.tuling123.com/openapi/api?key=d8dee202a87940bd866332938dd9ec52&info= #图灵ai
+  - http://api.xn--7gqa009h.top/api/xlny_1?msg= #韩国妹妹
   ai_name:
   - 青云客ai
   - 思知ai
@@ -35,6 +36,7 @@ ai_cfg:
   - 小源ai
   - 小白ai
   - 图灵ai
+  - 韩国妹妹ai
   ai_nick:
   - 菲菲
   - 小思 
@@ -43,7 +45,8 @@ ai_cfg:
   #下面三个不清楚
   - 小源
   - 琪琪
-  - 吴珂
+  - api机器人
+  - 小纤
 # 决斗系列插件 设置
 duel_cfg: 
   # 随机依赖系数和战斗力依赖系数，不需要战斗力把Magnification2改成0就可以了

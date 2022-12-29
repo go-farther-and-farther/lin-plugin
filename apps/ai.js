@@ -207,22 +207,15 @@ export class ai extends plugin {
             json = await lin_data.getdata(id, json, true)
         }
         if (e.msg.charAt(0) == '#') return false;
-        //群聊是否需要消息中带有机器人昵称或者@机器人才触发
-        //被@必然触发
-        if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 99) || e.atme) && aiopen==true) {
+        //群聊是否需要消息中带有机器人昵称概率触发 被@必然触发
+        if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 99) || e.atme) && aiopen == true) {
             console.log("ai消息：", e.msg);
             //接收时将机器人名字替换为对应ai的名字
-
             let message = e.msg.trim().replace(eval(`/${BotName}/g`), `${ai_nick[ai_now]}`).replace(/[\n|\r]/g, "，");
-
             //抓取消息并转换为Json
             let postUrl = `${ai_api[ai_now]}${message}`;
-
             let response = await fetch(postUrl);
-
             let replyData = await response.json();//将返回的数据转化为json文件
-
-
             let replyMsg = [];//这个保存返回信息里面的文本文件
             replyData = JSON.stringify(replyData) //转换字符串用于判断返回值
             if (replyData) {
@@ -239,10 +232,9 @@ export class ai extends plugin {
                     replyMsg.push(JSON.parse(replyData).text)
                 }
             }
-
             //处理消息
             let tempReplyMsg = [];
-            replyMsg = replyMsg.join(",").replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂)/g, BotName)
+            replyMsg = replyMsg.join(",").replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂|李美恩|小纤)/g, BotName)
                 .replace(/\{br\}/g, "\n")
                 .replace(/&nbsp;/g, " ")
                 .replace(/\{face:([\d]+)\}/g, "#face$1#[div]")
