@@ -182,7 +182,7 @@ export class run extends plugin {
               msg = msg + `\n${i}`
           }
           if (json2[e.group_id].shield2.length > 0) {
-            msg = msg + `被管理员屏蔽的人:`
+            msg = msg + `\n被管理员屏蔽的人:`
             for (let i of json2[e.group_id].shield2)
               msg = msg + `\n${i}`
           }
