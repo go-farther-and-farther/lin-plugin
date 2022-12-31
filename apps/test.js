@@ -15,7 +15,7 @@ export class run extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: '#测试',
+          reg: '#在吗',
           /** 执行方法 */
           fnc: 'test'
         }
@@ -28,5 +28,9 @@ export class run extends plugin {
    */
   async test(e) {
     //e.reply(Bot.uin)
+    if (e.user_id.sex == 'male')
+      e.reply('不理男孩子')
+    if (e.user_id.sex == 'female')
+      e.reply('小姐姐好')
   }
 }
