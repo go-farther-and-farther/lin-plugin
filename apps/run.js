@@ -115,7 +115,7 @@ export class run extends plugin {
         return true;//拦截指令
       }
     }
-    if (e.msg == "#别理我" || e.msg == "#屏蔽我") {//如果消息内容是跑路指令
+    else if (e.msg == "#别理我" || e.msg == "#屏蔽我") {//如果消息内容是跑路指令
       if (json2[e.group_id].shield.indexOf(id2) == -1) {//如果不在跑路列表中
         json2[e.group_id].shield.push(id2)
         json2 = await lin_data.getuser(id, json2, 'run', Template, true)//只在群聊有效
@@ -137,7 +137,7 @@ export class run extends plugin {
         return true;//拦截指令
       }
     }
-    if (e.at && (e.msg.includes('#屏蔽此人'))) {//如果消息内容是跑路指令
+    else if (e.at && (e.msg.includes('#屏蔽此人'))) {//如果消息内容是跑路指令
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {//如果是群主或管理员
         if (json2[e.group_id].shield2.indexOf(e.at) == -1) {//如果不在跑路列表中
           json2[e.group_id].shield2.push(e.at)
@@ -200,7 +200,7 @@ export class run extends plugin {
     }
     else {
       //如果该群聊在跑路列表中
-      if (json[id].run || (!json2[e.group_id].shield.indexOf(e.user_id) == -1) || (!json2[e.group_id].shield2.indexOf(e.user_id) == -1)) {
+      if (json[id].run || (json2[e.group_id].shield.indexOf(id2) != -1) || (json2[e.group_id].shield2.indexOf(id2) != -1)) {
         return true;//拦截指令
       } else {
         return false;//放行指令
