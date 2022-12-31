@@ -66,19 +66,40 @@ async function getdata(id, json, save) {
         return json;
     }
 }
+
+async function getuser(id, json, filename, Template, save) {
+    if (filename.indexOf(".json") == -1) {//如果文件名不包含.json
+        filename = filename + ".json";//添加.json
+    }
+    if (!save) {
+        if (!fs.existsSync(dirpath)) {//如果文件夹不存在
+            fs.mkdirSync(dirpath);//创建文件夹
+        }
+        if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
+            fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
+            }));
+        }
+        var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
+        if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
+            json[id] = Template
+        }
+    }
+    else {
+        fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
+        return json;
+    }
+    return json;
+}
 async function getAuto(id) {
     let filename = `Auto.json`;//文件名
-
     if (!fs.existsSync(dirpath)) {//如果文件夹不存在
         fs.mkdirSync(dirpath);//创建文件夹
     }
-
     if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
         fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
         }));
     }
     var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
-
     if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
         json[id] = Template
     }
@@ -97,28 +118,6 @@ async function getai(id) {
 
     if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
         json[id] = Template
-    }
-    return json;
-}
-async function getrun(id, json, save) {
-    let filename = `run.json`;//文件名
-    if (!save) {
-        if (!fs.existsSync(dirpath)) {//如果文件夹不存在
-            fs.mkdirSync(dirpath);//创建文件夹
-        }
-
-        if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
-            fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
-            }));
-        }
-        var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
-        if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
-            json[id] = Template
-        }
-    }
-    else {
-        fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
-        return json;
     }
     return json;
 }
@@ -141,4 +140,4 @@ async function getthumbUp(json, save) {
         return json;
     }
 }
-export default { getAuto, getai, getrun, getthumbUp, getdata }
+export default { getAuto, getai, getuser, getthumbUp, getdata }
