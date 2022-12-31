@@ -160,7 +160,7 @@ export class run extends plugin {
           e.reply(`本群${e.at}已经被屏蔽了，不理ta了！`);//回复消息
           return true;//拦截指令
         } else {//如果在跑路列表中
-          json2[e.group_id].shield = json2[e.group_id].shield2.filter(item => item != e.at)
+          json2[e.group_id].shield2 = json2[e.group_id].shield2.filter(item => item != e.at)
           json2 = await lin_data.getuser(id, json2, 'run', Template, true)//只在群聊有效
           e.reply(`本群${e.at}已经被解除屏蔽了！`);//回复消息
           return true;//拦截指令
