@@ -69,8 +69,9 @@ export class baidu extends plugin {
             width: 1920,
             height: 1080
         });
-        
+
         msg = await fetch(`http://tfapi.top/API/bk.php?type=bd&msg=${message}`)
+        e.reply('该功能还在测试当中')
 
         await this.reply([segment.image(await page.screenshot({
             fullPage: true
