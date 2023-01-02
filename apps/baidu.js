@@ -1,6 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import { segment } from "oicq";
 import { createRequire } from 'module'
+import fetch from "node-fetch";
 const require = createRequire(import.meta.url)
 //借鉴和学习了碎月的大佬的插件，勿喷
 export class baidu extends plugin {
@@ -38,12 +39,12 @@ export class baidu extends plugin {
     async baidu(e) {
         console.log("百度的内容：", e.msg);
         if (!e.msg.includes('#百度百科')) {
-            let message = e.msg.trim().replace('#百度一下', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
+            var message = e.msg.trim().replace('#百度一下', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
             message = message.trim().replace('#百度', "").replace(/[\n|\r]/g, "，");
             var postUrl = `https://www.baidu.com/s?wd=${message}`;
         }
         else {
-            let message = e.msg.trim().replace('#百度百科一下', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
+            var message = e.msg.trim().replace('#百度百科一下', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
             message = message.trim().replace('#百度百科', "").replace(/[\n|\r]/g, "，");
             var postUrl = `https://baike.baidu.com/search/none?word=${message}`;
         }
@@ -70,12 +71,12 @@ export class baidu extends plugin {
             height: 1080
         });
 
-        msg = await fetch(`http://tfapi.top/API/bk.php?type=bd&msg=${message}`)
-        e.reply('该功能还在测试当中')
+        // let msg = await fetch(`http://tfapi.top/API/bk.php?type=bd&msg=${message}`)
+        // e.reply('该功能还在测试当中')
 
-        await this.reply([segment.image(await page.screenshot({
+        await this.reply(segment.image(await page.screenshot({
             fullPage: true
-        }))])
+        })))
 
         await browser.close();
 
