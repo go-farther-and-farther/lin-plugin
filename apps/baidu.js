@@ -48,6 +48,7 @@ export class baidu extends plugin {
             var postUrl = `https://baike.baidu.com/search/none?word=${message}`;
         }
 
+
         const puppeteer = require('puppeteer');
 
         const browser = await puppeteer.launch({
@@ -68,10 +69,12 @@ export class baidu extends plugin {
             width: 1920,
             height: 1080
         });
+        
+        msg = await fetch(`http://tfapi.top/API/bk.php?type=bd&msg=${message}`)
 
-        await this.reply(segment.image(await page.screenshot({
+        await this.reply([segment.image(await page.screenshot({
             fullPage: true
-        })))
+        }))])
 
         await browser.close();
 
@@ -79,8 +82,7 @@ export class baidu extends plugin {
     async yiqing(e) {
         console.log("疫情的地区：", e.msg);
         if (e.msg.includes('疫情')) {
-            if(!e.msg.includes('疫情'))
-            {
+            if (!e.msg.includes('疫情')) {
                 e.reply('请输入“省份-城市疫情”')
             }
             let message = e.msg.trim().replace('疫情', "").replace(/[\n|\r]/g, "，");//防止把内容里面的一下删了
