@@ -49,6 +49,8 @@ export class weight extends plugin {
             let response = await fetch(url);
             let res = await response.json();
             let json = []
+            let date = new Date();
+            let month = date.getMonth() + 1
             let template = {
             }
             json = await lin_data.getuser2(i, json, `weight`, template, false)
@@ -62,10 +64,7 @@ export class weight extends plugin {
                 }
             }
             //发出消息
-            
 
-            let date = new Date();
-            let month = date.getMonth() + 1
             json[date] = {
                 time: currentTime,
                 weight: res.qz
