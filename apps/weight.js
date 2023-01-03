@@ -58,14 +58,14 @@ export class weight extends plugin {
             let json = []
             let template = {
             }
-            json = await getuser2(i, json, `weight`, template, false)
+            json = await lin_data.getuser2(i, json, `weight`, template, false)
             let list = Object.keys(json)
             let num = list.length
             json[num] = {
                 time: currentTime,
                 weight: res.qz
             }
-            json = await getuser2(i, json, `weight`, template, true)
+            json = await lin_data.getuser2(i, json, `weight`, template, true)
         }
         return true; //返回true 阻挡消息不再往下
     }
