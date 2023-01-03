@@ -51,6 +51,7 @@ export class weight extends plugin {
             let json = []
             let date = new Date();
             let month = date.getMonth() + 1
+            date = date.getDate()
             let template = {
             }
             json = await lin_data.getuser2(i, json, `weight`, template, false)
