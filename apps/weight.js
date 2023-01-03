@@ -59,7 +59,7 @@ export class weight extends plugin {
             }
             else {
                 msg = msg + `QQ：${i}\n查询状态： ${res.msg}\n权重：${res.qz}\n权重越低越容易封号，权重低时别涩涩啦\n`;
-                if (json[date - 1].weight) {
+                if (json.hasOwnProperty(date - 1)) {
                     msg = msg + `昨日权重：${json[date - 1].weight}`
                 }
             }
