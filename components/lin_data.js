@@ -26,17 +26,6 @@ var Template = {//创建该用户
     "thumbUp": false
 };
 
-var Auto_Template = {//创建该用户
-    "fdopen": def_fdopen,
-    "ddopen2": def_ddopen2,
-    "num": def_num
-};
-var run_Template = {//创建该用户
-    "run": false,
-};
-var thumbUp_Template = {//创建该用户
-    "thumbUp": false,
-};
 
 
 async function getdata(id, json, save) {
@@ -90,7 +79,7 @@ async function getuser(id, json, filename, Template, save) {
     return json;
 }
 async function getuser2(id, json, dirname, Template, save) {
-    filename = `${id}.json`
+    let filename = `${id}.json`
     if (!save) {
         if (!fs.existsSync(dirpath)) {//如果文件夹不存在
             fs.mkdirSync(dirpath);//创建文件夹
