@@ -66,7 +66,6 @@ async function getdata(id, json, save) {
         return json;
     }
 }
-
 async function getuser(id, json, filename, Template, save) {
     if (filename.indexOf(".json") == -1) {//如果文件名不包含.json
         filename = filename + ".json";//添加.json
@@ -90,54 +89,25 @@ async function getuser(id, json, filename, Template, save) {
     }
     return json;
 }
-async function getAuto(id) {
-    let filename = `Auto.json`;//文件名
-    if (!fs.existsSync(dirpath)) {//如果文件夹不存在
-        fs.mkdirSync(dirpath);//创建文件夹
-    }
-    if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
-        fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
-        }));
-    }
-    var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
-    if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
-        json[id] = Template
-    }
-    return json;
-}
-async function getai(id) {
-    let filename = `ai.json`;//文件名
-    if (!fs.existsSync(dirpath)) {//如果文件夹不存在
-        fs.mkdirSync(dirpath);//创建文件夹
-    }
-    if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
-        fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
-        }));
-    }
-    var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
-
-    if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
-        json[id] = Template
-    }
-    return json;
-}
-async function getthumbUp(json, save) {
-    let filename = `thumbUp.json`;//文件名
+async function getuser2(id, json, dirname, Template, save) {
+    filename = `${id}.json`
     if (!save) {
         if (!fs.existsSync(dirpath)) {//如果文件夹不存在
             fs.mkdirSync(dirpath);//创建文件夹
         }
-
-        if (!fs.existsSync(dirpath + "/" + filename)) {//如果文件不存在
-            fs.writeFileSync(dirpath + "/" + filename, JSON.stringify({//创建文件
+        if (!fs.existsSync(dirpath + "/" + dirname + "/" + filename)) {//如果文件不存在
+            fs.writeFileSync(dirpath + "/" + dirname + "/" + filename, JSON.stringify({//创建文件
             }));
         }
-        var json = JSON.parse(fs.readFileSync(dirpath + "/" + filename, "utf8"));//读取文件
-        return json;
+        var json = JSON.parse(fs.readFileSync(dirpath + "/" + dirname + "/" + filename, "utf8"));//读取文件
+        if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
+            json = Template
+        }
     }
     else {
-        fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
+        fs.writeFileSync(dirpath + "/" + dirname + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
         return json;
     }
+    return json;
 }
-export default { getAuto, getai, getuser, getthumbUp, getdata }
+export default { getuser, getuser2, getdata }
