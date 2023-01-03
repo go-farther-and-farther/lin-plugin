@@ -48,6 +48,9 @@ export class weight extends plugin {
 
             let response = await fetch(url);
             let res = await response.json();
+            let json = []
+            let template = {
+            }
             json = await lin_data.getuser2(i, json, `weight`, template, false)
             if (i == Bot.uin) {
                 msg = msg + `我的权重：${res.qz}\n记得爱护我哦！`;
@@ -59,9 +62,7 @@ export class weight extends plugin {
                 }
             }
             //发出消息
-            let json = []
-            let template = {
-            }
+            
 
             let date = new Date();
             let month = date.getMonth() + 1
