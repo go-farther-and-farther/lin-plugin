@@ -4,6 +4,7 @@ import lodash from 'lodash'
 import plugin from '../../../lib/plugins/plugin.js'
 import lin_data from '../components/lin_data.js';
 import moment from "moment"
+
 const currentTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
 export class weight extends plugin {
     constructor() {
@@ -47,18 +48,24 @@ export class weight extends plugin {
 
             let response = await fetch(url);
             let res = await response.json();
+            json = await lin_data.getuser2(i, json, `weight`, template, false)
             if (i == Bot.uin) {
                 msg = msg + `我的权重：${res.qz}\n记得爱护我哦！`;
             }
-            else { msg = msg + `QQ：${i}\n查询状态： ${res.msg}\n权重：${res.qz}\n权重越低越容易封号，权重低时别涩涩啦\n`; }
+            else {
+                msg = msg + `QQ：${i}\n查询状态： ${res.msg}\n权重：${res.qz}\n权重越低越容易封号，权重低时别涩涩啦\n`;
+                if (json[date - 1].weight) {
+                    msg = msg + `昨日权重：${json[date - 1].weight}`
+                }
+            }
             //发出消息
             let json = []
             let template = {
             }
-            json = await lin_data.getuser2(i, json, `weight`, template, false)
-            let list = Object.keys(json)
-            let num = list.length
-            json[num + 2] = {
+
+            let date = new Date();
+            let month = date.getMonth() + 1
+            json[date] = {
                 time: currentTime,
                 weight: res.qz
             }
