@@ -48,12 +48,9 @@ export class weight extends plugin {
             let response = await fetch(url);
             let res = await response.json();
             msg = msg +
-                `QQ：${i}\n
-                查询状态： ${res.msg}\n
-                权重：${res.qz}\n
-                权重越低越容易封号，权重低时别涩涩啦`;
+                `QQ：${i}\n查询状态： ${res.msg}\n权重：${res.qz}\n权重越低越容易封号，权重低时别涩涩啦`;
             if (i == Bot.uin) {
-                msg = msg + `我的权重：${res.qz}\n 权重越低越容易封号，权重低时别涩涩啦`;
+                msg = msg + `我的权重：${res.qz}\n记得爱护我哦！`;
             }
             //发出消息
             let json = []
