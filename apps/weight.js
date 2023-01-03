@@ -47,11 +47,10 @@ export class weight extends plugin {
 
             let response = await fetch(url);
             let res = await response.json();
-            msg = msg +
-                `QQ：${i}\n查询状态： ${res.msg}\n权重：${res.qz}\n权重越低越容易封号，权重低时别涩涩啦`;
             if (i == Bot.uin) {
                 msg = msg + `我的权重：${res.qz}\n记得爱护我哦！`;
             }
+            else { msg = msg + `QQ：${i}\n查询状态： ${res.msg}\n权重：${res.qz}\n权重越低越容易封号，权重低时别涩涩啦\n`; }
             //发出消息
             let json = []
             let template = {
@@ -59,7 +58,7 @@ export class weight extends plugin {
             json = await lin_data.getuser2(i, json, `weight`, template, false)
             let list = Object.keys(json)
             let num = list.length
-            json[num] = {
+            json[num + 1] = {
                 time: currentTime,
                 weight: res.qz
             }
