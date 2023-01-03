@@ -36,6 +36,7 @@ export class weight extends plugin {
         }
         if (!qq) { qq = [e.user_id] }
         qq.push(Bot.uin)
+        let msg = ''
         for (let i of qq) {
             let url = `http://tc.tfkapi.top/API/qqqz.php?type=json&qq=${i}`;//听风客的接口
 
@@ -46,21 +47,15 @@ export class weight extends plugin {
 
             let response = await fetch(url);
             let res = await response.json();
-            let msg = [
-                `QQ：${i}\n`,
-                "查询状态：", segment.text(res.msg), "\n",
-                "权重：", segment.text(res.qz), "\n",
-                "权重越低越容易封号，权重低时别涩涩啦"
-            ];
+            msg = msg +
+                `QQ：${i}\n
+                查询状态： ${res.msg}\n
+                权重：${res.qz}\n
+                权重越低越容易封号，权重低时别涩涩啦`;
             if (i == Bot.uin) {
-                msg = [
-                    "我的权重：", segment.text(res.qz), "\n",
-                    "权重越低越容易封号，权重低时别涩涩啦"
-                ];
+                msg = msg + `我的权重：${res.qz}\n 权重越低越容易封号，权重低时别涩涩啦`;
             }
             //发出消息
-            await e.reply(msg);
-
             let json = []
             let template = {
             }
@@ -73,6 +68,7 @@ export class weight extends plugin {
             }
             json = await lin_data.getuser2(i, json, `weight`, template, true)
         }
+        await e.reply(msg);
         return true; //返回true 阻挡消息不再往下
     }
 }

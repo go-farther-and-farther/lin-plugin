@@ -81,8 +81,8 @@ async function getuser(id, json, filename, Template, save) {
 async function getuser2(id, json, dirname, Template, save) {
     let filename = `${id}.json`
     if (!save) {
-        if (!fs.existsSync(dirpath)) {//如果文件夹不存在
-            fs.mkdirSync(dirpath);//创建文件夹
+        if (!fs.existsSync(dirpath + "/" + dirname)) {//如果文件夹不存在
+            fs.mkdirSync(dirpath + "/" + dirname);//创建文件夹
         }
         if (!fs.existsSync(dirpath + "/" + dirname + "/" + filename)) {//如果文件不存在
             fs.writeFileSync(dirpath + "/" + dirname + "/" + filename, JSON.stringify({//创建文件
