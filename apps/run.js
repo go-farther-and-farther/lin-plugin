@@ -42,7 +42,7 @@ export class run extends plugin {
     var json = {}
     var json2 = {}
     json = await lin_data.getdata(id, json, false)
-    if (e.msg == "#跑路列表") {//如果消息内容是跑路列表指令
+    if (e.atme && e.msg == "#跑路列表") {//如果消息内容是跑路列表指令
       if (e.isMaster) {//如果是主人
         let runnum = 0
         let msg = `在以下群聊跑路啦！\n`
@@ -70,7 +70,7 @@ export class run extends plugin {
     }
     json2 = await lin_data.getuser(id, json2, 'run', Template, false)//只在群聊有效
     if (!e.msg) return false;
-    if (e.msg == "#回避" || (e.msg.includes('回避') && e.msg.includes(BotName))) {
+    if (e.atme && e.msg == "#回避" || (e.msg.includes('回避') && e.msg.includes(BotName))) {
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {
         json[id].run = true;//添加到跑路列表
         e.reply(`${BotName}回避一分钟，绝对不会偷看哦！`);//回复消息
@@ -83,7 +83,7 @@ export class run extends plugin {
       }
       return true;//拦截指令
     }
-    else if (e.msg == "#回来" || (e.msg.includes('回来') && e.msg.includes(BotName))) {//如果消息内容是回来指令
+    else if (e.atme && e.msg == "#回来" || (e.msg.includes('回来') && e.msg.includes(BotName))) {//如果消息内容是回来指令
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {//如果是群主或管理员
         if (!json[id].run) {//如果不在跑路列表中
           e.reply(`本群${BotName}没有跑路，一直到在哦！`);//回复消息
@@ -99,7 +99,7 @@ export class run extends plugin {
         return true;//拦截指令
       }
     }
-    else if (e.msg == "#跑路" || (e.msg.includes('跑路') && e.msg.includes(BotName))) {//如果消息内容是跑路指令
+    else if (e.atme && e.msg == "#跑路" || (e.msg.includes('跑路') && e.msg.includes(BotName))) {//如果消息内容是跑路指令
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {//如果是群主或管理员
         if (!json[id].run) {//如果不在跑路列表中
           json[id].run = true;//添加到跑路列表
@@ -115,7 +115,7 @@ export class run extends plugin {
         return true;//拦截指令
       }
     }
-    else if (e.msg == "#别理我" || e.msg == "#屏蔽我") {//如果消息内容是跑路指令
+    else if (e.atme && e.msg == "#别理我" || e.atme && e.msg == "#屏蔽我") {//如果消息内容是跑路指令
       if (json2[e.group_id].shield.indexOf(id2) == -1) {//如果不在跑路列表中
         json2[e.group_id].shield.push(id2)
         json2 = await lin_data.getuser(id, json2, 'run', Template, true)//只在群聊有效
@@ -126,7 +126,7 @@ export class run extends plugin {
         return true;//拦截指令
       }
     }
-    else if (e.msg == "#理我" || e.msg == "#别屏蔽我") {//如果消息内容是跑路指令
+    else if (e.atme && e.msg == "#理我" || e.atme && e.msg == "#别屏蔽我") {//如果消息内容是跑路指令
       if (json2[e.group_id].shield.indexOf(id2) == -1) {//如果不在屏蔽列表中
         e.reply(`本群你没有被屏蔽了，你还想让我屏蔽你一次吗？`);//回复消息
         return true;//拦截指令
@@ -171,7 +171,7 @@ export class run extends plugin {
         return true;//拦截指令
       }
     }
-    if (e.msg == "#屏蔽列表" || (e.msg.includes('屏蔽列表') && e.msg.includes(BotName))) {//如果消息内容是跑路指令
+    if (e.atme && e.msg == "#屏蔽列表" || (e.msg.includes('屏蔽列表') && e.msg.includes(BotName))) {//如果消息内容是跑路指令
       if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster) {//如果是群主或管理员
         if (json2[e.group_id].shield2.length > 0 || json2[e.group_id].shield.length > 0) {//如果不在跑路列表中
           let msg = ''
