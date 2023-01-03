@@ -52,6 +52,12 @@ export class weight extends plugin {
                 "权重：", segment.text(res.qz), "\n",
                 "权重越低越容易封号，权重低时别涩涩啦"
             ];
+            if (i == Bot.uin) {
+                msg = [
+                    "我的权重：", segment.text(res.qz), "\n",
+                    "权重越低越容易封号，权重低时别涩涩啦"
+                ];
+            }
             //发出消息
             await e.reply(msg);
 
