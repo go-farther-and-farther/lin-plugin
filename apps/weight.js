@@ -58,7 +58,7 @@ export class weight extends plugin {
             json = await lin_data.getuser2(i, json, `weight`, template, false)
             let list = Object.keys(json)
             let num = list.length
-            json[num + 1] = {
+            json[num + 2] = {
                 time: currentTime,
                 weight: res.qz
             }
