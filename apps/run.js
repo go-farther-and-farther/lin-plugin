@@ -42,7 +42,7 @@ export class run extends plugin {
     var json = {}
     var json2 = {}
     json = await lin_data.getdata(id, json, false)
-    if ((e.atme || e.msg.includes('全部')) && e.msg == "#跑路列表") {//如果消息内容是跑路列表指令
+    if (e.atme && e.msg == "#跑路列表") {//如果消息内容是跑路列表指令
       if (e.isMaster) {//如果是主人
         let runnum = 0
         let msg = `在以下群聊跑路啦！\n`

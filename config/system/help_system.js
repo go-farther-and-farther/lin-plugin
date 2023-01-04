@@ -137,7 +137,11 @@ export const helpList = [{
   }, {
     icon: 11,
     title: '#跑路 #回来',
-    desc: '是否回复本群消息'
+    desc: '是否回复本群消息,此功能需要at机器人'
+  }, {
+    icon: 11,
+    title: '#跑路列表',
+    desc: '查看不回复的群列表,此功能需要at机器人'
   }, {
     icon: 80,
     title: '开始/结束复读',
