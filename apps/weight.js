@@ -54,6 +54,7 @@ export class weight extends plugin {
             date = date.getDate()
             let template = {
             }
+            //读取json文件
             json = await lin_data.getuser2(i, json, `weight`, template, false)
             if (i == Bot.uin) {
                 msg = msg + `我的权重：${res.qz}\n记得爱护我哦！`;
@@ -64,15 +65,16 @@ export class weight extends plugin {
                     msg = msg + `昨日权重：${json[date - 1].weight}`
                 }
             }
-            //发出消息
-
-            json[date] = {
+            json[currentTime] = {
                 time: currentTime,
                 weight: res.qz
             }
+            //保存json文件
             json = await lin_data.getuser2(i, json, `weight`, template, true)
         }
+        //发出消息
         await e.reply(msg);
-        return true; //返回true 阻挡消息不再往下
+        //返回true 阻挡消息不再往下
+        return true; 
     }
 }
