@@ -21,12 +21,12 @@ export class lin_help extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: '#(lin|麟)(规则|帮助|版本)',
+          reg: '^#(lin|麟)(规则|帮助|版本)$',
           /** 执行方法 */
           fnc: 'message'
         },{
           /** 命令正则匹配 */
-          reg: '#(ai|智能回复)(规则|帮助|版本)',
+          reg: '^#(ai|智能回复)(规则|帮助|版本)$',
           /** 执行方法 */
           fnc: 'message2'
         }
