@@ -50,19 +50,22 @@ async function thumbUp_start(key) {
 		arr.push(friend[0])
 	}
 	arr = arr.filter(item => item != Bot.uin)
-	if (key == 'auto')
-    	var sj = 1000
+	if (key == 'auto'){
+    	var s = 1000
 		for (let i = 0; i < arr.length - 1; i++) {
+			let a = Math.round(Math.random() * 5 + 1) * 600000
+			let sj = s
+		    s += a
 			setTimeout(() => {
-			    console.log(`本次为自动第${i}点赞.点赞对象${arr[i]}`)
+			    console.log(`本次为开始后${sj}毫秒,自动第${i}次点赞.点赞对象${arr[i]},下次点赞是${a}毫秒后`)
 			    Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
 			}, sj);//随机延时,十到六十分钟
-		    sj += (Math.round(Math.random() * 5 + 1) * 600000)
 		}
+	}
 	if (key == 'hand')
 		for (let i = 0; i < arr.length - 1; i++) {
 			setTimeout(() => {
-				console.log(`本次为手动第${i}点赞.点赞对象${arr[i]}`)
+				console.log(`本次为手动第${i}次点赞.点赞对象${arr[i]}`)
 				Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
 			}, i * 10000);//10秒延时
 		}
