@@ -34,11 +34,11 @@ export class thumbUp extends plugin {
 	}
 }
 //每小时执行任务
-schedule.scheduleJob('0 0 * * * *', async() => {
-    let time = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
-    let hour = new Date(time).getHours()
-    if(hour == thumbUptime)
-	thumbUp_start('auto');
+schedule.scheduleJob('0 0 * * * *', async () => {
+	let time = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+	let hour = new Date(time).getHours()
+	if (hour == thumbUptime)
+		thumbUp_start('auto');
 }
 );
 
@@ -46,22 +46,24 @@ async function thumbUp_start(key) {
 	console.log(`开始给所有好友点赞点赞,正在点赞中...`)
 	let friendmap = Bot.fl
 	var arr = []
-	for(let friend of friendmap){
+	for (let friend of friendmap) {
 		arr.push(friend[0])
 	}
 	arr = arr.filter(item => item != Bot.uin)
-	if(key == 'auto')
-	for (let i = 0; i < arr.length-1; i++) {
-		setTimeout(() => {
-			console.log(`本次为自动第${i}点赞.点赞对象${arr[i]}`)
-			Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
-		}, i * Math.round(Math.random() * 9 +1) * 60000);//随机延时
-	}
-	if(key == 'hand')
-	for (let i = 0; i < arr.length-1; i++) {
-		setTimeout(() => {
-			console.log(`本次为手动第${i}点赞.点赞对象${arr[i]}`)
-			Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
-		}, i * 10000);//10秒延时
-	}
+	if (key == 'auto')
+    	var sj = 1000
+		for (let i = 0; i < arr.length - 1; i++) {
+			setTimeout(() => {
+			    console.log(`本次为自动第${i}点赞.点赞对象${arr[i]}`)
+			    Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
+			}, sj);//随机延时,十到六十分钟
+		    sj += (Math.round(Math.random() * 5 + 1) * 600000)
+		}
+	if (key == 'hand')
+		for (let i = 0; i < arr.length - 1; i++) {
+			setTimeout(() => {
+				console.log(`本次为手动第${i}点赞.点赞对象${arr[i]}`)
+				Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
+			}, i * 10000);//10秒延时
+		}
 }
