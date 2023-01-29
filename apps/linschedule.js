@@ -50,7 +50,7 @@ async function thumbUp_start() {
 		arr.push(friend[0])
 	}
 	arr = arr.filter(item => item != Bot.uin)
-	for (var i = 0; i < arr.length-1; i++) {
+	for (let i = 0; i < arr.length-1; i++) {
 		setTimeout(() => {
 			console.log(`本次为第${i}点赞.点赞对象${arr[i]}`)
 			Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
