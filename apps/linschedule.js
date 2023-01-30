@@ -2,6 +2,7 @@ import plugin from '../../../lib/plugins/plugin.js'
 import schedule from "node-schedule";
 import command from '../components/command.js'
 import yzcfg from '../../../lib/config/config.js'
+import common from '../../../lib/common/common.js'
 var thumbUptime = 12//自动点赞开始时间
 var thumuppen = await command.getConfig("thumbUp_cfg", "thumuppen")
 export class thumbUp extends plugin {
