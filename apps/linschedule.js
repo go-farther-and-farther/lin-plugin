@@ -62,7 +62,7 @@ async function thumbUp_start(key) {
 			setTimeout(() => {
 			    console.log(`本次为开始后${sj}毫秒,自动第${i+1}次点赞.点赞对象${arr[i]},下次点赞是${a}毫秒后`)
 			    Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
-				if(i == arr.length-1)
+				if(i == arr.length-2)
 				for(let mat of yzcfg.masterQQ){
 					common.relpyPrivate(mat, `lin-plugin自动点赞任务完成`)
 				}
@@ -77,7 +77,7 @@ async function thumbUp_start(key) {
 			setTimeout(() => {
 				console.log(`本次为手动第${i+1}次点赞.点赞对象${arr[i]}`)
 				Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
-				if(i == arr.length-1)
+				if(i == arr.length-2)
 				for(let mat of yzcfg.masterQQ){
 					common.relpyPrivate(mat, `lin-plugin点赞任务完成`)
 				}
