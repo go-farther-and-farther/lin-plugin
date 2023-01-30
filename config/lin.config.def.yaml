@@ -1,12 +1,12 @@
 # 这个里面的东西，使用者可以自由修改，但是后果自负。使用“#刷新lin配置”重置配置
 # 点赞 设置
 thumbUp_cfg: 
-  # 是否全局点赞(还需要你点赞名单为空)和是否回复提醒,1是，2否
-  everyone: 2
-  reply_something: 2
+  # 是否自动点赞,1为是0为否
+  thumuppen: 1
+  # reply_something: 2
   # 最短点赞时间间隔，单位秒；回复概率
-  time: 60
-  huifu: 30
+  # time: 60
+  # huifu: 30
 # 复读的设置 一个是触发需要的次数，open是复读，open2是打断施法
 Auto:
   def_num: 3
