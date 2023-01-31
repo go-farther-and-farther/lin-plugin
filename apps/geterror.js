@@ -42,7 +42,7 @@ export class geterror extends plugin {
             e.reply([segment.at(e.user_id), `\n凡人，休得僭越！`]);
             return true
         }
-         if (!fs.existsSync(errorpath)) {
+        if (!fs.existsSync(errorpath)) {
             e.reply(`${errorpath}不存在。`)
         }
         //上传文件
@@ -54,7 +54,7 @@ export class geterror extends plugin {
         if (e.isPrivate) {
             e.friend.sendFile(errorpath)
             return true;
-        }       
+        }
     }
     async getjournal(e) {
         if (!e.isMaster) {
@@ -63,7 +63,26 @@ export class geterror extends plugin {
         }
         var date = new Date();
         let month = date.getMonth() + 1
-        let journalpath = `./logs/command.${date.getFullYear()}-${month}-${date.getDate()}.log`
+        let dates = date.getDate()
+        if (month == 1) month = '01'
+        if (month == 2) month = '02'
+        if (month == 3) month = '03'
+        if (month == 4) month = '04'
+        if (month == 5) month = '05'
+        if (month == 6) month = '06'
+        if (month == 7) month = '07'
+        if (month == 8) month = '08'
+        if (month == 9) month = '09'
+        if (dates == 1) dates = '01'
+        if (dates == 2) dates = '02'
+        if (dates == 3) dates = '03'
+        if (dates == 4) dates = '04'
+        if (dates == 5) dates = '05'
+        if (dates == 6) dates = '06'
+        if (dates == 7) dates = '07'
+        if (dates == 8) dates = '08'
+        if (dates == 9) dates = '09'
+        let journalpath = `./logs/command.${date.getFullYear()}-${month}-${dates}.log`
         if (!fs.existsSync(journalpath)) {
             e.reply(`${journalpath}不存在。`)
         }
