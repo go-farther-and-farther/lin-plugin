@@ -86,6 +86,7 @@ export class geterror extends plugin {
         if (!fs.existsSync(journalpath)) {
             e.reply(`${journalpath}不存在。`)
         }
+        e.reply(`正在为您发送./logs/command.${date.getFullYear()}-${month}-${dates}.log`)
         if (e.isGroup) {
             e.group.fs.upload(journalpath)
             return true;
