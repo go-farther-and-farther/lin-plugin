@@ -6,6 +6,7 @@ import yzcfg from '../../../lib/config/config.js'
 import common from '../../../lib/common/common.js'
 var thumbUptime = 12//自动点赞开始时间
 var thumuppen = await command.getConfig("thumbUp_cfg", "thumuppen")
+var crowd = await command.getConfig("thumbUp_cfg", "crowd")
 export class thumbUp extends plugin {
 	constructor() {
 		super({
@@ -47,9 +48,14 @@ schedule.scheduleJob('0 0 * * * *', async () => {
 async function thumbUp_start(key) {
 	let friendmap = Bot.fl
 	var arr = []
-	for (let friend of friendmap) {
-		arr.push(friend[0])
-	}
+	if (crowd == 'friend')
+		for (let friend of friendmap) {
+			arr.push(friend[0])
+		}
+	else
+		for (let masterQQ of yzcfg.masterQQ) {
+			arr.push(masterQQ)
+		}
 	arr = arr.filter(item => item != Bot.uin)
 	if (key == 'auto') {
 		let wait_time = 0
