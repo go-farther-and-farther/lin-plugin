@@ -50,37 +50,43 @@ async function thumbUp_start(key) {
 		arr.push(friend[0])
 	}
 	arr = arr.filter(item => item != Bot.uin)
-	if (key == 'auto'){
-        for(let mat of yzcfg.masterQQ){
-            await common.relpyPrivate(mat, `lin-plugin自动点赞任务开始\n本次点赞好友共${arr.length}位\n自动点赞为防止风险,间隔较长,预计${arr.length * 2}分钟完成\n自动开关请前往本插件config/lin.config.yaml中修改`)
-        }
-    	var s = 1000
+	if (key == 'auto') {
+		let wait_time = 0
+		for (let mat of yzcfg.masterQQ) {
+			wait_time += 1000 //每一个主人之间有1s间隔
+			setTimeout(() => {
+				//同时发给多个主人容易封号,而且也不能用await了
+				//await common.relpyPrivate(mat, `lin-plugin自动点赞任务开始\n本次点赞好友共${arr.length}位\n自动点赞为防止风险,间隔较长,预计${arr.length * 2}分钟完成\n自动开关请前往本插件config/lin.config.yaml中修改`)
+				//common.relpyPrivate(mat, `lin-plugin打卡开始\n${arr.length}位\n预计${arr.length * 2}分钟\n自动开关请前往本插件config/lin.config.yaml中修改`)
+			}, wait_time);
+		}
+		var s = 1000
 		for (let i = 0; i < arr.length - 1; i++) {
 			let a = Math.round(Math.random() * 5 + 1) * 60000
 			let sj = s
-		    s += a
+			s += a
 			setTimeout(() => {
-			    console.log(`本次为开始后${sj}毫秒,自动第${i+1}次点赞.点赞对象${arr[i]},下次点赞是${a}毫秒后`)
-			    Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
-				if(i == arr.length-2)
-				for(let mat of yzcfg.masterQQ){
-					common.relpyPrivate(mat, `lin-plugin自动点赞任务完成`)
-				}
+				console.log(`本次为开始后${sj}毫秒,自动第${i + 1}次点赞.点赞对象${arr[i]},下次点赞是${a}毫秒后`)
+				Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
+				if (i == arr.length - 2)
+					for (let mat of yzcfg.masterQQ) {
+						//common.relpyPrivate(mat, `lin-plugin自动点赞任务完成`)
+					}
 			}, sj);//随机延时,一到五分钟
 		}
 	}
-	if (key == 'hand'){
-        for(let mat of yzcfg.masterQQ){
-            await common.relpyPrivate(mat, `lin-plugin点赞开始,本次点赞好友共${arr.length}位,预计${arr.length * 10}秒完成`)
-        }
-     	for (let i = 0; i < arr.length - 1; i++) {
+	if (key == 'hand') {
+		for (let mat of yzcfg.masterQQ) {
+			await common.relpyPrivate(mat, `lin-plugin点赞开始,本次点赞好友共${arr.length}位,预计${arr.length * 10}秒完成`)
+		}
+		for (let i = 0; i < arr.length - 1; i++) {
 			setTimeout(() => {
-				console.log(`本次为手动第${i+1}次点赞.点赞对象${arr[i]}`)
+				console.log(`本次为手动第${i + 1}次点赞.点赞对象${arr[i]}`)
 				Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
-				if(i == arr.length-2)
-				for(let mat of yzcfg.masterQQ){
-					common.relpyPrivate(mat, `lin-plugin点赞任务完成`)
-				}
+				if (i == arr.length - 2)
+					for (let mat of yzcfg.masterQQ) {
+						common.relpyPrivate(mat, `lin-plugin点赞任务完成`)
+					}
 			}, i * 10000);//10秒延时
 		}
 	}
