@@ -133,7 +133,21 @@ export class Auto extends plugin {
         }
         if (i[id] >= num) {//重复次数足够多，复读并刷新i
           if (fdopen) { e.reply(a[id]) }
-          else if (ddopen2) { e.reply(`打断施法，不要再发“${a[id]}”了！`) }
+          else if (ddopen2) {
+            let arr= a[id]
+            arr = arr.split('')
+            let temp, length = arr.length;
+            for (let i = 0; i < length - 1; i++) {
+              let index = Math.floor(Math.random() * (length --));
+              temp = arr[index];
+              arr[index] = arr[length];
+              arr[length] = temp;
+            }
+            arr = String(arr)
+            arr = arr.replace(/,/g, "")
+            e.reply(`${arr}`) 
+            //e.reply(`打断施法，不要再发“${a[id]}”了！`) 
+          }
           i[id] = 1
         }
       }
