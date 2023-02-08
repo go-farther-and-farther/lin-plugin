@@ -1,19 +1,21 @@
 import fs from 'node:fs'
 import { Data, Version } from './components/index.js'
-//import Ver from './components/Version.js'
-import chalk from 'chalk'//用粉笔写；用白垩粉擦
+//用粉笔写；用白垩粉擦
+import chalk from 'chalk'
 
-const files = fs.readdirSync('./plugins/lin-plugin/apps').filter(file => file.endsWith('.js'))//以js结束的文件被读取
+//以js结束的文件被读取
+const files = fs.readdirSync('./plugins/lin-plugin/apps').filter(file => file.endsWith('.js'))
 
 let ret = []
 
+//改自碎月和喵喵的启动提示
 if (Bot?.logger?.info) {
     Bot.logger.info(chalk.green('------^-^------'))
     Bot.logger.info(chalk.yellow(`麟插件${Version.version}初始化~`))
     Bot.logger.info(chalk.green('---------------'))
 } else {
     console.log(`lin插件${Version.version}初始化~`)
-}//这个改自碎月和喵喵
+}
 
 
 if (!await redis.get(`lin:notice:deltime`)) {
