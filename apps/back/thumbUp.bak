@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+
 import schedule from "node-schedule";
 import command from '../../components/command.js'
 import lin_data from '../../components/lin_data.js';

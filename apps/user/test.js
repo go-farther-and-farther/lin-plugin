@@ -1,4 +1,4 @@
-import plugin from '../../../lib/plugins/plugin.js'
+
 var runChatList = [];
 const BotName = global.Bot.nickname;
 export class run extends plugin {

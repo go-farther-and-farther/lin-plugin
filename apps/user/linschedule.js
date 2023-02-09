@@ -1,9 +1,9 @@
-import plugin from '../../../lib/plugins/plugin.js'
+
 import schedule from "node-schedule";
 import moment from "moment"
-import command from '../components/command.js'
-import yzcfg from '../../../lib/config/config.js'
-import common from '../../../lib/common/common.js'
+import command from '../../components/command.js'
+import yzcfg from '../../../../lib/config/config.js'
+import common from '../../../../lib/common/common.js'
 var thumbUptime = 12//自动点赞开始时间
 var thumuppen = await command.getConfig("thumbUp_cfg", "thumuppen")
 var crowd = await command.getConfig("thumbUp_cfg", "crowd")

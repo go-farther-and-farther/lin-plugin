@@ -1,8 +1,8 @@
-import plugin from '../../../lib/plugins/plugin.js'
+
 //import fetch from 'node-fetch'
-import command from '../components/command.js'
+import command from '../../components/command.js'
 import fs from 'fs';
-import lin_data from '../components/lin_data.js'
+import lin_data from '../../components/lin_data.js'
 var a = {}
 var i = {}
 const dirpath = "plugins/lin-plugin/data";//文件夹路径
