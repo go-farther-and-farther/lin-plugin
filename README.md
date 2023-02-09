@@ -3,7 +3,6 @@
 <h1 align="center" ><i>lin-plugin</i></h1>
 
 [![访问量](https://profile-counter.glitch.me/lin-plugin/count.svg)](https://gitee.com/go-farther-and-farther/lin-plugin)
-
 </div>
 
 <img src='https://gitee.com/go-farther-and-farther/lin-plugin/badge/star.svg?theme=dark'  alt='star'>
