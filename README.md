@@ -1,9 +1,12 @@
 <div origin="center">
 
-<h1 align="center" ><i>lin-plugin</i></h1>
+<h1 align="center" ><i>lin-plugin</i>
 
 [![访问量](https://profile-counter.glitch.me/lin-plugin/count.svg)](https://gitee.com/go-farther-and-farther/lin-plugin)
 
+
+<img src='https://gitee.com/go-farther-and-farther/lin-plugin/badge/star.svg?theme=dark'  alt='star'>
+</h1>
 </div>
 
 本人水平有限，有Bug请下老版本，或者等待一段时间重新拉取更新版本，重新拉取不能解决可以反馈到Issues，谢谢。
@@ -12,7 +15,7 @@
 
 一个[Yunzai-Bot V3](https://github.com/Le-niao/Yunzai-Bot)的插件包，提供各种工具
 
-友链:[akasha-terminal-plugin](https://gitee.com/go-farther-and-farther/akasha-terminal-plugin)群决斗游戏
+友链:[akasha-terminal-plugin](https://gitee.com/go-farther-and-farther/akasha-terminal-plugin)提供各种群内小游戏
 
 ### 安装说明🖥️
 
