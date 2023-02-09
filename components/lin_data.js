@@ -46,8 +46,8 @@ async function getdata(id, json, save) {
             json[id] = Template
         }
 
-        if (!json[id].gailv2) { json[id].i = Template.def_gailv2 }
-        if (!(json[id].gailv >= 0)) { json[id].i = Template.def_gailv }
+        if (!json[id].gailv2) { json[id].gailv2 = Template.def_gailv2 }
+        if (!(json[id].gailv >= 0)) { json[id].gailv = Template.def_gailv }
 
 
         return json;
