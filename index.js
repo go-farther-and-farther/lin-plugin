@@ -12,20 +12,20 @@ let ret = []
 
 //改自碎月和喵喵的启动提示
 if (Bot?.logger?.info) {
-    Bot.logger.info('🌱🌱🌱🌱🌱🌱🌱🌱')
-    Bot.logger.info(chalk.blue(`(🍀lin-Plugin🍀):"lin插件"初始化.....`))
+    Bot.logger.info('⏳⏳⏳⏳⏳⏳⏳⏳')
+    Bot.logger.info(chalk.blue(`(🔨lin-Plugin🔨):"lin插件"初始化.....`))
     Bot.logger.info(chalk.red(`┎┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┒`))
-    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`      ⋏    ┅┅┅┅┳┅┅┅┅  ┎┅┅┅┅┅┅┒ `)+chalk.red(`┃`))
-    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`     / \\       ┋      ┃      ┃ `)+chalk.red(`┃`))
-    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`    /───\\      ┋      ┠┅┅┅┅┅┅┚ `)+chalk.red(`┃`))
-    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`   /     \\     ┋      ┃        `)+chalk.red(`┃`))
-    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`  /       \\    ┋      ┃        `)+chalk.red(`┃`))
+    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`  ╦        ╦══╦══╦  ╦      ╔╗  `)+chalk.red(`┃`))
+    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`  ║           ║     ║     ⫽ ║  `)+chalk.red(`┃`))
+    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`  ║           ║     ║   ⫽   ║  `)+chalk.red(`┃`))
+    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`  ║           ║     ║ ⫽     ║  `)+chalk.red(`┃`))
+    Bot.logger.info(chalk.red(`┃`)+chalk.blue(`  ╚══════  ╩══╩══╩  ╚╝      ╩  `)+chalk.red(`┃`))
     Bot.logger.info(chalk.red(`┖┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┚`))
-    Bot.logger.warn(chalk.red(`(🍀lin-Plugin🍀):若出现README.md中未提及的问题,请联系我们!!!`))
-    Bot.logger.info(chalk.blue('(🍀lin-Plugin🍀):"初始化完成,祝您游玩愉快!🌴'))
-    Bot.logger.info('🌴🌴🌴🌴🌴🌴🌴🌴')
+    Bot.logger.warn(chalk.red(`(🔨lin-Plugin🔨):若出现README.md中未提及的问题,请联系我们!!!`))
+    Bot.logger.info(chalk.blue('(🔨lin-Plugin🔨):"初始化完成,欢迎您的使用✔!'))
+    Bot.logger.info('⌛⌛⌛⌛⌛⌛⌛⌛')
 } else {
-    console.log(`正在载入"🌱lin插件"~`)
+    console.log(`正在载入"🔨lin插件"~`)
 }
 
 if (!await redis.get(`lin:notice:deltime`)) {
