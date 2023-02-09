@@ -81,6 +81,7 @@ export class ai extends plugin {
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
         let ai_at = json[id].ai_at
+        var gailv2 = json[id].gailv2
         //---------------------------------------------------
         //一个控制ai回复概率的模块
         if (e.isMaster || e.member.is_owner || e.member.is_admin) {
@@ -209,7 +210,7 @@ export class ai extends plugin {
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称概率触发 被@必然触发
         if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 99) || e.atme) && aiopen == true) {
-            var gailv2 = 50
+
             if (gailv2 >= Math.round(Math.random() * 99)) {
                 await this.ai_local_reply()
             }
@@ -272,11 +273,11 @@ export class ai extends plugin {
             }
         }
     }
-    async ai_local_reply() {
+    async ai_local_reply(e) {
         var ai_local = JSON.parse(fs.readFileSync("plugins/lin-plugin/resources/ai_local/ai_local.json", "utf8"));//读取文件
         if (!(e.msg in ai_local)) {
             return false
         }
-        this.reply('本地词库回复：'+ai_local[e.msg][Math.round(Math.random() * ai_local[e.msg].length)], true)
+        this.reply('本地词库回复：' + ai_local[e.msg][Math.round(Math.random() * ai_local[e.msg].length)], true)
     }
 }
