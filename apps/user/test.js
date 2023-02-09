@@ -1,4 +1,4 @@
-import plugin from '../../../lib/plugins/plugin.js'
+import { BotApi, AlemonApi, plugin } from '../../model/api/api.js'
 var runChatList = [];
 const BotName = global.Bot.nickname;
 export class run extends plugin {

@@ -1,7 +1,7 @@
 import { segment } from "oicq";
 import fetch from "node-fetch";
 import lodash from 'lodash'
-import plugin from '../../../lib/plugins/plugin.js'
+import { BotApi, AlemonApi, plugin } from '../../model/api/api.js'
 import lin_data from '../components/lin_data.js';
 import moment from "moment"
 
