@@ -273,7 +273,7 @@ export class ai extends plugin {
         }
     }
     async ai_local_reply() {
-        var ai_local = JSON.parse(fs.readFileSync("./plugins/lin-plugin/resources/ai_local/ai_local.json", "utf8"));//读取文件
+        var ai_local = JSON.parse(fs.readFileSync("plugins/lin-plugin/resources/ai_local/ai_local.json", "utf8"));//读取文件
         if (!(e.msg in ai_local)) {
             return false
         }
