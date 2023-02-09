@@ -17,6 +17,7 @@ Auto:
 # ai 设置:初始概率,每次改变量,只关注@,默认接口,开关
 ai_cfg: 
   def_gailv: 100
+  def_gailv2: 50
   def_gailv_: 10
   def_onlyReplyAt : true
   def_ai_now : 1
