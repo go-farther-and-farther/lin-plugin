@@ -81,7 +81,8 @@ export class ai extends plugin {
         let aiopen = json[id].aiopen
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
-        let ai_at = json[id].ai_at
+        //let ai_at = json[id].ai_at
+        let ai_at = 50
         //---------------------------------------------------
         //一个控制ai回复概率的模块
         if (e.isMaster || e.member.is_owner || e.member.is_admin) {
