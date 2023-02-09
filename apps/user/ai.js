@@ -209,61 +209,74 @@ export class ai extends plugin {
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称概率触发 被@必然触发
         if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 99) || e.atme) && aiopen == true) {
-            console.log("ai消息：", e.msg);
-            //接收时将机器人名字替换为对应ai的名字
-            let message = e.msg.trim().replace(eval(`/${BotName}/g`), `${ai_nick[ai_now]}`).replace(/[\n|\r]/g, "，");
-            //抓取消息并转换为Json
-            let postUrl = `${ai_api[ai_now]}${message}`;
-            let response = await fetch(postUrl);
-            let replyData = await response.json();//将返回的数据转化为json文件
-            let replyMsg = [];//这个保存返回信息里面的文本文件
-            replyData = JSON.stringify(replyData) //转换字符串用于判断返回值
-            if (replyData) {
-                //匹配不同ai接口返回规则:cv自c佬自定义ai.js
-                if (replyData.indexOf("result") != -1) {
-                    replyMsg.push(JSON.parse(replyData).content)
-                } else if (replyData.indexOf("desc") != -1) {
-                    replyMsg.push(JSON.parse(replyData).data.desc)
-                } else if (replyData.indexOf("info") != -1) {
-                    replyMsg.push(JSON.parse(replyData).data.info.text)
-                } else if (replyData.indexOf("text") != -1 && replyData.indexOf("mp3") != -1) {
-                    replyMsg.push(JSON.parse(replyData).text)
-                } else if (replyData.indexOf("code") != -1 && replyData.indexOf("text") != -1) {
-                    replyMsg.push(JSON.parse(replyData).text)
+            var gailv2 = 50
+            if (gailv2 >= Math.round(Math.random() * 99)) {
+                await this.ai_local_reply()
+            }
+            else {
+                console.log("ai消息：", e.msg);
+                //接收时将机器人名字替换为对应ai的名字
+                let message = e.msg.trim().replace(eval(`/${BotName}/g`), `${ai_nick[ai_now]}`).replace(/[\n|\r]/g, "，");
+                //抓取消息并转换为Json
+                let postUrl = `${ai_api[ai_now]}${message}`;
+                let response = await fetch(postUrl);
+                let replyData = await response.json();//将返回的数据转化为json文件
+                let replyMsg = [];//这个保存返回信息里面的文本文件
+                replyData = JSON.stringify(replyData) //转换字符串用于判断返回值
+                if (replyData) {
+                    //匹配不同ai接口返回规则:cv自c佬自定义ai.js
+                    if (replyData.indexOf("result") != -1) {
+                        replyMsg.push(JSON.parse(replyData).content)
+                    } else if (replyData.indexOf("desc") != -1) {
+                        replyMsg.push(JSON.parse(replyData).data.desc)
+                    } else if (replyData.indexOf("info") != -1) {
+                        replyMsg.push(JSON.parse(replyData).data.info.text)
+                    } else if (replyData.indexOf("text") != -1 && replyData.indexOf("mp3") != -1) {
+                        replyMsg.push(JSON.parse(replyData).text)
+                    } else if (replyData.indexOf("code") != -1 && replyData.indexOf("text") != -1) {
+                        replyMsg.push(JSON.parse(replyData).text)
+                    }
                 }
-            }
-            //处理消息
-            let tempReplyMsg = [];
-            replyMsg = replyMsg.join(",").replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂|李美恩|小纤)/g, BotName)
-                .replace(/\{br\}/g, "\n")
-                .replace(/&nbsp;/g, " ")
-                .replace(/\{face:([\d]+)\}/g, "#face$1#[div]")
-                //消息和谐处理
-                .beGood()
-                .trim();
-            //表情处理
-            if (replyMsg.includes("[div]")) {
-                for (let item of replyMsg.split("[div]")) {
-                    if (/#face[\d]+#/.test(item)) item = segment.face(item.replace(/#face([\d]+)#/, "$1"));
-                    tempReplyMsg.push(item);
+                //处理消息
+                let tempReplyMsg = [];
+                replyMsg = replyMsg.join(",").replace(/(夸克宝宝|菲菲|小思|小爱|琪琪|吴珂|李美恩|小纤)/g, BotName)
+                    .replace(/\{br\}/g, "\n")
+                    .replace(/&nbsp;/g, " ")
+                    .replace(/\{face:([\d]+)\}/g, "#face$1#[div]")
+                    //消息和谐处理
+                    .beGood()
+                    .trim();
+                //表情处理
+                if (replyMsg.includes("[div]")) {
+                    for (let item of replyMsg.split("[div]")) {
+                        if (/#face[\d]+#/.test(item)) item = segment.face(item.replace(/#face([\d]+)#/, "$1"));
+                        tempReplyMsg.push(item);
+                    }
                 }
+                //是否有表情
+                if (tempReplyMsg && tempReplyMsg.length > 0) replyMsg = tempReplyMsg;
+                //是否有消息输出
+                if (replyMsg) {
+                    //设置了log: false; 好像是没有输出日志的
+                    logger.mark(`[${ai_name[ai_now]}回复] ${e.msg}`);
+                    //发送消息
+                    if (ai_at)
+                        e.reply(replyMsg, e.isGroup);
+                    else
+                        e.reply(replyMsg);
+                    //阻止继续匹配其他命令
+                    return true;
+                }
+                //返回false继续匹配其他命令
+                else { return false; }
             }
-            //是否有表情
-            if (tempReplyMsg && tempReplyMsg.length > 0) replyMsg = tempReplyMsg;
-            //是否有消息输出
-            if (replyMsg) {
-                //设置了log: false; 好像是没有输出日志的
-                logger.mark(`[${ai_name[ai_now]}回复] ${e.msg}`);
-                //发送消息
-                if (ai_at)
-                    e.reply(replyMsg, e.isGroup);
-                else
-                    e.reply(replyMsg);
-                //阻止继续匹配其他命令
-                return true;
-            }
-            //返回false继续匹配其他命令
-            else { return false; }
         }
+    }
+    async ai_local_reply() {
+        var ai_local = JSON.parse(fs.readFileSync("plugins/lin-plugin/resources/ai_local/ai_local.json", "utf8"));//读取文件
+        if (!(e.msg in ai_local)) {
+            return false
+        }
+        this.reply('本地词库回复：'+ai_local[e.msg][Math.round(Math.random() * ai_local[e.msg].length)], true)
     }
 }
