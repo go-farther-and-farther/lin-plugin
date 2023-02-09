@@ -1,4 +1,4 @@
-import { BotApi, AlemonApi, plugin } from '../../model/api/api.js'
+import plugin from '../../../lib/plugins/plugin.js'
 import schedule from "node-schedule";
 import moment from "moment"
 import command from '../components/command.js'
