@@ -1,10 +1,10 @@
-import plugin from '../../../lib/plugins/plugin.js'
+import { BotApi, AlemonApi, plugin } from '../../model/api/api.js'
 import fetch from "node-fetch";
 import { segment } from "oicq";
 import lodash from "lodash";
-import command from '../components/command.js'
+import command from '../../components/command.js'
 import fs from 'fs';
-import lin_data from '../components/lin_data.js';
+import lin_data from '../../components/lin_data.js';
 
 const BotName = global.Bot.nickname;
 // 机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
