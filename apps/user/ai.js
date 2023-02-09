@@ -210,7 +210,7 @@ export class ai extends plugin {
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称概率触发 被@必然触发
         if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 99) || e.atme) && aiopen == true) {
-
+            gailv2 = 90
             if (gailv2 >= Math.round(Math.random() * 99)) {
                 await this.ai_local_reply()
             }
