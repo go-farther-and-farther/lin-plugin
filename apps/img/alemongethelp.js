@@ -8,7 +8,7 @@ export class AlemonGetHelp extends plugin {
                     fnc: 'alemonHelp'
                 },
                 {
-                    reg: '^#(lin|麟)管理$',
+                    reg: '^#柠檬管理$',
                     fnc: 'alemonAdmin',
                 }
             ]

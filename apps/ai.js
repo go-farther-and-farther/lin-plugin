@@ -1,4 +1,4 @@
-import { BotApi, AlemonApi, plugin } from '../../model/api/api.js'
+import plugin from '../../../lib/plugins/plugin.js'
 import fetch from "node-fetch";
 import { segment } from "oicq";
 import lodash from "lodash";
