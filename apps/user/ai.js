@@ -188,6 +188,36 @@ export class ai extends plugin {
                     }
                 }
             }
+            else if (e.msg.includes('本地++')) {
+                //如果概率等于0
+                if (!aiopen) {
+                    e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
+                }
+                else {
+                    if (gailv2 - def_gailv_ <= 0) {
+                        e.reply(`目前ai触发概率：${gailv2}%，再减${def_gailv_}就关掉了>_<`)
+                    }
+                    else {
+                        gailv2 -= def_gailv_;
+                        e.reply(`概率降低!，目前ai触发概率：${gailv2}%，`)
+                    }
+                }
+            }
+            else if (e.msg.includes('本地--')) {
+                //如果概率等于0
+                if (!aiopen) {
+                    e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
+                }
+                else {
+                    if (gailv2 - def_gailv_ <= 0) {
+                        e.reply(`目前ai触发概率：${gailv2}%，再减${def_gailv_}就关掉了>_<`)
+                    }
+                    else {
+                        gailv2 -= def_gailv_;
+                        e.reply(`概率降低!，目前ai触发概率：${gailv2}%，`)
+                    }
+                }
+            }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
                 let msg = `：${id},\nai触发概率：${gailv}%,\n其中本地词库概率：${gailv2}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启状态：${aiopen},\nai是否是开启引用：${ai_at}。`
