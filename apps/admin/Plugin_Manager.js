@@ -1,5 +1,5 @@
 import { BotApi, AlemonApi, plugin } from '../../model/api/api.js'
-import cfg from '../../../lib/config/config.js'
+import cfg from '../../../../lib/config/config.js'
 import { segment } from "oicq";
 import fetch from "node-fetch";
 import { pipeline } from "stream";
