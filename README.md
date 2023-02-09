@@ -4,9 +4,9 @@
 
 [![访问量](https://profile-counter.glitch.me/lin-plugin/count.svg)](https://gitee.com/go-farther-and-farther/lin-plugin)
 
-<img src='https://gitee.com/ningmengchongshui/develop-plugins/badge/star.svg?theme=dark'  alt='star'>
-
 </div>
+
+<img src='https://gitee.com/go-farther-and-farther/lin-plugin/badge/star.svg?theme=dark'  alt='star'>
 
 本人水平有限，有Bug请下老版本，或者等待一段时间重新拉取更新版本，重新拉取不能解决可以反馈到Issues，谢谢。
 
