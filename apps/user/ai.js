@@ -77,11 +77,11 @@ export class ai extends plugin {
         let json = {}
         json = await lin_data.getdata(id, json, false)
         let gailv = json[id].gailv
+        let gailv2 = json[id].gailv2
         let aiopen = json[id].aiopen
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
         let ai_at = json[id].ai_at
-        var gailv2 = json[id].gailv2
         //---------------------------------------------------
         //一个控制ai回复概率的模块
         if (e.isMaster || e.member.is_owner || e.member.is_admin) {
@@ -190,7 +190,7 @@ export class ai extends plugin {
             }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
-                let msg = `：${id},\nai触发概率：${gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启状态：${aiopen},\nai是否是开启引用：${ai_at}。`
+                let msg = `：${id},\nai触发概率：${gailv}%,\n其中本地词库概率：${gailv2}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启状态：${aiopen},\nai是否是开启引用：${ai_at}。`
                 if (e.isPrivate) {
                     msg = '你的QQ是' + msg
                     e.reply(msg)

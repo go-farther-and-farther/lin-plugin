@@ -5,7 +5,7 @@ import command from '../components/command.js'
 const dirpath = "plugins/lin-plugin/data";//文件夹路径
 
 var def_gailv = await command.getConfig("ai_cfg", "def_gailv");
-var def_gailv_ = await command.getConfig("ai_cfg", "def_gailv_");
+var def_gailv2 = await command.getConfig("ai_cfg", "def_gailv2");
 var def_ai_now = await command.getConfig("ai_cfg", "def_ai_now");
 var def_onlyReplyAt = await command.getConfig("ai_cfg", "def_onlyReplyAt");
 var def_aiopen = await command.getConfig("ai_cfg", "def_aiopen");
@@ -15,6 +15,7 @@ var def_ddopen2 = await command.getConfig("Auto", "def_ddopen2");
 //包括ai,run,复读，点赞
 var Template = {//创建该用户
     "gailv": def_gailv,
+    "gailv2": def_gailv2,
     "aiopen": def_aiopen,
     "onlyReplyAt": def_onlyReplyAt,
     "ai_now": def_ai_now,
@@ -44,10 +45,11 @@ async function getdata(id, json, save) {
         if (!json.hasOwnProperty(id)) {//如果json中不存在该用户
             json[id] = Template
         }
-        // let list = Object.keys(json)//获取对象
-        // for (var i of list) {
-        //     if (!json[id].i) { json[id].i = Template.i }
-        // }
+
+        if (!json[id].gailv2) { json[id].i = Template.def_gailv2 }
+        if (!json[id].gailv) { json[id].i = Template.def_gailv }
+
+
         return json;
     }
     else {
