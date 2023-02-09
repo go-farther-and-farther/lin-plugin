@@ -9,6 +9,7 @@ import lin_data from '../../components/lin_data.js';
 const BotName = global.Bot.nickname;
 // 机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
 var def_gailv_ = await command.getConfig("ai_cfg", "def_gailv_");
+var def_gailv2 = await command.getConfig("ai_cfg", "def_gailv2");
 // 读yaml文件里面的设置的初始回复概率
 //这两个是与概率有关的
 var ai_api = await command.getConfig("ai_cfg", "ai_api");
@@ -77,12 +78,12 @@ export class ai extends plugin {
         let json = {}
         json = await lin_data.getdata(id, json, false)
         let gailv = json[id].gailv
-        let gailv2 = json[id].gailv2
+        //let gailv2 = json[id].gailv2
+        let gailv2 = def_gailv2
         let aiopen = json[id].aiopen
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
-        //let ai_at = json[id].ai_at
-        let ai_at = 50
+        let ai_at = json[id].ai_at
         //---------------------------------------------------
         //一个控制ai回复概率的模块
         if (e.isMaster || e.member.is_owner || e.member.is_admin) {
