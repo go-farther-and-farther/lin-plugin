@@ -78,8 +78,8 @@ export class ai extends plugin {
         let json = {}
         json = await lin_data.getdata(id, json, false)
         let gailv = json[id].gailv
-        //let gailv2 = json[id].gailv2
-        let gailv2 = def_gailv2
+        let gailv2 = json[id].gailv2
+        //let gailv2 = def_gailv2
         let aiopen = json[id].aiopen
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
