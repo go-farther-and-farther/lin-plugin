@@ -191,18 +191,16 @@ export class ai extends plugin {
                 }
             }
             else if (e.msg.includes('本地++')) {
-                //如果概率等于0
-                if (!aiopen) {
-                    e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
+                if (aiopen) {
+                    if (gailv2 + def_gailv_ > 100) {
+                        e.reply(`目前ai本地模式触发概率：${gailv2}%，再加${def_gailv_}就溢出来了ヾ(≧▽≦*)o`)
+                        return true;
+                    }
+                    gailv2 += def_gailv_;
+                    e.reply(`本地模式概率提升!，目前ai本地模式触发概率：${gailv2}%，`)
                 }
                 else {
-                    if (gailv2 - def_gailv_ <= 0) {
-                        e.reply(`目前ai触发概率：${gailv2}%，再减${def_gailv_}就关掉了>_<`)
-                    }
-                    else {
-                        gailv2 -= def_gailv_;
-                        e.reply(`概率降低!，目前ai触发概率：${gailv2}%，`)
-                    }
+                    e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
                 }
             }
             else if (e.msg.includes('本地--')) {
@@ -212,11 +210,11 @@ export class ai extends plugin {
                 }
                 else {
                     if (gailv2 - def_gailv_ <= 0) {
-                        e.reply(`目前ai触发概率：${gailv2}%，再减${def_gailv_}就关掉了>_<`)
+                        e.reply(`目前ai本地模式触发概率：${gailv2}%，再减${def_gailv_}就关掉了>_<`)
                     }
                     else {
                         gailv2 -= def_gailv_;
-                        e.reply(`概率降低!，目前ai触发概率：${gailv2}%，`)
+                        e.reply(`本地模式概率降低!，目前ai本地模式触发概率：${gailv2}%，`)
                     }
                 }
             }
@@ -234,6 +232,7 @@ export class ai extends plugin {
             }
             json[id].ai_at = ai_at
             json[id].gailv = gailv
+            json[id].gailv2 = gailv2
             json[id].aiopen = aiopen
             json[id].onlyReplyAt = onlyReplyAt
             json[id].ai_now = ai_now
