@@ -1,7 +1,7 @@
 
 var runChatList = [];
 const BotName = global.Bot.nickname;
-export class run extends plugin {
+export class test extends plugin {
   constructor() {
     super({
       /** 功能名称 */
