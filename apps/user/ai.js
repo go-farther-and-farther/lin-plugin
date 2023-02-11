@@ -90,6 +90,33 @@ export class ai extends plugin {
             //控制接口-------------------------------------------
             let api_num = ai_api.length - 1//接口数量
             // 发送当前的接口名字
+            if (e.msg.includes('词库查重')) {
+                var ai_local = JSON.parse(fs.readFileSync("plugins/lin-plugin/resources/ai_local/ai_local.json", "utf8"));//读取文件
+
+                var s = '{"身高":"175cm","性别":"男","兴趣":"唱歌","兴趣":"棒球","兴趣":"游泳"}'
+                var kv = {}, m, reg = /"[^"]+":"[^"]+"/gi;
+                var m = s.match(reg);
+            
+                var o={};
+                for(var i=0;i<m.length;i++){
+                    kv=m[i].match(/"[^"]+"/gi);
+                     var _arr1=[];;
+                    for(var j=0;j<kv.length; j++){
+                        _arr1.push(kv[j].replace(/"/g,''));
+                    }
+                    if(_arr1[0] in o){
+                        if(typeof(o[_arr1[0]])=='string')
+                        {
+                            o[_arr1[0]]=[o[_arr1[0]]]
+                        };
+                        o[_arr1[0]].push(_arr1[1])
+                    }else{
+                        o[_arr1[0]]=_arr1[1]
+                    }
+            
+                }
+
+            }
             if (e.msg.includes('ai设置接口') || e.msg.includes('设置ai接口') || e.msg.includes('切换ai接口')) {
                 let message = e.msg.replace(/(ai设置接口|设置ai接口|切换ai接口|#)/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
                 if (message <= api_num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
