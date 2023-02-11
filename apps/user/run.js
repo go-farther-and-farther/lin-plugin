@@ -6,44 +6,6 @@ var Template = {//创建该用户
 };
 var json = {}
 var json2 = {}
-export class run extends plugin {
-  constructor() {
-    super({
-      /** 功能名称 */
-      name: '跑路插件',
-      /** 功能描述 */
-      dsc: '#跑路，bot就不接受消息了',
-      /** https://oicqjs.github.io/oicq/#events */
-      event: 'message',
-      /** 优先级，数字越小等级越高 */
-      priority: 1,
-      rule: [
-        {
-          /** 命令正则匹配 */
-          reg: '',
-          /** 执行方法 */
-          fnc: 'run',
-        }
-      ]
-    })
-  }
-  /**
-   * 
-   * @param e oicq传递的事件参数e
-   */
-  async run(e) {
-    if (!e.isGroup) return false;
-    console.log(`拦截判断`)
-    var id = e.group_id
-    var id2 = e.user_id
-    json = await lin_data.getdata(id, json, false)
-    json2 = await lin_data.getuser(id, json2, 'run', Template, false)//只在群聊有效
-      //如果该群聊在跑路列表中
-    if (json[id].run || (json2[e.group_id].shield.indexOf(id2) !== -1) || (json2[e.group_id].shield2.indexOf(id2) !== -1))
-      return true;//拦截指令
-    return false;//放行指令
-}
-}
 export class runset extends plugin {
   constructor() {
     super({
@@ -54,7 +16,7 @@ export class runset extends plugin {
       /** https://oicqjs.github.io/oicq/#events */
       event: 'message',
       /** 优先级，数字越小等级越高 */
-      priority: 0,
+      priority: -1,
       rule: [
         {
           /** 命令正则匹配 */
@@ -257,4 +219,41 @@ export class runset extends plugin {
     }
     return true;//拦截指令
   }
+}export class run extends plugin {
+  constructor() {
+    super({
+      /** 功能名称 */
+      name: '跑路插件',
+      /** 功能描述 */
+      dsc: '#跑路，bot就不接受消息了',
+      /** https://oicqjs.github.io/oicq/#events */
+      event: 'message',
+      /** 优先级，数字越小等级越高 */
+      priority: 1,
+      rule: [
+        {
+          /** 命令正则匹配 */
+          reg: '',
+          /** 执行方法 */
+          fnc: 'run',
+        }
+      ]
+    })
+  }
+  /**
+   * 
+   * @param e oicq传递的事件参数e
+   */
+  async run(e) {
+    if (!e.isGroup) return false;
+    console.log(`拦截判断`)
+    var id = e.group_id
+    var id2 = e.user_id
+    json = await lin_data.getdata(id, json, false)
+    json2 = await lin_data.getuser(id, json2, 'run', Template, false)//只在群聊有效
+      //如果该群聊在跑路列表中
+    if (json[id].run || (json2[e.group_id].shield.indexOf(id2) !== -1) || (json2[e.group_id].shield2.indexOf(id2) !== -1))
+      return true;//拦截指令
+    return false;//放行指令
+}
 }
