@@ -84,7 +84,7 @@ async function thumbUp_start(key) {
 	}
 	if (key == 'hand') {
 		for (let mat of yzcfg.masterQQ) {
-			await common.relpyPrivate(mat, `lin-plugin点赞开始,本次点赞好友共${arr.length}位,预计${arr.length * 10}秒完成`)
+			//await common.relpyPrivate(mat, `lin-plugin点赞开始,本次点赞好友共${arr.length}位,预计${arr.length * 10}秒完成`)
 		}
 		for (let i = 0; i < arr.length - 1; i++) {
 			setTimeout(() => {
@@ -92,7 +92,7 @@ async function thumbUp_start(key) {
 				Bot.pickFriend(arr[i]).thumbUp(10);//点赞10次，默认没有svip
 				if (i == arr.length - 2)
 					for (let mat of yzcfg.masterQQ) {
-						common.relpyPrivate(mat, `lin-plugin点赞任务完成`)
+						//common.relpyPrivate(mat, `lin-plugin点赞任务完成`)
 					}
 			}, i * 10000);//10秒延时
 		}
