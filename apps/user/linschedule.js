@@ -33,19 +33,21 @@ export class thumbUp extends plugin {
 	 * @param e oicq传递的事件参数e
 	 */
 	async thumbUp(e) {
-		thumbUp_start('hand');
+		thumbUp_start('hand', e);
 	}
 }
 //每小时执行任务
 schedule.scheduleJob('0 0 * * * *', async () => {
 	let time = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
 	let hour = new Date(time).getHours()
-	if (hour == thumbUptime && thumuppen)
-		thumbUp_start('auto');
+	if (hour == thumbUptime && thumuppen) {
+		var e = ''
+		thumbUp_start('auto', e);
+	}
 }
 );
 
-async function thumbUp_start(key) {
+async function thumbUp_start(key, e) {
 	let friendmap = Bot.fl
 	var arr = []
 	if (crowd == 'friend')
@@ -84,6 +86,7 @@ async function thumbUp_start(key) {
 	}
 	if (key == 'hand') {
 		for (let mat of yzcfg.masterQQ) {
+			e.reply(`lin-plugin开始,共${arr.length}位,预计${arr.length * 10}秒`)
 			//await common.relpyPrivate(mat, `lin-plugin点赞开始,本次点赞好友共${arr.length}位,预计${arr.length * 10}秒完成`)
 		}
 		for (let i = 0; i < arr.length - 1; i++) {
