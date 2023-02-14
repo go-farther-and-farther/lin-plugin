@@ -4,7 +4,7 @@ thumbUp_cfg:
   # 是否自动点赞,1为是0为否
   thumuppen: 1
   # 点赞人群，friend和master
-  crowd : friend
+  crowd : master
   # reply_something: 2
   # 最短点赞时间间隔，单位秒；回复概率
   # time: 60
