@@ -85,8 +85,8 @@ async function thumbUp_start(key, e) {
 		}
 	}
 	if (key == 'hand') {
+		e.reply(`lin-plugin开始,共${arr.length}位,预计${arr.length * 10}秒`)
 		for (let mat of yzcfg.masterQQ) {
-			e.reply(`lin-plugin开始,共${arr.length}位,预计${arr.length * 10}秒`)
 			//await common.relpyPrivate(mat, `lin-plugin点赞开始,本次点赞好友共${arr.length}位,预计${arr.length * 10}秒完成`)
 		}
 		for (let i = 0; i < arr.length - 1; i++) {
