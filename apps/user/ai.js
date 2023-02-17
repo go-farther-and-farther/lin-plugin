@@ -96,24 +96,23 @@ export class ai extends plugin {
                 var s = '{"身高":"175cm","性别":"男","兴趣":"唱歌","兴趣":"棒球","兴趣":"游泳"}'
                 var kv = {}, m, reg = /"[^"]+":"[^"]+"/gi;
                 var m = s.match(reg);
-            
-                var o={};
-                for(var i=0;i<m.length;i++){
-                    kv=m[i].match(/"[^"]+"/gi);
-                     var _arr1=[];;
-                    for(var j=0;j<kv.length; j++){
-                        _arr1.push(kv[j].replace(/"/g,''));
+
+                var o = {};
+                for (var i = 0; i < m.length; i++) {
+                    kv = m[i].match(/"[^"]+"/gi);
+                    var _arr1 = [];;
+                    for (var j = 0; j < kv.length; j++) {
+                        _arr1.push(kv[j].replace(/"/g, ''));
                     }
-                    if(_arr1[0] in o){
-                        if(typeof(o[_arr1[0]])=='string')
-                        {
-                            o[_arr1[0]]=[o[_arr1[0]]]
+                    if (_arr1[0] in o) {
+                        if (typeof (o[_arr1[0]]) == 'string') {
+                            o[_arr1[0]] = [o[_arr1[0]]]
                         };
                         o[_arr1[0]].push(_arr1[1])
-                    }else{
-                        o[_arr1[0]]=_arr1[1]
+                    } else {
+                        o[_arr1[0]] = _arr1[1]
                     }
-            
+
                 }
 
             }
@@ -268,10 +267,11 @@ export class ai extends plugin {
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称概率触发 被@必然触发
         if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 99) || e.atme) && aiopen == true) {
+            let ai_reply = true
             if (gailv2 >= Math.round(Math.random() * 99)) {
-                await this.ai_local_reply(e)
+                ai_reply = await this.ai_local_reply(e)
             }
-            else {
+            if (ai_reply) {
                 console.log("ai消息：", e.msg);
                 //接收时将机器人名字替换为对应ai的名字
                 let message = e.msg.trim().replace(eval(`/${BotName}/g`), `${ai_nick[ai_now]}`).replace(/[\n|\r]/g, "，");
@@ -336,5 +336,6 @@ export class ai extends plugin {
             return false
         }
         this.reply('本地词库回复：' + ai_local[e.msg][Math.round(Math.random() * ai_local[e.msg].length)], true)
+        return true
     }
 }
