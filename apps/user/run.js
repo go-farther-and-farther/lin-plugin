@@ -71,8 +71,8 @@ export class runset extends plugin {
    */
   //机器人群聊永久跑路
   async runforever(e) {
-    if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster)//如果是群主或管理员
-      return e.reply(`只有群主或管理员才能让${BotName}屏蔽别人！`);//回复消息
+    if (!e.group.is_owner && !e.group.is_admin && !e.isMaster)//如果是群主或管理员
+      return e.reply(`只有群主或管理员才能让${BotName}跑路！`);//回复消息
     var id = e.group_id
     json = await lin_data.getdata(id, json, false)
     if (e.msg == "#跑路" || (e.msg.includes('跑路') && (e.msg.includes(BotName) || e.atme))) {//如果消息内容是跑路指令
@@ -88,8 +88,8 @@ export class runset extends plugin {
   }
   //机器人群聊暂时回避
   async runtemporary(e) {
-    if (!e.sender.role == "owner" && !e.sender.role == "admin" && !e.isMaster)//如果是群主或管理员
-      return e.reply(`只有群主或管理员才能让${BotName}屏蔽别人！`);//回复消息
+    if (!e.group.is_owner && !e.group.is_admin && !e.isMaster)//如果是群主或管理员
+      return e.reply(`只有群主或管理员才能让${BotName}回避！`);//回复消息
     var id = e.group_id
     json = await lin_data.getdata(id, json, false)
     if (e.msg == "#回避" || (e.msg.includes('回避') && (e.msg.includes(BotName) || e.atme))) {
@@ -106,8 +106,8 @@ export class runset extends plugin {
   }
   //机器人群聊回来
   async goback(e) {
-    if (!e.sender.role == "owner" && !e.sender.role == "admin" && !e.isMaster)//如果是群主或管理员
-      return e.reply(`只有群主或管理员才能让${BotName}屏蔽别人！`);//回复消息
+    if (!e.group.is_owner && !e.group.is_admin && !e.isMaster)//如果是群主或管理员
+      return e.reply(`只有群主或管理员才能让${BotName}回来`);//回复消息
     var id = e.group_id
     json = await lin_data.getdata(id, json, false)
     if (e.msg == "#回来" || (e.msg.includes('回来') && (e.msg.includes(BotName) || e.atme))) {//如果消息内容是回来指令
@@ -170,7 +170,7 @@ export class runset extends plugin {
   async setuserrun(e) {
     var id = e.group_id
     json2 = await lin_data.getuser(id, json2, 'run', Template, false)//只在群聊有效
-    if (!e.sender.role == "owner" && !e.sender.role == "admin" && !e.isMaster)//如果是群主或管理员
+    if (!e.group.is_owner && !e.group.is_admin && !e.isMaster)//如果是群主或管理员
       return e.reply(`只有群主或管理员才能让${BotName}屏蔽别人！`);//回复消息
     if (e.at && (e.msg.includes('#解除')) || (e.msg.includes('解除') && (e.msg.includes(BotName) || e.atme))) {//如果消息内容是跑路指令
       if (json2[e.group_id].shield2.indexOf(e.at) == -1) {//如果不在跑路列表中
@@ -197,8 +197,8 @@ export class runset extends plugin {
   async fwlist(e) {
     var id = e.group_id
     json2 = await lin_data.getuser(id, json2, 'run', Template, false)//只在群聊有效
-    if (!e.sender.role == "owner" && !e.sender.role == "admin" && !e.isMaster)//如果是群主或管理员
-      return e.reply(`只有群主或管理员才能让${BotName}屏蔽别人！`);//回复消息
+    if (!e.group.is_owner && !e.group.is_admin && !e.isMaster)//如果是群主或管理员
+      return e.reply(`只有群主或管理员才能让${BotName}展示屏蔽列表`);//回复消息
     if (e.msg == "#屏蔽列表" || (e.msg.includes('屏蔽列表') && (e.msg.includes(BotName) || e.atme))) {//如果消息内容是跑路指令
       if (json2[e.group_id].shield2.length > 0 || json2[e.group_id].shield.length > 0) {//如果不在跑路列表中
         let msg = ''
