@@ -70,59 +70,59 @@ export class runset extends plugin {
    * @param e oicq传递的事件参数e
    */
   //机器人群聊永久跑路
-  async runforever(e){
-    if (!e.sender.role == "owner" && !e.sender.role == "admin" && !e.isMaster)//如果是群主或管理员
+  async runforever(e) {
+    if (e.sender.role == "owner" || e.sender.role == "admin" || e.isMaster)//如果是群主或管理员
       return e.reply(`只有群主或管理员才能让${BotName}屏蔽别人！`);//回复消息
     var id = e.group_id
     json = await lin_data.getdata(id, json, false)
     if (e.msg == "#跑路" || (e.msg.includes('跑路') && (e.msg.includes(BotName) || e.atme))) {//如果消息内容是跑路指令
-        if (!json[id].run) {//如果不在跑路列表中
-          json[id].run = true;//添加到跑路列表
-          json = await lin_data.getdata(e.group_id, json, true)
-          e.reply(`本群${BotName}跑路了，再见啦！`);//回复消息
-        } else {//如果在跑路列表中
-          e.reply(`本群${BotName}已经跑路了，你还想再让${BotName}跑一次吗？`);//回复消息
-        }
+      if (!json[id].run) {//如果不在跑路列表中
+        json[id].run = true;//添加到跑路列表
+        json = await lin_data.getdata(e.group_id, json, true)
+        e.reply(`本群${BotName}跑路了，再见啦！`);//回复消息
+      } else {//如果在跑路列表中
+        e.reply(`本群${BotName}已经跑路了，你还想再让${BotName}跑一次吗？`);//回复消息
+      }
     }
     return true;//拦截指令
   }
   //机器人群聊暂时回避
-  async runtemporary(e){
+  async runtemporary(e) {
     if (!e.sender.role == "owner" && !e.sender.role == "admin" && !e.isMaster)//如果是群主或管理员
       return e.reply(`只有群主或管理员才能让${BotName}屏蔽别人！`);//回复消息
     var id = e.group_id
     json = await lin_data.getdata(id, json, false)
     if (e.msg == "#回避" || (e.msg.includes('回避') && (e.msg.includes(BotName) || e.atme))) {
-        json[id].run = true;//添加到跑路列表
-        e.reply(`${BotName}回避一分钟，绝对不会偷看哦！`);//回复消息
-        setTimeout(() => {//冷却时间
-          if (json[id]) {
-            e.reply(`一分钟已经过去了，${BotName}回来了哦！`)
-            json[id].run = false;
-          }
-        }, 1 * 1000 * 60);
+      json[id].run = true;//添加到跑路列表
+      e.reply(`${BotName}回避一分钟，绝对不会偷看哦！`);//回复消息
+      setTimeout(() => {//冷却时间
+        if (json[id]) {
+          e.reply(`一分钟已经过去了，${BotName}回来了哦！`)
+          json[id].run = false;
+        }
+      }, 1 * 1000 * 60);
     }
     return true;//拦截指令
   }
   //机器人群聊回来
-  async goback(e){
+  async goback(e) {
     if (!e.sender.role == "owner" && !e.sender.role == "admin" && !e.isMaster)//如果是群主或管理员
       return e.reply(`只有群主或管理员才能让${BotName}屏蔽别人！`);//回复消息
     var id = e.group_id
     json = await lin_data.getdata(id, json, false)
     if (e.msg == "#回来" || (e.msg.includes('回来') && (e.msg.includes(BotName) || e.atme))) {//如果消息内容是回来指令
-        if (!json[id].run) {//如果不在跑路列表中
-          e.reply(`本群${BotName}没有跑路，一直到在哦！`);//回复消息
-        } else {//如果在跑路列表中
-          json[id].run = false
-          json = await lin_data.getdata(e.group_id, json, true)
-          e.reply(`本群${BotName}已经回来了，快来和我玩吧！`);//回复消息
-        }
+      if (!json[id].run) {//如果不在跑路列表中
+        e.reply(`本群${BotName}没有跑路，一直到在哦！`);//回复消息
+      } else {//如果在跑路列表中
+        json[id].run = false
+        json = await lin_data.getdata(e.group_id, json, true)
+        e.reply(`本群${BotName}已经回来了，快来和我玩吧！`);//回复消息
+      }
     }
     return true;//拦截指令
   }
   //机器人群聊跑路列表
-  async runlist(e){
+  async runlist(e) {
     var id = e.group_id
     json = await lin_data.getdata(id, json, false)
     let runnum = 0
@@ -130,7 +130,7 @@ export class runset extends plugin {
     let list = Object.keys(json)//获取群号
     for (let i of list) {
       if (json[i].run) {
-       msg = msg + `${i}\n`
+        msg = msg + `${i}\n`
       }
       runnum++
     }
@@ -142,7 +142,7 @@ export class runset extends plugin {
     return true;//拦截指令
   }
   //用户让机器人屏蔽自己
-  async userrun(e){
+  async userrun(e) {
     var id = e.group_id
     var id2 = e.user_id
     json2 = await lin_data.getuser(id, json2, 'run', Template, false)//只在群聊有效
@@ -167,7 +167,7 @@ export class runset extends plugin {
     return true;//拦截指令
   }
   //让机器人屏蔽别人
-  async setuserrun(e){
+  async setuserrun(e) {
     var id = e.group_id
     json2 = await lin_data.getuser(id, json2, 'run', Template, false)//只在群聊有效
     if (!e.sender.role == "owner" && !e.sender.role == "admin" && !e.isMaster)//如果是群主或管理员
@@ -191,35 +191,35 @@ export class runset extends plugin {
         e.reply(`本群${e.at}已经被屏蔽了!`);//回复消息
       }
     }
-  return true;//拦截指令
+    return true;//拦截指令
   }
   //屏蔽人员列表
-  async fwlist(e){
+  async fwlist(e) {
     var id = e.group_id
     json2 = await lin_data.getuser(id, json2, 'run', Template, false)//只在群聊有效
     if (!e.sender.role == "owner" && !e.sender.role == "admin" && !e.isMaster)//如果是群主或管理员
       return e.reply(`只有群主或管理员才能让${BotName}屏蔽别人！`);//回复消息
     if (e.msg == "#屏蔽列表" || (e.msg.includes('屏蔽列表') && (e.msg.includes(BotName) || e.atme))) {//如果消息内容是跑路指令
-        if (json2[e.group_id].shield2.length > 0 || json2[e.group_id].shield.length > 0) {//如果不在跑路列表中
-          let msg = ''
-          if (json2[e.group_id].shield2.length > 0) {
-            msg = msg + '自己选择屏蔽的人：'
-            for (let i of json2[e.group_id].shield)
-              msg = msg + `\n${i}`
-          }
-          if (json2[e.group_id].shield2.length > 0) {
-            msg = msg + `\n被管理员屏蔽的人:`
-            for (let i of json2[e.group_id].shield2)
-              msg = msg + `\n${i}`
-          }
-          e.reply(msg);//回复消息
-        } else {//如果在跑路列表中
-          e.reply(`本群没有被屏蔽的人！`);//回复消息
+      if (json2[e.group_id].shield2.length > 0 || json2[e.group_id].shield.length > 0) {//如果不在跑路列表中
+        let msg = ''
+        if (json2[e.group_id].shield2.length > 0) {
+          msg = msg + '自己选择屏蔽的人：'
+          for (let i of json2[e.group_id].shield)
+            msg = msg + `\n${i}`
         }
+        if (json2[e.group_id].shield2.length > 0) {
+          msg = msg + `\n被管理员屏蔽的人:`
+          for (let i of json2[e.group_id].shield2)
+            msg = msg + `\n${i}`
+        }
+        e.reply(msg);//回复消息
+      } else {//如果在跑路列表中
+        e.reply(`本群没有被屏蔽的人！`);//回复消息
+      }
     }
     return true;//拦截指令
   }
-}export class run extends plugin {
+} export class run extends plugin {
   constructor() {
     super({
       /** 功能名称 */
@@ -251,9 +251,9 @@ export class runset extends plugin {
     var id2 = e.user_id
     json = await lin_data.getdata(id, json, false)
     json2 = await lin_data.getuser(id, json2, 'run', Template, false)//只在群聊有效
-      //如果该群聊在跑路列表中
+    //如果该群聊在跑路列表中
     if (json[id].run || (json2[e.group_id].shield.indexOf(id2) !== -1) || (json2[e.group_id].shield2.indexOf(id2) !== -1))
       return true;//拦截指令
     return false;//放行指令
-}
+  }
 }
