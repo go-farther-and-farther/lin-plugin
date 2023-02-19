@@ -17,11 +17,11 @@ Auto:
 # ai 设置:初始概率,每次改变量,只关注@,默认接口,开关
 ai_cfg: 
   def_gailv: 100
-  def_gailv2: 50
-  def_gailv_: 10
+  def_local_gailv: 50
   def_onlyReplyAt : true
   def_ai_now : 1
-  def_aiopen : true
+  def_ai_open : true
+  def_local_open : true
   ai_api: 
   - http://api.qingyunke.com/api.php?key=free&appid=0&msg= #青云客
   - https://api.ownthink.com/bot?appid=xiaosi&userid=user&spoken= #思知ai
