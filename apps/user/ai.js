@@ -7,11 +7,7 @@ import fs from 'fs';
 import lin_data from '../../components/lin_data.js';
 
 const BotName = global.Bot.nickname;
-// 机器人名字，推荐不改(机器人如果换名字了需要重启来刷新)
-var def_gailv_ = await command.getConfig("ai_cfg", "def_gailv_");
-var def_gailv2 = await command.getConfig("ai_cfg", "def_gailv2");
 // 读yaml文件里面的设置的初始回复概率
-//这两个是与概率有关的
 var ai_api = await command.getConfig("ai_cfg", "ai_api");
 var ai_name = await command.getConfig("ai_cfg", "ai_name");
 var ai_nick = await command.getConfig("ai_cfg", "ai_nick");
@@ -69,18 +65,11 @@ export class ai extends plugin {
         if (!e.msg) return false;
         //e.msg 用户的命令消息
         console.log("用户命令：", e.msg);
-        if (e.isGroup) {
-            var id = e.group_id
-        }
-        else if (e.isPrivate) {
-            var id = e.user_id
-        }
-        let json = {}
-        json = await lin_data.getdata(id, json, false)
-        let gailv = json[id].gailv
-        let gailv2 = json[id].gailv2
-        //let gailv2 = def_gailv2
-        let aiopen = json[id].aiopen
+        if (e.isGroup) var id = e.group_id
+        if (e.isPrivate) var id = e.user_id
+        let json = await lin_data.getAi(id, false)
+        let ai_gailv = json[id].ai_gailv
+        let local_gailv = json[id].local_gailv
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
         let ai_at = json[id].ai_at
@@ -128,7 +117,7 @@ export class ai extends plugin {
                 }
             }
             else if (e.msg.includes('ai') && e.msg.includes('概率')) {
-                if (!aiopen) {
+                if (!ai_open) {
                     e.reply("ai已关闭,请先开启,不然设置了概率我也说不了话啊(～￣▽￣)～")
                 }
                 let msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
@@ -141,8 +130,8 @@ export class ai extends plugin {
                     }
                     else {
                         let sz = Math.round(msgsz)
-                        gailv = sz
-                        e.reply(`已四舍五入设置ai触发概率：${gailv}%，`)
+                        ai_gailv = sz
+                        e.reply(`已四舍五入设置ai触发概率：${ai_gailv}%，`)
                     }
                 }
             }
@@ -163,23 +152,6 @@ export class ai extends plugin {
                     e.reply("成功关闭群聊引用模式!")
                 }
             }
-            else if (e.msg.includes('关闭') && e.msg.includes('ai')) {
-                if (!aiopen) {
-                    e.reply("ai已经是关闭状态了哦(～￣▽￣)～")
-                }
-                else {
-                    aiopen = false
-                    e.reply("ai成功关闭!")
-                }
-            }
-            else if (e.msg.includes('开启') && e.msg.includes('ai')) {
-                if (!aiopen) {
-                    aiopen = true
-                    e.reply(`成功开启,您目前设置的ai触发概率:${gailv}%!`)
-                }
-                else
-                    e.reply(`ai已经是开启状态了,不需要再开启一遍哦！`)
-            }
             else if (e.msg.includes('只关注@消息') || e.msg.includes('@必回复')) {
                 onlyReplyAt = true;
                 e.reply("好啦，现在只回复@消息了哦")
@@ -188,87 +160,45 @@ export class ai extends plugin {
                 onlyReplyAt = false;
                 e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
-            else if (e.msg.includes('太安静了')) {
-                if (aiopen) {
-                    if (gailv + def_gailv_ > 100) {
-                        e.reply(`目前ai触发概率：${gailv}%，再加${def_gailv_}就溢出来了ヾ(≧▽≦*)o`)
-                        return true;
-                    }
-                    gailv += def_gailv_;
-                    e.reply(`概率提升!，目前ai触发概率：${gailv}%，`)
+            else if (e.msg.includes('本地概率') || e.msg.includes('本地词库概率')) {
+                if (!ai_open) {
+                    e.reply("ai已关闭,请先开启,不然设置了概率我也说不了话啊(～￣▽￣)～")
+                }
+                let msgsz = e.msg.replace(/(本地概率|设置|#|词库)/g, "").replace(/[\n|\r]/g, "，").trim()
+                if (isNaN(msgsz)) {
+                    e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
                 else {
-                    e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
-                }
-            }
-            else if (e.msg.includes('太吵了')) {
-                //如果概率等于0
-                if (!aiopen) {
-                    e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
-                }
-                else {
-                    if (gailv - def_gailv_ <= 0) {
-                        e.reply(`目前ai触发概率：${gailv}%，再减${def_gailv_}就关掉了>_<`)
+                    if (msgsz > 100 || msgsz <= 0) {
+                        e.reply("数值不在有效范围内,请输入0以上100以内的整数")
                     }
                     else {
-                        gailv -= def_gailv_;
-                        e.reply(`概率降低!，目前ai触发概率：${gailv}%，`)
-                    }
-                }
-            }
-            else if (e.msg.includes('本地++')) {
-                if (aiopen) {
-                    if (gailv2 + def_gailv_ > 100) {
-                        e.reply(`目前ai本地模式触发概率：${gailv2}%，再加${def_gailv_}就溢出来了ヾ(≧▽≦*)o`)
-                        return true;
-                    }
-                    gailv2 += def_gailv_;
-                    e.reply(`本地模式概率提升!，目前ai本地模式触发概率：${gailv2}%，`)
-                }
-                else {
-                    e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
-                }
-            }
-            else if (e.msg.includes('本地--')) {
-                //如果概率等于0
-                if (!aiopen) {
-                    e.reply("ai是关闭状态,请先使用ai开启打开我ψ(｀∇´)ψ")
-                }
-                else {
-                    if (gailv2 - def_gailv_ <= 0) {
-                        e.reply(`目前ai本地模式触发概率：${gailv2}%，再减${def_gailv_}就关掉了>_<`)
-                    }
-                    else {
-                        gailv2 -= def_gailv_;
-                        e.reply(`本地模式概率降低!，目前ai本地模式触发概率：${gailv2}%，`)
+                        let sz = Math.round(msgsz)
+                        local_gailv = sz
+                        e.reply(`已四舍五入设置ai触发概率：${local_gailv}%，`)
                     }
                 }
             }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
-                let msg = `：${id},\nai触发概率：${gailv}%,\n其中本地词库概率：${gailv2}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启状态：${aiopen},\nai是否是开启引用：${ai_at}。`
-                if (e.isPrivate) {
-                    msg = '你的QQ是' + msg
-                    e.reply(msg)
-                }
-                if (e.isGroup) {
-                    msg = '所在群聊是' + msg
-                    e.reply(msg)
-                }
+                let msg = `：${id},\nai触发概率：${ai_gailv}%,\n其中本地词库概率：${local_gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启状态：${ai_open},\nai是否是开启引用：${ai_at}。`
+                if (e.isPrivate) msg = '你的QQ是' + msg
+                if (e.isGroup) msg = '所在群聊是' + msg
+                msg = msg + '\n规则：先匹配词库再匹配AI'
+                e.reply(msg)
             }
             json[id].ai_at = ai_at
-            json[id].gailv = gailv
-            json[id].gailv2 = gailv2
-            json[id].aiopen = aiopen
+            json[id].ai_gailv = ai_gailv
+            json[id].local_gailv = local_gailv
             json[id].onlyReplyAt = onlyReplyAt
             json[id].ai_now = ai_now
-            json = await lin_data.getdata(id, json, true)
+            json = await lin_data.getAi(id, json, true)
         }
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称概率触发 被@必然触发
-        if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && gailv >= Math.round(Math.random() * 99) || e.atme) && aiopen == true) {
+        if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && ai_gailv >= Math.round(Math.random() * 99) || e.atme) && ai_open == true) {
             let ai_reply = true
-            if (gailv2 >= Math.round(Math.random() * 99)) {
+            if (local_gailv >= Math.round(Math.random() * 99)) {
                 ai_reply = await this.ai_local_reply(e)
             }
             if (ai_reply) {
@@ -335,7 +265,7 @@ export class ai extends plugin {
         if (!(e.msg in ai_local)) {
             return false
         }
-        this.reply('本地词库回复：' + ai_local[e.msg][Math.round(Math.random() * ai_local[e.msg].length)], true)
+        this.reply('本地词库：' + ai_local[e.msg][Math.round(Math.random() * ai_local[e.msg].length)], true)
         return true
     }
 }
