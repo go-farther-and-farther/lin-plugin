@@ -68,11 +68,6 @@ export class ai extends plugin {
         if (e.isPrivate) var id = e.user_id
         var json = {}
         json = await lin_data.getAi(id, json, false)
-        var json[id].ai_gailv = json[id].json[id].ai_gailv
-        let json[id].local_gailv = json[id].json[id].local_gailv
-        let json[id].onlyReplyAt = json[id].json[id].onlyReplyAt
-        let json[id].ai_now = json[id].json[id].ai_now
-        let json[id].ai_at = json[id].json[id].ai_at
         //---------------------------------------------------
         //一个控制ai回复概率的模块
         if (e.isMaster || e.member.is_owner || e.member.is_admin) {

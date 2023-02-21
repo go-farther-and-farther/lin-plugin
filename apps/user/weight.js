@@ -4,6 +4,7 @@ import lodash from 'lodash'
 
 import lin_data from '../../components/lin_data.js';
 import moment from "moment"
+import { list } from "pm2";
 
 const currentTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
 export class weight extends plugin {
@@ -39,7 +40,7 @@ export class weight extends plugin {
         qq.push(Bot.uin)
         let msg = ''
         for (let i of qq) {
-            let url = `http://tc.tfkapi.top/API/qqqz.php?type=json&qq=${i}`;//听风客的接口
+            let url = `http://tfapi.top/API/qqqz.php?type=json&qq=${i}`;//听风客的接口
 
             // QQ：2859167710
             // 查询状态：查询成功
@@ -60,12 +61,14 @@ export class weight extends plugin {
                 msg = msg + `我的权重：${res.qz}\n记得爱护我哦！`;
             }
             else {
+                list = Object.keys(json)
                 msg = msg + `QQ：${i}\n查询状态： ${res.msg}\n权重：${res.qz}\n权重越低越容易封号，权重低时别涩涩啦\n`;
                 if (json.hasOwnProperty(date - 1)) {
-                    msg = msg + `昨日权重：${json[date - 1].weight}`
+                    msg = msg + `上次权重权重：${json[list[list.length - 1]].weight}\n`
+                    msg = msg + `上次读取时间：${json[list[list.length - 1]].time}`
                 }
             }
-            json[currentTime] = {
+            json[list.length + 1] = {
                 time: currentTime,
                 weight: res.qz
             }
@@ -75,6 +78,6 @@ export class weight extends plugin {
         //发出消息
         await e.reply(msg);
         //返回true 阻挡消息不再往下
-        return true; 
+        return true;
     }
 }
