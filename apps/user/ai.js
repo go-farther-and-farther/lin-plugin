@@ -1,7 +1,6 @@
-
 import fetch from "node-fetch";
 import { segment } from "oicq";
-import lodash, { includes } from "lodash";
+import lodash from "lodash";
 import command from '../../components/command.js'
 import fs from 'fs';
 import lin_data from '../../components/lin_data.js';
