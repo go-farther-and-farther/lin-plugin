@@ -182,7 +182,11 @@ export class ai extends plugin {
                 msg = msg + '\n规则：先匹配词库再匹配AI'
                 e.reply(msg)
             }
-
+            json[id].ai_at = ai_at
+            json[id].ai_gailv = ai_gailv
+            json[id].local_gailv = local_gailv
+            json[id].onlyReplyAt = onlyReplyAt
+            json[id].ai_now = ai_now
             json = await lin_data.getAi(id, json, true)
         }
         if (e.msg.charAt(0) == '#') return false;
