@@ -29,7 +29,7 @@ var Template = {//创建该用户
     "thumbUp": false
 };
 
-async function getAi(id, json = {}, save = true) {
+async function getAi(id, json , save = true) {
     let Template = {
         "ai_gailv": def_gailv,
         "local_gailv": def_local_gailv,
