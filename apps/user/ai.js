@@ -68,11 +68,11 @@ export class ai extends plugin {
         if (e.isPrivate) var id = e.user_id
         var json = {}
         json = await lin_data.getAi(id, json, false)
-        var ai_gailv = json[id].ai_gailv
-        let local_gailv = json[id].local_gailv
-        let onlyReplyAt = json[id].onlyReplyAt
-        let ai_now = json[id].ai_now
-        let ai_at = json[id].ai_at
+        var json[id].ai_gailv = json[id].json[id].ai_gailv
+        let json[id].local_gailv = json[id].json[id].local_gailv
+        let json[id].onlyReplyAt = json[id].json[id].onlyReplyAt
+        let json[id].ai_now = json[id].json[id].ai_now
+        let json[id].ai_at = json[id].json[id].ai_at
         //---------------------------------------------------
         //一个控制ai回复概率的模块
         if (e.isMaster || e.member.is_owner || e.member.is_admin) {
@@ -109,8 +109,8 @@ export class ai extends plugin {
                 let message = e.msg.replace(/(ai设置接口|设置ai接口|切换ai接口|#)/g, "").replace(/[\n|\r]/g, "，").trim();//防止把内容里面的一下删了
                 if (message <= api_num && message >= 1 && !isNaN(message))//判断是不是api个数里面的,是则返回
                 {
-                    ai_now = message - 1
-                    e.reply(`已切换到${ai_now + 1}号接口${ai_name[ai_now]},接口链接已隐藏。`);
+                    json[id].ai_now = message - 1
+                    e.reply(`已切换到${json[id].ai_now + 1}号接口${ai_name[json[id].ai_now]},接口链接已隐藏。`);
                 }
                 else {
                     e.reply(`接口序号${message}超出范围或不合规，目前总量${api_num}`)
@@ -127,70 +127,61 @@ export class ai extends plugin {
                     }
                     else {
                         let sz = Math.round(msgsz)
-                        if (e.msg(includes('本地'))) {
-                            local_gailv = sz
-                            e.reply(`已设置本地触发概率（在总概率中）：${local_gailv}%，`)
+                        if (e.msg.includes('本地')) {
+                            json[id].local_gailv = sz
+                            e.reply(`已设置本地触发概率（在总概率中）：${json[id].local_gailv}%，`)
                         }
                         else {
-                            ai_gailv = sz
-                            e.reply(`已四舍五入设置ai触发概率：${ai_gailv}%，`)
+                            json[id].ai_gailv = sz
+                            e.reply(`已四舍五入设置ai触发概率：${json[id].ai_gailv}%，`)
                         }
                     }
                 }
             }
             else if (e.msg.includes('开启') && e.msg.includes('引用')) {
-                if (!ai_at) {
-                    ai_at = true
+                if (!json[id].ai_at) {
+                    json[id].ai_at = true
                     e.reply(`成功开启群聊引用模式`)
                 }
                 else
                     e.reply(`ai群聊引用模式已经是开启状态了,不需要再开启一遍哦！`)
             }
             else if (e.msg.includes('关闭') && e.msg.includes('引用')) {
-                if (!ai_at) {
+                if (!json[id].ai_at) {
                     e.reply("ai引用模式已经是关闭状态了哦(～￣▽￣)～")
                 }
                 else {
-                    ai_at = false
+                    json[id].ai_at = false
                     e.reply("成功关闭群聊引用模式!")
                 }
             }
             else if (e.msg.includes('只关注@消息') || e.msg.includes('@必回复')) {
-                onlyReplyAt = true;
+                json[id].onlyReplyAt = true;
                 e.reply("好啦，现在只回复@消息了哦")
             }
             else if (e.msg.includes('关注所有消息')) {
-                onlyReplyAt = false;
+                json[id].onlyReplyAt = false;
                 e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
-                let msg = `：${id},\n触发概率：${ai_gailv}%,\n其中本地词库概率：${local_gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启引用：${ai_at}。`
-                if (e.isPrivate) msg = '你的QQ是' + msg
-                if (e.isGroup) msg = '所在群聊是' + msg
-                msg = msg + '\n规则：先匹配词库再匹配AI,改概率使用“ai概率xx”，“本地概率xx”'
-                e.reply(msg)
+                this.ai_look(e, json)
             }
-            json[id].ai_at = ai_at
-            json[id].ai_gailv = ai_gailv
-            json[id].local_gailv = local_gailv
-            json[id].onlyReplyAt = onlyReplyAt
-            json[id].ai_now = ai_now
             json = await lin_data.getAi(id, json, true)
         }
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称概率触发 被@必然触发
-        if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && ai_gailv >= Math.round(Math.random() * 99) || e.atme)) {
+        if (((e.msg.includes(BotName) || e.isPrivate || !json[id].onlyReplyAt) && json[id].ai_gailv >= Math.round(Math.random() * 99) || e.atme)) {
             let ai_reply = true
-            if (local_gailv >= Math.round(Math.random() * 99)) {
+            if (json[id].local_gailv >= Math.round(Math.random() * 99)) {
                 ai_reply = await this.ai_local_reply(e)
             }
             if (ai_reply) {
                 console.log("ai消息：", e.msg);
                 //接收时将机器人名字替换为对应ai的名字
-                let message = e.msg.trim().replace(eval(`/${BotName}/g`), `${ai_nick[ai_now]}`).replace(/[\n|\r]/g, "，");
+                let message = e.msg.trim().replace(eval(`/${BotName}/g`), `${ai_nick[json[id].ai_now]}`).replace(/[\n|\r]/g, "，");
                 //抓取消息并转换为Json
-                let postUrl = `${ai_api[ai_now]}${message}`;
+                let postUrl = `${ai_api[json[id].ai_now]}${message}`;
                 let response = await fetch(postUrl);
                 let replyData = await response.json();//将返回的数据转化为json文件
                 let replyMsg = [];//这个保存返回信息里面的文本文件
@@ -230,9 +221,9 @@ export class ai extends plugin {
                 //是否有消息输出
                 if (replyMsg) {
                     //设置了log: false; 好像是没有输出日志的
-                    logger.mark(`[${ai_name[ai_now]}回复] ${e.msg}`);
+                    logger.mark(`[${ai_name[json[id].ai_now]}回复] ${e.msg}`);
                     //发送消息
-                    if (ai_at)
+                    if (json[id].ai_at)
                         e.reply(replyMsg, e.isGroup);
                     else
                         e.reply(replyMsg);
@@ -243,6 +234,13 @@ export class ai extends plugin {
                 else { return false; }
             }
         }
+    }
+    async ai_look(e, json) {
+        let msg = `：${id},\n触发概率：${json[id].ai_gailv}%,\n其中本地词库概率：${json[id].local_gailv}%,\n群聊需要@：${json[id].onlyReplyAt},\n正在使用${json[id].ai_now + 1}号ai${ai_name[json[id].ai_now]},\nai是否是开启引用：${json[id].ai_at}。`
+        if (e.isPrivate) msg = '你的QQ是' + msg
+        if (e.isGroup) msg = '所在群聊是' + msg
+        msg = msg + '\n规则：先匹配词库再匹配AI,\n改概率使用“ai概率xx”，“本地概率xx”'
+        e.reply(msg)
     }
     async ai_local_reply(e) {
         var ai_local = JSON.parse(fs.readFileSync("plugins/lin-plugin/resources/ai_local/ai_local.json", "utf8"));//读取文件
