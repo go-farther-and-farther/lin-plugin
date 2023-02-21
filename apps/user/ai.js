@@ -68,7 +68,7 @@ export class ai extends plugin {
         if (e.isGroup) var id = e.group_id
         if (e.isPrivate) var id = e.user_id
         var json = {}
-        json = await lin_data.getAi(id, json,false)
+        json = await lin_data.getAi(id, json, false)
         var ai_gailv = json[id].ai_gailv
         let local_gailv = json[id].local_gailv
         let onlyReplyAt = json[id].onlyReplyAt
@@ -118,9 +118,6 @@ export class ai extends plugin {
                 }
             }
             else if (e.msg.includes('ai') && e.msg.includes('概率')) {
-                if (!ai_open) {
-                    e.reply("ai已关闭,请先开启,不然设置了概率我也说不了话啊(～￣▽￣)～")
-                }
                 let msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
@@ -162,9 +159,6 @@ export class ai extends plugin {
                 e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
             else if (e.msg.includes('本地概率') || e.msg.includes('本地词库概率')) {
-                if (!ai_open) {
-                    e.reply("ai已关闭,请先开启,不然设置了概率我也说不了话啊(～￣▽￣)～")
-                }
                 let msgsz = e.msg.replace(/(本地概率|设置|#|词库)/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
@@ -188,16 +182,12 @@ export class ai extends plugin {
                 msg = msg + '\n规则：先匹配词库再匹配AI'
                 e.reply(msg)
             }
-            json[id].ai_at = ai_at
-            json[id].ai_gailv = ai_gailv
-            json[id].local_gailv = local_gailv
-            json[id].onlyReplyAt = onlyReplyAt
-            json[id].ai_now = ai_now
+
             json = await lin_data.getAi(id, json, true)
         }
         if (e.msg.charAt(0) == '#') return false;
         //群聊是否需要消息中带有机器人昵称概率触发 被@必然触发
-        if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && ai_gailv >= Math.round(Math.random() * 99) || e.atme) && ai_open == true) {
+        if (((e.msg.includes(BotName) || e.isPrivate || !onlyReplyAt) && ai_gailv >= Math.round(Math.random() * 99) || e.atme)) {
             let ai_reply = true
             if (local_gailv >= Math.round(Math.random() * 99)) {
                 ai_reply = await this.ai_local_reply(e)
