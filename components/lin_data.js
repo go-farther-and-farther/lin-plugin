@@ -1,6 +1,4 @@
-import plugin from '../../../lib/plugins/plugin.js'
 import fs from "fs";
-import { segment } from "oicq";
 import command from '../components/command.js'
 const dirpath = "plugins/lin-plugin/data";//文件夹路径
 
@@ -8,20 +6,12 @@ var def_gailv = await command.getConfig("ai_cfg", "def_gailv");
 var def_local_gailv = await command.getConfig("ai_cfg", "def_local_gailv");
 var def_ai_now = await command.getConfig("ai_cfg", "def_ai_now");
 var def_onlyReplyAt = await command.getConfig("ai_cfg", "def_onlyReplyAt");
-var def_local_open = await command.getConfig("ai_cfg", "def_local_open")
-var def_ai_open = await command.getConfig("ai_cfg", "def_ai_open");
 
 var def_num = await command.getConfig("Auto", "def_num");
 var def_fdopen = await command.getConfig("Auto", "def_fdopen");
 var def_ddopen2 = await command.getConfig("Auto", "def_ddopen2");
 //包括ai,run,复读，点赞
 var Template = {//创建该用户
-    "gailv": def_gailv,
-    "local_gailv": def_local_gailv,
-    "ai_open": def_ai_open,
-    "onlyReplyAt": def_onlyReplyAt,
-    "ai_now": def_ai_now,
-    "ai_at": false,
     "fdopen": def_fdopen,
     "ddopen2": def_ddopen2,
     "num": def_num,
@@ -29,7 +19,7 @@ var Template = {//创建该用户
     "thumbUp": false
 };
 
-async function getAi(id, json , save = true) {
+async function getAi(id, json, save = true) {
     let Template = {
         "ai_gailv": def_gailv,
         "local_gailv": def_local_gailv,
@@ -55,6 +45,11 @@ async function getAi(id, json , save = true) {
         return json;
     }
     else {
+        json[id].ai_at = ai_at
+        json[id].ai_gailv = ai_gailv
+        json[id].local_gailv = local_gailv
+        json[id].onlyReplyAt = onlyReplyAt
+        json[id].ai_now = ai_now
         fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
         return json;
     }
