@@ -1,7 +1,7 @@
 
 import fetch from "node-fetch";
 import { segment } from "oicq";
-import lodash from "lodash";
+import lodash, { includes } from "lodash";
 import command from '../../components/command.js'
 import fs from 'fs';
 import lin_data from '../../components/lin_data.js';
@@ -117,8 +117,8 @@ export class ai extends plugin {
                     e.reply(`接口序号${message}超出范围或不合规，目前总量${api_num}`)
                 }
             }
-            else if (e.msg.includes('ai') && e.msg.includes('概率')) {
-                let msgsz = e.msg.replace(/(ai设置概率|设置ai概率|设置回复概率|#)/g, "").replace(/[\n|\r]/g, "，").trim()
+            else if ((e.msg.includes('ai') || e.msg.includes('本地')) && e.msg.includes('概率')) {
+                let msgsz = e.msg.replace(/(ai|设置|本地|概率|设置|词库|#)/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
@@ -128,8 +128,14 @@ export class ai extends plugin {
                     }
                     else {
                         let sz = Math.round(msgsz)
-                        ai_gailv = sz
-                        e.reply(`已四舍五入设置ai触发概率：${ai_gailv}%，`)
+                        if (e.msg(includes('本地'))) {
+                            local_gailv = sz
+                            e.reply(`已设置本地触发概率（在总概率中）：${local_gailv}%，`)
+                        }
+                        else {
+                            ai_gailv = sz
+                            e.reply(`已四舍五入设置ai触发概率：${ai_gailv}%，`)
+                        }
                     }
                 }
             }
@@ -158,28 +164,12 @@ export class ai extends plugin {
                 onlyReplyAt = false;
                 e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
-            else if (e.msg.includes('本地概率') || e.msg.includes('本地词库概率')) {
-                let msgsz = e.msg.replace(/(本地|概率|设置|#|词库)/g, "").replace(/[\n|\r]/g, "，").trim()
-                if (isNaN(msgsz)) {
-                    e.reply(`${msgsz}不是有效值,请输入正确的数值`)
-                }
-                else {
-                    if (msgsz > 100 || msgsz < 0) {
-                        e.reply(`${msgsz}数值不在有效范围内,请输入0以上100以内的整数`)
-                    }
-                    else {
-                        let sz = Math.round(msgsz)
-                        local_gailv = sz
-                        e.reply(`已四舍五入设置ai触发概率：${local_gailv}%，`)
-                    }
-                }
-            }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
-                let msg = `：${id},\nai触发概率：${ai_gailv}%,\n其中本地词库概率：${local_gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启引用：${ai_at}。`
+                let msg = `：${id},\n触发概率：${ai_gailv}%,\n其中本地词库概率：${local_gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启引用：${ai_at}。`
                 if (e.isPrivate) msg = '你的QQ是' + msg
                 if (e.isGroup) msg = '所在群聊是' + msg
-                msg = msg + '\n规则：先匹配词库再匹配AI'
+                msg = msg + '\n规则：先匹配词库再匹配AI,改概率使用“ai概率xx”，“本地概率xx”'
                 e.reply(msg)
             }
             json[id].ai_at = ai_at
