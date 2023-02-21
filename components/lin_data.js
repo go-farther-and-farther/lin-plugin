@@ -45,11 +45,6 @@ async function getAi(id, json, save = true) {
         return json;
     }
     else {
-        json[id].ai_at = ai_at
-        json[id].ai_gailv = ai_gailv
-        json[id].local_gailv = local_gailv
-        json[id].onlyReplyAt = onlyReplyAt
-        json[id].ai_now = ai_now
         fs.writeFileSync(dirpath + "/" + filename, JSON.stringify(json, null, "\t"));//写入文件
         return json;
     }
