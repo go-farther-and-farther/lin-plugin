@@ -123,8 +123,8 @@ export class ai extends plugin {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
                 else {
-                    if (msgsz > 100 || msgsz <= 0) {
-                        e.reply("数值不在有效范围内,请输入0以上100以内的整数")
+                    if (msgsz > 100 || msgsz < 0) {
+                        e.reply(`${msgsz}数值不在有效范围内,请输入0以上100以内的整数`)
                     }
                     else {
                         let sz = Math.round(msgsz)
@@ -159,13 +159,13 @@ export class ai extends plugin {
                 e.reply("现在我会关注每一条消息了φ(*￣0￣)")
             }
             else if (e.msg.includes('本地概率') || e.msg.includes('本地词库概率')) {
-                let msgsz = e.msg.replace(/(本地概率|设置|#|词库)/g, "").replace(/[\n|\r]/g, "，").trim()
+                let msgsz = e.msg.replace(/(本地|概率|设置|#|词库)/g, "").replace(/[\n|\r]/g, "，").trim()
                 if (isNaN(msgsz)) {
                     e.reply(`${msgsz}不是有效值,请输入正确的数值`)
                 }
                 else {
-                    if (msgsz > 100 || msgsz <= 0) {
-                        e.reply("数值不在有效范围内,请输入0以上100以内的整数")
+                    if (msgsz > 100 || msgsz < 0) {
+                        e.reply(`${msgsz}数值不在有效范围内,请输入0以上100以内的整数`)
                     }
                     else {
                         let sz = Math.round(msgsz)
