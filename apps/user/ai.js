@@ -182,7 +182,7 @@ export class ai extends plugin {
             }
             //查看状态----------------------------------
             else if (e.msg.includes("ai状态")) {
-                let msg = `：${id},\nai触发概率：${ai_gailv}%,\n其中本地词库概率：${local_gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启状态：${ai_open},\nai是否是开启引用：${ai_at}。`
+                let msg = `：${id},\nai触发概率：${ai_gailv}%,\n其中本地词库概率：${local_gailv}%,\n群聊需要@：${onlyReplyAt},\n正在使用${ai_now + 1}号ai${ai_name[ai_now]},\nai是否是开启引用：${ai_at}。`
                 if (e.isPrivate) msg = '你的QQ是' + msg
                 if (e.isGroup) msg = '所在群聊是' + msg
                 msg = msg + '\n规则：先匹配词库再匹配AI'
