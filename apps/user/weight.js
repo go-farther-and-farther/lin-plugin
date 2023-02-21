@@ -4,7 +4,6 @@ import lodash from 'lodash'
 
 import lin_data from '../../components/lin_data.js';
 import moment from "moment"
-import { list } from "pm2";
 
 const currentTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
 export class weight extends plugin {
@@ -61,11 +60,11 @@ export class weight extends plugin {
                 msg = msg + `我的权重：${res.qz}\n记得爱护我哦！`;
             }
             else {
-                list = Object.keys(json)
-                msg = msg + `QQ：${i}\n查询状态： ${res.msg}\n权重：${res.qz}\n权重越低越容易封号，权重低时别涩涩啦\n`;
-                if (json.hasOwnProperty(date - 1)) {
-                    msg = msg + `上次权重权重：${json[list[list.length - 1]].weight}\n`
-                    msg = msg + `上次读取时间：${json[list[list.length - 1]].time}`
+                var list = Object.keys(json)
+                msg = msg + `QQ：${i}\n查询状态： ${res.msg}\n权重：${res.qz}\n记录条数：${list.length + 1}\n权重越低越容易封号，权重低时别涩涩啦\n`;
+                if (list.length >= 1) {
+                    msg = msg + `上次权重权重：${json[list[list.length]].weight}\n`
+                    msg = msg + `上次读取时间：${json[list[list.length]].time}`
                 }
             }
             json[list.length + 1] = {
@@ -75,9 +74,7 @@ export class weight extends plugin {
             //保存json文件
             json = await lin_data.getuser2(i, json, `weight`, template, true)
         }
-        //发出消息
         await e.reply(msg);
-        //返回true 阻挡消息不再往下
         return true;
     }
 }
