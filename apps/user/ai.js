@@ -67,8 +67,9 @@ export class ai extends plugin {
         console.log("用户命令：", e.msg);
         if (e.isGroup) var id = e.group_id
         if (e.isPrivate) var id = e.user_id
-        let json = await lin_data.getAi(id, false)
-        let ai_gailv = json[id].ai_gailv
+        var json = {}
+        json = await lin_data.getAi(id, json,false)
+        var ai_gailv = json[id].ai_gailv
         let local_gailv = json[id].local_gailv
         let onlyReplyAt = json[id].onlyReplyAt
         let ai_now = json[id].ai_now
